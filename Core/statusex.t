@@ -81,3 +81,10 @@ class FatiguedStatus : Status
         "You feel tired and fatigued.";
     }
 }
+
+class RestlessStatus : Status
+{
+    rank = 0
+    hidden = true
+    name = 'Restless'
+}

@@ -102,7 +102,7 @@ DateTime : object
     {
         local advancing = true;
         while (advancing)
-        {
+        {            
             local scheduleIndex = currentSchedule.indexOfMin({x: x[1]});
         
             local nextSchedule = currentSchedule[scheduleIndex];

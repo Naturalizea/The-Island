@@ -4,7 +4,8 @@ source: actorex
 source: choice
 source: custombanner
 source: hooks
-source: statusex
-source: time
 source: map
+source: statusex
+source: verbs
+source: time
 source: player

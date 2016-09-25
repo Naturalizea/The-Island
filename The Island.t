@@ -50,8 +50,16 @@ gameMain: GameMainDef
         local randomIndex = rand(spawns.length)+1;
         Player.moveIntoForTravel(spawns[randomIndex].location);
         
-        DateTime.AddToForwardSchedule(60,({:Player.AdvanceTime()}));
+        DateTime.AddToForwardSchedule(60,({:self.TestSchedule()})); //currently does nothing, and this is to prevent the schedule being empty
         
+        //DateTime.AddToForwardSchedule(60,({:Player.AdvanceTime()}));
+        
+    }
+    
+    TestSchedule()
+    {
+        DateTime.AddToForwardSchedule(60,({:self.TestSchedule()}));
+        return true;
     }
     
     RollAbilityScores()
