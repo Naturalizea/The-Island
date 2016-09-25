@@ -9,16 +9,32 @@ MapGenerator : object
 { 
     /* The static map. */
     Map = [
-    ['g','g','g'],
-    ['g','g','g'],
-    ['g','g','g']
+    ['W','W','W','W','W','W','W','W','W','W','W'],
+    ['W','W','W','w','w','w','w','w','W','W','W'],
+    ['W','W','w','w','b','b','b','w','w','W','W'],
+    ['W','w','w','b','b','g','b','b','w','w','W'],
+    ['W','w','b','b','g','g','g','b','b','w','W'],
+    ['W','w','b','g','g','g','g','g','b','w','W'],
+    ['W','w','b','b','g','g','g','b','b','w','W'],
+    ['W','w','w','b','b','g','b','b','w','w','W'],
+    ['W','W','w','w','b','b','b','w','w','W','W'],
+    ['W','W','W','w','w','w','w','w','W','W','W'],
+    ['W','W','W','W','W','W','W','W','W','W','W']
     ]
     
     /* The point of interest map  */
     POIMap = [
-    ['*','*','*'],
-    ['*','*','*'],
-    ['*','*','*']
+    [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ','*','*','*',' ',' ',' ',' '],
+    [' ',' ',' ','*','*',' ','*','*',' ',' ',' '],
+    [' ',' ','*','*',' ',' ',' ','*','*',' ',' '],
+    [' ',' ','*',' ',' ',' ',' ',' ','*',' ',' '],
+    [' ',' ','*','*',' ',' ',' ','*','*',' ',' '],
+    [' ',' ',' ','*','*',' ','*','*',' ',' ',' '],
+    [' ',' ',' ',' ','*','*','*',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
     ]
     
     /* Build the map */
@@ -26,7 +42,10 @@ MapGenerator : object
     {
         /* Table of aliases for the map parts. */
         local MapPartAlias = new LookupTable([
-            'g', {: new GrassyPlainsMap()}
+            'b', {: new BeachMap()},
+            'g', {: new GrassyPlainsMap()},
+            'w', {: new ShallowWaterMap()},
+            'W', {: new DeepWaterMap()}            
             ]);
         
         /* Table of aliases for map POI's */
@@ -200,11 +219,69 @@ modify BasicLocation
 
 
 /* Open grassy plains */
-class GrassyPlainsMap : OutdoorRoom
+class OverworldRoom : OutdoorRoom
+{
+    desc()
+    {
+        inherited();
+        directionDesc();
+    }
+    directionDesc()
+    {    
+        if (east != nil)
+        {
+           "<br>To the east, you can see <<east.name>>.";
+        }
+        if (north != nil)
+        {
+           "<br>To the north, you can see <<north.name>>.";
+        }
+        if (northeast != nil)
+        {
+           "<br>To the northeast, you can see <<northeast.name>>.";
+        }
+        if (northwest != nil)
+        {
+           "<br>To the west, you can see <<northwest.name>>.";
+        }
+        if (south != nil)
+        {
+           "<br>To the south, you can see <<south.name>>.";
+        }
+        if (southeast != nil)
+        {
+           "<br>To the northeast, you can see <<southeast.name>>.";
+        }
+        if (southwest != nil)
+        {
+           "<br>To the west, you can see <<southwest.name>>.";
+        }
+        if (west != nil)
+        {
+           "<br>To the west, you can see <<west.name>>.";
+        }
+    }
+}
+
+class GrassyPlainsMap : OverworldRoom
 {
     name = 'Grassy plains'
 }
 
+class ShallowWaterMap : OverworldRoom
+{
+    name = 'Shallow water'
+}
+
+class DeepWaterMap : OverworldRoom
+{
+    name = 'Deep water'
+}
+
+class BeachMap : OverworldRoom
+{
+    name = 'Beach'
+}
 
 /* POIs */
 class POI : Fixture
