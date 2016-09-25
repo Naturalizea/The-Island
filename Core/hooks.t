@@ -86,3 +86,19 @@ RandomHook : Hook
         return true;
     }    
 }
+
+MaleHook : Hook
+{
+    event()
+    {
+        player.isHim = true;
+    }
+}
+
+FemaleHook : Hook
+{
+    event()
+    {
+        player.isHer = true;
+    }
+}

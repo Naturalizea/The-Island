@@ -15,18 +15,70 @@ versionInfo: GameID
 
 gameMain: GameMainDef
 {
-    initialPlayerChar = me
+    initialPlayerChar = player
+    
+    showDiceRolls = nil;
+    
     showIntro()
     {
         randomize();
         MapGenerator.Construct();
         
+        "<br>Show dice rolls?";
+        showDiceRolls = PresentChoice([['Yes',TrueHook],['No',FalseHook]]);
+        "<br>";
+        
+        local choiceArray = [
+            ['Male',MaleHook],
+            ['Female',FemaleHook]
+        ];
+        "<br>Are you male or female?";
+        PresentChoice(choiceArray);
+        "<br>";
+        
+        RollAbilityScores();
+        
+        clearScreen();
+        
+        DateTime._month = rand(12)+1;
+        DateTime._day = rand(28)+1;
+        DateTime._hour = rand(24);
+        
         //place the player on a random spawn for now.
         local spawns = [];
         forEachInstance(PlayerSpawn, {x: spawns += x});
         local randomIndex = rand(spawns.length)+1;
-        me.moveIntoForTravel(spawns[randomIndex].location);
+        player.moveIntoForTravel(spawns[randomIndex].location);
         
+    }
+    
+    RollAbilityScores()
+    {
+        local accept = nil;
+        
+        while (!accept)
+        {
+            clearScreen();
+            
+            player.Strength = player.AttributeRoll();
+            player.Dexterity = player.AttributeRoll();
+            player.Constitution = player.AttributeRoll();
+            player.Intelligence = player.AttributeRoll();
+            player.Wisdom = player.AttributeRoll();
+            player.Charisma = player.AttributeRoll();
+            
+            "--Rolling ability scores--<br>";
+            "<br>";
+            "<<player.Strength>> = Strength (measures muscle and physical power)<br>";
+            "<<player.Dexterity>> = Dexterity (measures agility, reflexes, and balance)<br>";
+            "<<player.Constitution>> = Constitution (represents your character's health and stamina)<br>";
+            "<<player.Intelligence>> = Intelligence (determines how well your character learns and reasons)<br>";
+            "<<player.Wisdom>> = Wisdom (describes a character's willpower, common sense, awareness, and intuition)<br>";
+            "<<player.Charisma>> = Charisma (measures a character's personality, personal magnetism, ability to lead, and appearance)<br>";
+            "<br>";
+            "Do you accept? ";
+            accept = PresentChoice([['Yes',TrueHook],['No',FalseHook]]);
+        }
     }
 }
 
@@ -37,7 +89,7 @@ startRoom: Room
     desc() { "This is the starting room. "; }
 }
 
-+ me: Actor
++ player: Actor
 {}
 
 
