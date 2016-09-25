@@ -29,7 +29,7 @@ MapGenerator : object
     [' ',' ',' ',' ','*','*','*',' ',' ',' ',' '],
     [' ',' ',' ','*','*',' ','*','*',' ',' ',' '],
     [' ',' ','*','*',' ',' ',' ','*','*',' ',' '],
-    [' ',' ','*',' ',' ',' ',' ',' ','*',' ',' '],
+    [' ',' ','*',' ',' ','T',' ',' ','*',' ',' '],
     [' ',' ','*','*',' ',' ',' ','*','*',' ',' '],
     [' ',' ',' ','*','*',' ','*','*',' ',' ',' '],
     [' ',' ',' ',' ','*','*','*',' ',' ',' ',' '],
@@ -50,7 +50,8 @@ MapGenerator : object
         
         /* Table of aliases for map POI's */
         local POIAlias = new LookupTable([
-            '*',PlayerSpawn
+            '*',PlayerSpawn,
+            'T',TermiteMound
             ]);
     
         local mapTable = new LookupTable();
@@ -131,79 +132,6 @@ MapGenerator : object
             }
         }
     }
-    
-    /* Used to connect 2 rooms together */
-    
-    ConnectRooms(room1,room2)
-    {
-        //determine where we are in relation to eachother
-        local x = room2.X - room1.X;
-        local y = room2.Y - room1.Y;
-        local z = room2.Z - room1.Z;
-        
-        //create the link (one way)
-        if (z == 1) //up
-        {
-            room1.up = room2;
-            //room2.down = room1;
-        }
-        else if (z == -1) //down
-        {
-            room1.down = room2;
-            //room2.up = room1;        
-        }
-        else
-        {
-            if (y == -1) //north
-            {
-                if (x == 1) //east
-                {
-                    room1.northeast = room2;
-                    //room2.southwest = room1;
-                }
-                else if (x == -1) //west
-                {
-                    room1.northwest = room2;
-                    //room2.southeast = room1;
-                }
-                else
-                {
-                    room1.north = room2;
-                    //room2.south = room1;
-                }
-            }
-            else if (y == 1) // south
-            {
-                if (x == 1) //east
-                {
-                    room1.southwest = room2;
-                    //room2.northeast = room1;
-                }
-                else if (x == -1) //west
-                {
-                    room1.southeast = room2;  
-                    //room2.northwest = room1;
-                }
-                else
-                {
-                    room1.south = room2;
-                    //room2.north = room1;
-                }
-            }
-            else if (x == 1) //east
-            {
-                room1.east = room2;
-                //room2.west = room1;
-            }
-            else //west
-            {
-                room1.west = room2;
-                //room2.east = room1;            
-            }
-            
-        }
-        //should be done!
-    }
 
 }
 
@@ -242,7 +170,7 @@ class OverworldRoom : OutdoorRoom
         }
         if (northwest != nil)
         {
-           "<br>To the west, you can see <<northwest.name>>.";
+           "<br>To the northwest, you can see <<northwest.name>>.";
         }
         if (south != nil)
         {
@@ -250,11 +178,11 @@ class OverworldRoom : OutdoorRoom
         }
         if (southeast != nil)
         {
-           "<br>To the northeast, you can see <<southeast.name>>.";
+           "<br>To the southeast, you can see <<southeast.name>>.";
         }
         if (southwest != nil)
         {
-           "<br>To the west, you can see <<southwest.name>>.";
+           "<br>To the southwest, you can see <<southwest.name>>.";
         }
         if (west != nil)
         {
@@ -284,7 +212,7 @@ class BeachMap : OverworldRoom
 }
 
 /* POIs */
-class POI : Fixture
+class POI : object
 {
     POIevent(room)
     {
@@ -292,7 +220,7 @@ class POI : Fixture
     }
 }
 
-class PlayerSpawn : POI
+class PlayerSpawn : POI, Fixture
 {
     POIevent(room)
     {
@@ -300,4 +228,79 @@ class PlayerSpawn : POI
         p.moveInto(room);
     }
     
+}
+
+//some functions
+    
+/* Used to connect 2 rooms together */
+    
+ConnectRooms(room1,room2)
+{
+    //determine where we are in relation to eachother
+    local x = room2.X - room1.X;
+    local y = room2.Y - room1.Y;
+    local z = room2.Z - room1.Z;
+    
+    //create the link (one way)
+    if (z == 1) //up
+    {
+        room1.up = room2;
+        //room2.down = room1;
+    }
+    else if (z == -1) //down
+    {
+        room1.down = room2;
+        //room2.up = room1;        
+    }
+    else
+    {
+        if (y == -1) //north
+        {
+            if (x == 1) //east
+            {
+                room1.northeast = room2;
+                //room2.southwest = room1;
+            }
+            else if (x == -1) //west
+            {
+                room1.northwest = room2;
+                //room2.southeast = room1;
+            }
+            else
+            {
+                room1.north = room2;
+                //room2.south = room1;
+            }
+        }
+        else if (y == 1) // south
+        {
+            if (x == 1) //east
+            {
+                room1.southeast = room2;
+                //room2.northeast = room1;
+            }
+            else if (x == -1) //west
+            {
+                room1.southwest = room2;  
+                //room2.northwest = room1;
+            }
+            else
+            {
+                room1.south = room2;
+                //room2.north = room1;
+            }
+        }
+        else if (x == 1) //east
+        {
+            room1.east = room2;
+            //room2.west = room1;
+        }
+        else //west
+        {
+            room1.west = room2;
+            //room2.east = room1;            
+        }
+        
+    }
+    //should be done!
 }
