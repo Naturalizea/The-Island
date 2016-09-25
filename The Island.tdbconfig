@@ -180,7 +180,7 @@ auto-script:quit sequences:S:0:<nocase>[<]line[>]<space>*q(uit)?<space>*
 auto-script:quit sequences:S:1:<nocase>[<]line[>]<space>*y.*
 SearchToolbar:rebarIndex:I:2
 search:wrap:I:1
-auto-script:next-id:I:103
+auto-script:next-id:I:104
 SearchToolbar:rebarWidth:I:253
 line wrap:%tads%lib\adv3\adv3.h:S:0:N
 search:text:S:0:vec
@@ -204,11 +204,16 @@ line wrap:The Island.t:S:0:N
 search:exact case:I:0
 build on run::I:1
 mdi win list::S:0::log
-mdi win list::S:1:Core\map.t
-mdi win list::S:2:The Island.t
-mdi win list::S:3:Core\time.t
-mdi win list::S:4:%tads%lib\_main.t
-mdi win list::S:5::help
+mdi win list::S:1:Core\choice.t
+mdi win list::S:2:Core\status.t
+mdi win list::S:3:Core\actorex.t
+mdi win list::S:4:Core\hooks.t
+mdi win list::S:5:The Island.t
+mdi win list::S:6:Core\actor.t
+mdi win list::S:7:Core\map.t
+mdi win list::S:8:Core\time.t
+mdi win list::S:9:%tads%lib\_main.t
+mdi win list::S:10::help
 build:webpage dir:S:0:web
 main win pos::R:-8,-8,1928,1048
 build:srczipfile:S:0:The IslandSource.zip
@@ -289,7 +294,7 @@ src win selrange:%tads%lib\adv3\actor.t:S:0:0,0
 src win selrange:%tads%lib\adv3\actor.t:S:1:352826,352840
 src win selrange:%tads%lib\adv3\thing.t:S:0:0,0
 src win selrange:%tads%lib\adv3\thing.t:S:1:134123,134129
-mdi tab order::S:0:2,3,1,4,5,0
+mdi tab order::S:0:5,8,7,9,10,6,1,4,0,3,2
 build:rlsgam:S:0:The Island.t3
 EditToolbar:rebarVis:I:1
 key bindings:defaults loaded:I:1
@@ -310,11 +315,16 @@ src win edit mode:%tads%lib\adv3\actor.t:S:0:TADS 3
 src win edit mode:%tads%lib\adv3\thing.t:S:0:TADS 3
 MenuBar:rebarIndex:I:0
 mdi win title::S:0:
-mdi win title::S:1:Core\map.t
-mdi win title::S:2:The Island.t
-mdi win title::S:3:Core\time.t
-mdi win title::S:4:%tads%lib\_main.t
-mdi win title::S:5:
+mdi win title::S:1:Core\choice.t
+mdi win title::S:2:Core\status.t
+mdi win title::S:3:Core\actorex.t
+mdi win title::S:4:Core\hooks.t
+mdi win title::S:5:The Island.t
+mdi win title::S:6:Core\actor.t
+mdi win title::S:7:Core\map.t
+mdi win title::S:8:Core\time.t
+mdi win title::S:9:%tads%lib\_main.t
+mdi win title::S:10:
 src win selrange:%tads%lib\_main.t:S:0:0,0
 src win selrange:%tads%lib\_main.t:S:1:6258,6258
 search:dir:I:1
