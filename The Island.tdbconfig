@@ -151,8 +151,7 @@ src win edit mode:Core\time.t:S:0:TADS 3
 src win selrange:%tads%lib\adv3\exec.t:S:0:0,0
 src win selrange:%tads%lib\adv3\exec.t:S:1:21124,21129
 ask save on build::I:0
-watch win:expression list 0:S:0:x.Statuses[1].getSuperclassList()[1] == self
-watch win:expression list 0:S:1:self
+watch win:expression list 0:S:0:self.location
 src win edit mode:%tads%lib\adv3\en_us\en_us.t:S:0:TADS 3
 build:zipfile:S:0:The Island.zip
 src win split:Core\actorex.t:S:0:0.000000
@@ -218,6 +217,7 @@ line wrap:%tads%lib\_main.t:S:0:N
 line wrap:%tads%include\tadsio.h:S:0:N
 line wrap:Core\statusex.t:S:0:N
 src win edit mode:%tads%lib\adv3\action.t:S:0:TADS 3
+breakpoints:global:S:0:l
 src win edit mode:%tads%lib\adv3\exec.t:S:0:TADS 3
 EditToolbar:rebarNewLine:I:1
 breakpoints:cond-mode:S:0:true
@@ -235,7 +235,7 @@ src win edit mode:%tads%lib\adv3\lister.t:S:0:TADS 3
 DocToolbar:rebarVis:I:1
 src win split:Core\actor.t:S:0:0.000000
 src win selrange:Core\actorex.t:S:0:0,0
-src win selrange:Core\actorex.t:S:1:2584,2584
+src win selrange:Core\actorex.t:S:1:83,89
 line wrap:%tads%include\file.h:S:0:N
 auto-script:quit sequences:S:0:<nocase>[<]line[>]<space>*q(uit)?<space>*
 auto-script:quit sequences:S:1:<nocase>[<]line[>]<space>*y.*
@@ -249,7 +249,7 @@ line wrap:%tads%lib\adv3\action.t:S:0:N
 line wrap:Scenarios\Termites\TermiteMound.t:S:0:N
 src win split:Core\hooks.t:S:0:0.000000
 line wrap:Core\status.t:S:0:N
-auto-script:next-id:I:174
+auto-script:next-id:I:205
 line wrap:%tads%lib\adv3\adv3.h:S:0:N
 SearchToolbar:rebarWidth:I:253
 line wrap:%tads%lib\adv3\en_us\en_us.h:S:0:N
@@ -263,19 +263,22 @@ docking config::S:6:W-1,170,170,0,0,1050,466,M,R,log win
 docking config::S:7:W-1,170,170,44,58,1134,546,M,R,stack win
 docking config::S:8:W-1,170,170,66,87,1156,575,M,R,help win
 docking config::S:9:W-1,170,170,2530,403,3416,867,M,B,filesearch win
-search:text:S:0:singleNumber
+search:text:S:0:Modify
 search:text:S:1:
 src win split:%tads%lib\adv3\objects.t:S:0:0.000000
 line wrap:Core\time.t:S:0:N
 locals win:vis:I:0
 locals win:pos:R:10,572,294,688
 main win max::I:1
+breakpoints:file:S:0:Scenarios\Termites\TermiteMound.t
 line wrap:%tads%lib\adv3\en_us\en_us.t:S:0:N
 src win edit mode:Core\actorex.t:S:0:TADS 3
 proj search:collapse spaces:I:0
 src win selrange:Core\custombanner.t:S:0:0,0
 src win selrange:Core\custombanner.t:S:1:9442,9452
 line wrap:The Island.t:S:0:N
+breakpoints:cond:S:0:
+breakpoints:status:S:0:e
 search:exact case:I:0
 line wrap:%tads%lib\adv3\events.t:S:0:N
 src win selrange:Core\core.tl:S:0:0,0
@@ -283,11 +286,20 @@ src win selrange:Core\core.tl:S:1:128,128
 build on run::I:1
 src win selrange:%tads%lib\adv3\actions.t:S:0:0,0
 src win selrange:%tads%lib\adv3\actions.t:S:1:51402,51406
+breakpoints:line:S:0:238
 build:webpage dir:S:0:web
 mdi win list::S:0::log
-mdi win list::S:1:Core\player.t
-mdi win list::S:2:The Island.t
-mdi win list::S:3:Core\core.tl
+mdi win list::S:1:Scenarios\Termites\TermiteMound.t
+mdi win list::S:2:%tads%lib\adv3\travel.t
+mdi win list::S:3:Core\time.t
+mdi win list::S:4:Scenarios\Termites\TermiteQueen.t
+mdi win list::S:5:The Island.t
+mdi win list::S:6:Core\player.t
+mdi win list::S:7:Core\core.tl
+mdi win list::S:8::help
+mdi win list::S:9:%tads%lib\adv3\actor.t
+mdi win list::S:10:%tads%lib\adv3\lister.t
+mdi win list::S:11:Core\map.t
 build:srczipfile:S:0:The IslandSource.zip
 main win pos::R:-8,-8,1928,1048
 src win split:%tads%lib\adv3\actor.t:S:0:0.000000
@@ -296,7 +308,7 @@ src win split:Core\map.t:S:0:0.000000
 src win selrange:Core\actor.t:S:0:0,0
 src win selrange:Core\actor.t:S:1:528,528
 help win pos::R:404,240,1478,690
-help win vis::I:0
+help win vis::I:1
 src win selrange:%tads%include\systype.h:S:0:0,0
 src win selrange:%tads%include\systype.h:S:1:12621,12625
 build:ignore case:I:0
@@ -366,16 +378,16 @@ extensions dir::S:0:C:\Users\Shebaden\Documents\TADS 3\Extensions
 build:debug_image_file:S:0:debug\The Island.t3
 DebugToolbar:rebarNewLine:I:1
 src win split:Core\choice.t:S:0:0.000000
-search dlg:old searches:S:0:singleNumber
-search dlg:old searches:S:1:WaitAction
-search dlg:old searches:S:2:(Wait)
-search dlg:old searches:S:3:dobjFor(Wait)
-search dlg:old searches:S:4:Wait 
-search dlg:old searches:S:5:Wait
-search dlg:old searches:S:6:showStatusHtml
-search dlg:old searches:S:7:statusLine
-search dlg:old searches:S:8:vec
-search dlg:old searches:S:9:senseInfoTable
+search dlg:old searches:S:0:Modify
+search dlg:old searches:S:1:singleNumber
+search dlg:old searches:S:2:WaitAction
+search dlg:old searches:S:3:(Wait)
+search dlg:old searches:S:4:dobjFor(Wait)
+search dlg:old searches:S:5:Wait 
+search dlg:old searches:S:6:Wait
+search dlg:old searches:S:7:showStatusHtml
+search dlg:old searches:S:8:statusLine
+search dlg:old searches:S:9:vec
 src win edit mode:%tads%lib\adv3\objects.t:S:0:TADS 3
 editor:program:S:0:Notepad.EXE
 find dialog:pos:R:1360,208,1804,460
@@ -404,7 +416,7 @@ src win selrange:%tads%lib\_main.t:S:0:0,0
 src win selrange:%tads%lib\_main.t:S:1:5094,5098
 src win selrange:%tads%lib\adv3\thing.t:S:0:0,0
 src win selrange:%tads%lib\adv3\thing.t:S:1:134123,134129
-mdi tab order::S:0:1,3,2,0
+mdi tab order::S:0:6,7,5,4,3,8,1,11,9,10,2,0
 build:rlsgam:S:0:The Island.t3
 EditToolbar:rebarVis:I:1
 key bindings:defaults loaded:I:1
@@ -439,9 +451,17 @@ src win split:Scenarios\Termites\TermiteQueen.t:S:0:0.000000
 MenuBar:rebarIndex:I:0
 line wrap:Core\verbs.t:S:0:N
 mdi win title::S:0:
-mdi win title::S:1:Core\player.t
-mdi win title::S:2:The Island.t
-mdi win title::S:3:Core\core.tl
+mdi win title::S:1:Scenarios\Termites\TermiteMound.t
+mdi win title::S:2:%tads%lib\adv3\travel.t
+mdi win title::S:3:Core\time.t
+mdi win title::S:4:Scenarios\Termites\TermiteQueen.t
+mdi win title::S:5:The Island.t
+mdi win title::S:6:Core\player.t
+mdi win title::S:7:Core\core.tl
+mdi win title::S:8:
+mdi win title::S:9:%tads%lib\adv3\actor.t
+mdi win title::S:10:%tads%lib\adv3\lister.t
+mdi win title::S:11:Core\map.t
 src win split:%tads%lib\adv3\action.t:S:0:0.000000
 src win split:Scenarios\Termites\TermiteMound.t:S:0:0.000000
 src win selrange:%tads%lib\_main.t:S:0:0,0

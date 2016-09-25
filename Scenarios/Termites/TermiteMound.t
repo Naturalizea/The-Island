@@ -29,9 +29,11 @@ class TermiteMound : POI, Fixture, PathPassage
 //mound builder
 TermiteMoundBuilder : object
 {
+    map = nil;
+
     BuildTermiteMound()
     {
-        local map = new LookupTable();
+        map = new LookupTable();
         local currentTunnels = [];
         //entrance room at one of the sides and built upwards like a pyrimid. Do not go further then 1,1,1 - 1,20,20 or 8,[7-13].
         
@@ -44,24 +46,24 @@ TermiteMoundBuilder : object
         {
             case 0:
             {
-                currentX = rand(20)+1;
+                currentX = rand(10)+1;
                 break;
             }
             case 1:
             {
-                currentY = rand(20)+1;
+                currentY = rand(10)+1;
                 break;
             }
             case 2:
             {
-                currentY = 20;
-                currentX = rand(20)+1;
+                currentY = 10;
+                currentX = rand(10)+1;
                 break;
             }
             case 3:
             {
-                currentX = 20;
-                currentY = rand(20)+1;
+                currentX = 10;
+                currentY = rand(10)+1;
                 break;
             }
         }
@@ -92,7 +94,7 @@ TermiteMoundBuilder : object
         
         local maxZ = 1;
         //now create some tunnels...
-        local tunnelsToPlace = 14;
+        local tunnelsToPlace = 19;
         while (tunnelsToPlace > 0)
         {
         
@@ -173,7 +175,7 @@ TermiteMoundBuilder : object
     
     CheckValidLoc(z,y,x)
     {
-        local Max = 21-z;
+        local Max = 11-z;
         local Min = 0+z;
         
         if (z <= 8 && z >= 1 && y >= Min && y <= Max && x >= Min && x <= Max)
@@ -215,6 +217,10 @@ TermiteMoundBuilder : object
 TermiteMoundEntrance : Room
 {
     name = 'Entrance'
+    desc()
+    {
+        "You are standing within the entrance to a large network of caves.";
+    }
     hasBuilt = nil;
     enteringRoom (traveller)
     {
@@ -225,7 +231,15 @@ TermiteMoundEntrance : Room
         }
         inherited(traveller);
     }
-    
+    beforeTravel(traveler, connector)
+    {
+        if (Player.TermiteState != 0 && connector.ofKind(GrassyPlainsMap))
+        {
+            failCheck('You start to head out of the termite mound, but the termite king grabs onto your leg. Large emotions of fear and danger flood
+            your mind, and you get the feeling that you would have to get rid of the king if you want to leave.');
+        }
+        return inherited(traveler, connector);
+    }
 }
 
 TermiteMoundTunnel : Room
@@ -241,4 +255,18 @@ TermiteQueenChamber : Room
         "You find yourself in a large, open chamber within this cave. You have a feeling that in the past, this room used to be full of life. What it's purpose
         used to be, however, is not clear.";
     }
+    travelerLeaving(traveler, dest, connector)
+    {
+        if (Player.TermiteState != 0)
+        {
+            "As you leave the room, you get slight emotions of concern and danger entering your mind from the king, as well as a thought of urgency to return
+            as soon as possible. He does not prevent you from leaving the room however, but he does follow you.";
+            TermiteKing.setCurState(termiteKingFollowing);
+            TermiteKing.moveIntoForTravel(dest);
+        }        
+        inherited(traveler, dest, connector);
+    }
+
+    
+    
 }
