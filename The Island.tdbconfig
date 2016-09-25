@@ -249,7 +249,7 @@ line wrap:%tads%lib\adv3\action.t:S:0:N
 line wrap:Scenarios\Termites\TermiteMound.t:S:0:N
 src win split:Core\hooks.t:S:0:0.000000
 line wrap:Core\status.t:S:0:N
-auto-script:next-id:I:168
+auto-script:next-id:I:174
 line wrap:%tads%lib\adv3\adv3.h:S:0:N
 SearchToolbar:rebarWidth:I:253
 line wrap:%tads%lib\adv3\en_us\en_us.h:S:0:N
@@ -286,6 +286,8 @@ src win selrange:%tads%lib\adv3\actions.t:S:1:51402,51406
 build:webpage dir:S:0:web
 mdi win list::S:0::log
 mdi win list::S:1:Core\player.t
+mdi win list::S:2:The Island.t
+mdi win list::S:3:Core\core.tl
 build:srczipfile:S:0:The IslandSource.zip
 main win pos::R:-8,-8,1928,1048
 src win split:%tads%lib\adv3\actor.t:S:0:0.000000
@@ -402,7 +404,7 @@ src win selrange:%tads%lib\_main.t:S:0:0,0
 src win selrange:%tads%lib\_main.t:S:1:5094,5098
 src win selrange:%tads%lib\adv3\thing.t:S:0:0,0
 src win selrange:%tads%lib\adv3\thing.t:S:1:134123,134129
-mdi tab order::S:0:1,0
+mdi tab order::S:0:1,3,2,0
 build:rlsgam:S:0:The Island.t3
 EditToolbar:rebarVis:I:1
 key bindings:defaults loaded:I:1
@@ -438,6 +440,8 @@ MenuBar:rebarIndex:I:0
 line wrap:Core\verbs.t:S:0:N
 mdi win title::S:0:
 mdi win title::S:1:Core\player.t
+mdi win title::S:2:The Island.t
+mdi win title::S:3:Core\core.tl
 src win split:%tads%lib\adv3\action.t:S:0:0.000000
 src win split:Scenarios\Termites\TermiteMound.t:S:0:0.000000
 src win selrange:%tads%lib\_main.t:S:0:0,0

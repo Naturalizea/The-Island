@@ -49,6 +49,7 @@ gameMain: GameMainDef
         forEachInstance(PlayerSpawn, {x: spawns += x});
         local randomIndex = rand(spawns.length)+1;
         Player.moveIntoForTravel(spawns[randomIndex].location);
+        Player.initiazlieBodyParts();
         
         DateTime.AddToForwardSchedule(60,({:self.TestSchedule()})); //currently does nothing, and this is to prevent the schedule being empty
         
