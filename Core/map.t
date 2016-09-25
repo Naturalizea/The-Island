@@ -189,6 +189,18 @@ class OverworldRoom : OutdoorRoom
            "<br>To the west, you can see <<west.name>>.";
         }
     }
+    travelerLeaving (traveler, dest, connector)
+    {
+        if (traveler == Player)
+        {
+            local minutesToTravel = traveler.OverlandTravelTime();
+            traveler.Fatigue += 2;            
+            DateTime.AdvanceTime(minutesToTravel);
+        }            
+        
+        inherited(traveler, dest, connector);
+    }
+    
 }
 
 class GrassyPlainsMap : OverworldRoom

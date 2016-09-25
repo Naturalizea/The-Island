@@ -91,7 +91,7 @@ MaleHook : Hook
 {
     event()
     {
-        player.isHim = true;
+        Player.isHim = true;
     }
 }
 
@@ -99,6 +99,6 @@ FemaleHook : Hook
 {
     event()
     {
-        player.isHer = true;
+        Player.isHer = true;
     }
 }

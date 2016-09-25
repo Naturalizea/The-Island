@@ -236,4 +236,9 @@ TermiteMoundTunnel : Room
 TermiteQueenChamber : Room
 {
     name = 'Large open chamber'
+    desc()
+    {
+        "You find yourself in a large, open chamber within this cave. You have a feeling that in the past, this room used to be full of life. What it's purpose
+        used to be, however, is not clear.";
+    }
 }

@@ -5,6 +5,11 @@
 
 modify Actor
 {
+    Fatigue = 0
+    FatigueRate = 3
+    FatigueCap1 = 50
+    OverworldSpeed = 30 //feet per 6 seconds. Each map square is 1 mile
+
     Strength = 0
     Dexterity = 0
     Constitution = 0
@@ -79,4 +84,43 @@ modify Actor
         local dice = [rand(6)+1,rand(6)+1,rand(6)+1,rand(6)+1].sort(true, { a, b: a-b });
         return dice[1]+dice[2]+dice[3];
     }
+    
+    OverlandTravelTime() //in minutes
+    {
+        return ((new BigNumber(10)/ new BigNumber(OverworldSpeed)) * 60);
+    }
+    
+    AdvanceTime()
+    {
+        //advance fatigue by fatigue rate 
+        Fatigue += FatigueRate;
+        
+        if (Fatigue >= FatigueCap1)
+        {
+            FatiguedStatus.Add(Player);
+        }
+        
+        //add us back to the schedule
+        DateTime.AddToForwardSchedule(60,({:Player.AdvanceTime()}));
+    
+        return true;
+    }
+    
+    SortStatusByRank(a,b)
+    {
+        local order = a.rank - b.rank;
+        if (order == 0)
+        {
+            if (rand(2) == 1)
+            {
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        return order;
+    }
+
 }

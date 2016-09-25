@@ -15,7 +15,7 @@ versionInfo: GameID
 
 gameMain: GameMainDef
 {
-    initialPlayerChar = player
+    initialPlayerChar = Player
     
     showDiceRolls = nil;
     
@@ -48,7 +48,9 @@ gameMain: GameMainDef
         local spawns = [];
         forEachInstance(PlayerSpawn, {x: spawns += x});
         local randomIndex = rand(spawns.length)+1;
-        player.moveIntoForTravel(spawns[randomIndex].location);
+        Player.moveIntoForTravel(spawns[randomIndex].location);
+        
+        DateTime.AddToForwardSchedule(60,({:Player.AdvanceTime()}));
         
     }
     
@@ -60,85 +62,24 @@ gameMain: GameMainDef
         {
             clearScreen();
             
-            player.Strength = player.AttributeRoll();
-            player.Dexterity = player.AttributeRoll();
-            player.Constitution = player.AttributeRoll();
-            player.Intelligence = player.AttributeRoll();
-            player.Wisdom = player.AttributeRoll();
-            player.Charisma = player.AttributeRoll();
+            Player.Strength = Player.AttributeRoll();
+            Player.Dexterity = Player.AttributeRoll();
+            Player.Constitution = Player.AttributeRoll();
+            Player.Intelligence = Player.AttributeRoll();
+            Player.Wisdom = Player.AttributeRoll();
+            Player.Charisma = Player.AttributeRoll();
             
             "--Rolling ability scores--<br>";
             "<br>";
-            "<<player.Strength>> = Strength (measures muscle and physical power)<br>";
-            "<<player.Dexterity>> = Dexterity (measures agility, reflexes, and balance)<br>";
-            "<<player.Constitution>> = Constitution (represents your character's health and stamina)<br>";
-            "<<player.Intelligence>> = Intelligence (determines how well your character learns and reasons)<br>";
-            "<<player.Wisdom>> = Wisdom (describes a character's willpower, common sense, awareness, and intuition)<br>";
-            "<<player.Charisma>> = Charisma (measures a character's personality, personal magnetism, ability to lead, and appearance)<br>";
+            "<<Player.Strength>> = Strength (measures muscle and physical power)<br>";
+            "<<Player.Dexterity>> = Dexterity (measures agility, reflexes, and balance)<br>";
+            "<<Player.Constitution>> = Constitution (represents your character's health and stamina)<br>";
+            "<<Player.Intelligence>> = Intelligence (determines how well your character learns and reasons)<br>";
+            "<<Player.Wisdom>> = Wisdom (describes a character's willpower, common sense, awareness, and intuition)<br>";
+            "<<Player.Charisma>> = Charisma (measures a character's personality, personal magnetism, ability to lead, and appearance)<br>";
             "<br>";
             "Do you accept? ";
             accept = PresentChoice([['Yes',TrueHook],['No',FalseHook]]);
-        }
-    }
-}
-
-
-startRoom: Room 
-{
-    name = 'Start Room'
-    desc() { "This is the starting room. "; }
-}
-
-+ player: Actor
-{}
-
-
-
-/* change the status line to display date / time. This is just a rewrite of the current statusLine, with the DateTime displayed */
-modify statusLine
-{
-    replace showStatusHtml()
-    {
-        /* hyperlink the location name to a "look around" command */
-        "<a plain href='<<libMessages.commandLookAround>>'>";
-            
-        /* show the left part of the status line */
-        showStatusLeft();
-            
-        "</a>";
-
-        "<tab align=center>";
-
-        showStatusCenter();
-
-        /* set up for the score part on the right half */
-        "<tab align=right><a plain
-            href='<<libMessages.commandFullScore>>'>";
-        
-        /* show the right part of the status line */
-        showStatusRight();
-        
-        /* end the score link */
-        "</a>";
-        
-        /* add the status-line exit list, if desired */
-        if (gPlayerChar.location != nil)
-            gPlayerChar.location.showStatuslineExits();
-    }
-
-    showStatusCenter()
-    {
-        "<<DateTime.ToString()>>";
-    }
-
-    replace showStatusRight()
-    {
-        local s;
-
-        /* show the time and score */
-        if ((s = libGlobal.scoreObj) != nil)
-        {
-            "<.statusscore>Score:\t<<s.totalScore>><./statusscore>";
         }
     }
 }

@@ -86,6 +86,72 @@ DateTime : object
             _month -= 12;
         }
     }
+    
+    //our future schedule
+    currentSchedule = []
+    
+    
+    // Add an event to fire of <minutes> minutes from when it is added.
+    AddToForwardSchedule(minutes,event)
+    {
+        currentSchedule += [[minutes,event]];
+    }
+    
+    // Advance time by <minutes>, taking the schedule into account
+    AdvanceTime(minutes)
+    {
+        local advancing = true;
+        while (advancing)
+        {
+            local scheduleIndex = currentSchedule.indexOfMin({x: x[1]});
+        
+            local nextSchedule = currentSchedule[scheduleIndex];
+            
+            local scheduleTime = nextSchedule[1];
+            local scheduleEvent = nextSchedule[2];
+            
+            if (scheduleTime <= minutes)
+            {
+                AdvanceSchedule(scheduleTime);            
+                AddMinutes(scheduleTime);
+                minutes -= scheduleTime;
+                local cont = scheduleEvent();
+                
+                if (!cont)
+                {
+                    "Prompt for player to stop.";
+                }
+                
+                currentSchedule = currentSchedule.removeElementAt(scheduleIndex);
+                
+                if (minutes == 0)
+                {
+                    advancing = nil;
+                }
+                
+            }
+            else
+            {
+                AddMinutes(minutes);
+                AdvanceSchedule(minutes);
+                advancing = nil;
+            }
+        }
+    }
+    
+    AdvanceSchedule(minutes)
+    {
+        local newSchedule = [];
+        foreach (local scheduleItem in currentSchedule)
+        {
+            local time = scheduleItem[1];
+            local event = scheduleItem[2];
+            
+            newSchedule += [[time-minutes,event]];
+        }
+        currentSchedule = newSchedule;
+    }
+
 }
 
 /* change the status line to display date / time. This is just a rewrite of the current statusLine, with the DateTime displayed */
@@ -105,7 +171,7 @@ modify statusLine
 
         showStatusCenter();
 
-        "</a>";
+        //"</a>";
 
         /* set up for the score part on the right half */
         "<tab align=right><a plain
@@ -120,6 +186,22 @@ modify statusLine
         /* add the status-line exit list, if desired */
         if (gPlayerChar.location != nil)
             gPlayerChar.location.showStatuslineExits();
+            
+            
+        //statuses change
+        local x = 0;
+        local sortedStatuses = libGlobal.playerChar.Statuses.sort(true, { a, b: a.name().compareTo(b.name())});
+        sortedStatuses = sortedStatuses.subset({x: !x.hidden});
+        "<tab align=center>";
+        foreach(local status in sortedStatuses)
+        {
+            if (x > 0)
+            {
+                ", ";
+            }
+            "<<status.name()>>";
+            x++;
+        }
     }
 
     showStatusCenter()

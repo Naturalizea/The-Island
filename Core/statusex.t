@@ -15,7 +15,7 @@ class Status : object
     
     Add(x)
     {
-        if (!x.Statuses.indexWhich({y :y.ofKind(self.getSuperclassList()[1]) == true}))
+        if (!x.Statuses.indexWhich({y :y.ofKind(self) == true}))
         {
             x.Statuses += self;
             owner = x;
@@ -26,9 +26,9 @@ class Status : object
     
     Remove(x)
     {
-        if (x.Statuses.indexWhich({y :y.getSuperclassList()[1] == self}))
+        if (x.Statuses.indexWhich({y :y.ofKind(self) == true}))
         {
-            local instance = x.Statuses[x.Statuses.indexWhich({y :y.getSuperclassList()[1] == self})];
+            local instance = x.Statuses[x.Statuses.indexWhich({y :y.ofKind(self) == true})];
             x.Statuses -= instance;
             instance.NoteRemoval();
         }
@@ -54,24 +54,30 @@ class Status : object
     NoteRemoval() {}
 }
 
-modify statusLine
+//Some statuses
+
+class FatiguedStatus : Status
 {
-    showStatusHtml()
+    rank = 0
+    hidden = nil
+    name = 'Fatigued'
+    
+    adjustModifier(mod)
     {
-        inherited();
-        local x = 0;
-        local sortedStatuses = libGlobal.playerChar.Statuses.sort(true, { a, b: a.name().compareTo(b.name())});
-        sortedStatuses = sortedStatuses.subset({x: !x.hidden});
-        "<tab align=center>";
-        foreach(local status in sortedStatuses)
+        switch(mod)
         {
-            if (x > 0)
+            case 'Str':
+            case 'Dex':
             {
-                ", ";
+                return -2;
             }
-            "<<status.name()>>";
-            x++;
         }
         
+        return inherited(mod);
+    }
+    
+    NoteAddition()
+    {
+        "You feel tired and fatigued.";
     }
 }
