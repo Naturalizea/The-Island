@@ -9,6 +9,9 @@ modify Actor
     FatigueRate = 3
     FatigueCap1 = 50
     OverworldSpeed = 30 //feet per 6 seconds. Each map square is 1 mile
+    
+    Hunger = 0
+    HungerRate = 5
 
     Strength = 0
     Dexterity = 0
@@ -58,14 +61,14 @@ modify Actor
         
         if (gameMain.showDiceRolls)
         {
-            "<font color=blue> [<<name>> check (<<result>>) vs DC <<dc>> = ";
+            "<br><br><font color=blue> [<<name>> check (<<result>>) vs DC <<dc>> = ";
         }
         
         if (roll != 1 && (result >= dc || roll == 20))
         {
             if (gameMain.showDiceRolls)
             {
-                "<b>Success</b>]</font> ";
+                "<b>Success</b>]</font> <br><br>";
             }
             return true;
         }
@@ -73,7 +76,7 @@ modify Actor
         {
             if (gameMain.showDiceRolls)
             {
-                "<b>Failure</b>]</font> ";
+                "<b>Failure</b>]</font> <br><br>";
             }
             return nil;
         }
@@ -121,6 +124,14 @@ modify Actor
             }
         }
         return order;
+    }
+    
+    dobjFor(Sleep)
+    {
+        Action()
+        {
+            "OK!";
+        }
     }
 
 }

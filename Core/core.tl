@@ -8,4 +8,5 @@ source: map
 source: statusex
 source: verbs
 source: time
+source: pathfind
 source: player

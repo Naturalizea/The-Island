@@ -1,6 +1,7 @@
 #charset "us-ascii"
 #include <adv3.h>
 #include <lookup.h>
+#include <bignum.h>
 
 //To being the TF, we need some food to trigger it.
 class TermiteJelly : Food
@@ -21,11 +22,12 @@ class TermiteJelly : Food
             
                 local eatAll = nil;
                 "You eat some of the jelly. It is sweet, and very, very tasty.";
-                local willCheck = Player.DoCheck('Will', Player.WillBonus, 20);
+                local willCheck = Player.DoCheck('Will', Player.WillBonus, 10);
                 if (willCheck)
                 {
                     "Do you want to eat it all? ";
                     local accept = PresentChoice([['Yes',TrueHook],['No',FalseHook]]);
+                    "<br><br>";
                     if (accept)
                     {
                         eatAll = true;
@@ -35,7 +37,6 @@ class TermiteJelly : Food
                 {
                     eatAll = true;
                 }
-                
                 if (eatAll)
                 {
                     "You find yourself unable to resist the taste, and you devour the entire yellow mound of sweet jelly. Soon afterwards, fatigue takes over, and
@@ -73,12 +74,36 @@ class TermiteJelly : Food
                     if (accept)
                     {
                         "<br><br>The termites all seem to be extreamly happy. The small ones start to approch you closer and start to climb over you, forcing you
-                        to lie on the ground as they get accustomed to their new queen. A few minutes later, they all get off you, and feelings of purpose start
-                        to fill your mind. One of them drops a small handfull of jelly close to your head, before they all leave the chamber. A feeling of sating 
-                        hunger filling your mind as they leave, but the king remains with you.<br>
-                        <br>
-                        Feelings of protection and home fill your mind, as well as preperation. You are not entirely certian on the preperation thoughts, but you
-                        have a feeling that the king does not want you to leave the mound, after waiting for you to come for so long.";
+                        to lie on the ground as they get accustomed to their new queen. One of them crawls over to your face, a glob of that royal jelly in it's
+                        mandabile, and attempts to feed it to you.";
+                        willCheck = Player.DoCheck('Will', Player.WillBonus, 10);
+                        if (willCheck)
+                        {
+                            "Do you want to eat it? ";
+                            local accept = PresentChoice([['Yes',TrueHook],['No',FalseHook]]);
+                            "<br><br>";
+                            if (accept)
+                            {
+                                "Unable to resist, you open your mouth and swallow the sweet jelly. It tastes better then it did before!<br>
+                                <br>";
+                                Player.TermiteMutationLevel += 5;
+                            }
+                            else
+                            {
+                                "TODO : Decline food";
+                            }
+                        }
+                        else
+                        {
+                            "Unable to resist, you open your mouth and swallow the sweet jelly. It tastes better then it did before!<br>
+                            <br>";
+                            Player.TermiteMutationLevel += 5;
+                        }
+                        
+                        "A few minutes later, they all get off you, and feelings of purpose start to fill your mind, and feelings of hunger and sating that 
+                        hunger filling your mind. From the king, feelings of protection and home fill your mind, as well as preperation. You are not entirely 
+                        certian on the preperation thoughts, but you have a feeling that the king does not want you to leave the mound, after waiting for you 
+                        to come for so long.";
                     }
                     else
                     {
@@ -117,19 +142,14 @@ class TermiteJelly : Food
                     
                     //and add some workers all around. somewhere around 8-12
                     local workerCount = 8+rand(5);
+                    local worker = new TermiteWorker();
                     
-                    while (workerCount > 0)
-                    {
-                        workerCount--;
-                        local worker = new TermiteWorker();
-                        
-                        //random area to spawn in the mound
-                        local rooms = TermiteMoundBuilder.map.valsToList();
-                        local randRoom = rooms[rand(rooms.length)+1];
-                        
-                        worker.initializeActor();
-                        worker.moveInto(randRoom);
-                    }
+                    worker.count = workerCount;
+                    
+                    worker.configureStates();
+                    worker.initializeActor();
+                    worker.moveInto(TermiteQueenChamber);
+                    worker.startRTFuse();
                     
                 }
             }
@@ -152,7 +172,7 @@ modify TermiteQueenChamber {}
 
 TermiteKing : Actor
 {
-    name = 'the termite king'
+    name = 'termite king'
     vocabWords = 'big large termite/king*termites'
     desc()
     {
@@ -167,13 +187,146 @@ TermiteKing : Actor
 
 class TermiteWorker : Actor
 {
-    name = 'termite worker'
+    count = 1
+    isProperName = true;
+    name()
+    {
+        if (count == 1) {return 'A termite worker'; }
+        return '<<count>> termite workers';
+    }
     vocabWords = 'termite/worker*termites*workers'
     desc()
     {
-        "A small termite worker.";
+        if (count == 1)
+        {
+            "A small termite worker.";
+        }
+        else
+        {
+            "<<count>> small, termite workers.";
+        }
     }
     isEquivalent() { return true; }
+    
+    stateTable = nil
+    
+    configureStates()
+    {
+        stateTable = new LookupTable();
+        local state = new termiteWonderState(self);
+        state.moveInto(self);
+        stateTable[termiteWonderState] = state;
+        
+        self.setCurState(stateTable[termiteWonderState]);
+    }
+    
+    rtFuse = nil;
+    
+    startRTFuse()
+    {
+        rtFuse = new RealTimeFuse(self,&rtEvent,rand(6001)+6000);
+    }
+    
+    rtEvent()
+    {
+        //let the state do things
+        curState.event();
+        
+        //and get ready for the next tick if we are still alive.
+        if (self.location != nil)
+        {
+            rtFuse = new RealTimeFuse(self,&rtEvent,rand(6001)+6000);
+        }
+    }
+}
+
+class termiteWonderState: ActorState
+{
+    isInitState = 1;
+    specialDesc()
+    {
+        if (location.count == 1)
+        {
+            "A small termite worker is wondering around here.";
+        }
+        else
+        {
+            "<<location.count>> small termite workers are wondering around here.";        
+        }
+    }
+    stateDesc()
+    {
+        if (location.count == 1)
+        {
+            "Thoughts of being lost fill your mind as you concentract on the wondering termite worker. ";
+        }
+        else
+        {
+            "Thoughts of being lost fill your mind as you concentract on the wondering termite workers. ";
+        }
+    }
+    event()
+    {
+        local worker = self.location;
+        local loc = worker.location;
+        local destList = [];
+    
+        //get a list of all directions we could go
+        foreach (local dir in Direction.allDirections)
+        {
+            local conn;
+            
+            //check for connectors from our location
+            if ((conn = loc.getTravelConnector(dir, self)) != nil)
+            /*
+                && (dest = getDestination(loc, dir, conn)) != nil
+                && includeRoom(dest))
+                */
+            {
+                //we have an exit. Lets remember it
+                if (conn != noTravel && conn != noTravelIn && conn != noTravelOut && conn != noShipTravel)
+                {
+                    destList += conn;
+                }
+            }
+        }
+        
+        //how many termites workers are we?
+        local count = worker.count;
+        
+        //lets split up our termites if they want
+        for(local x = 1; x <= destList.length(); x++)
+        {
+
+            local dest = destList[x];
+            local travellingCount = rand(count+1);
+            if (x == destList.length())
+            {
+                travellingCount = count;
+            }
+                    
+            //Create new workers and move them.
+            
+            if (travellingCount > 0)
+            {
+                local newWorker = new TermiteWorker();
+                newWorker.configureStates();
+                newWorker.initializeActor();
+                newWorker.moveInto(worker.location);
+                newWorker.count = travellingCount;
+                newWorker.startRTFuse();
+                //and travel with the new worker
+                if (Player.canSee(newWorker)) { newWorker.sayDeparting(dest); }
+                newWorker.moveIntoForTravel(dest);
+                if (Player.canSee(newWorker)) {  newWorker.sayArriving(dest); }
+                
+                count -= travellingCount;
+            }
+        }
+        //dont forget to kill the old worker
+        worker.moveInto(nil);
+        
+    }
 }
 
 

@@ -29,5 +29,3 @@ VerbRule(WaitTime) (('z' | 'wait') | ('z' | 'wait') 'for') ((singleNumber) | (si
 {
     verbPhrase = 'wait/waiting (what)'
 }
-    
-    

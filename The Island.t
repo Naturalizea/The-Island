@@ -53,7 +53,7 @@ gameMain: GameMainDef
         
         DateTime.AddToForwardSchedule(60,({:self.TestSchedule()})); //currently does nothing, and this is to prevent the schedule being empty
         
-        //DateTime.AddToForwardSchedule(60,({:Player.AdvanceTime()}));
+        DateTime.AddToForwardSchedule(60,({:Player.AdvanceTime()}));
         
     }
     
