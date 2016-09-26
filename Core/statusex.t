@@ -78,7 +78,59 @@ class FatiguedStatus : Status
     
     NoteAddition()
     {
-        "You feel tired and fatigued.";
+        "You feel fatigued.";
+    }
+}
+
+class TiredStatus : Status
+{
+    rank = 0
+    hidden = nil
+    name = 'Tired'
+    
+    adjustModifier(mod)
+    {
+        switch(mod)
+        {
+            case 'Str':
+            case 'Dex':
+            {
+                return -4;
+            }
+        }
+        
+        return inherited(mod);
+    }
+    
+    NoteAddition()
+    {
+        "You feel feeling tired.";
+    }
+}
+
+class VeryTiredStatus : Status
+{
+    rank = 0
+    hidden = nil
+    name = 'Very Tired'
+    
+    adjustModifier(mod)
+    {
+        switch(mod)
+        {
+            case 'Str':
+            case 'Dex':
+            {
+                return -6;
+            }
+        }
+        
+        return inherited(mod);
+    }
+    
+    NoteAddition()
+    {
+        "You feel feeling very tired.";
     }
 }
 

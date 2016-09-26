@@ -8,7 +8,10 @@ modify Actor
     Fatigue = 0
     FatigueRate = 3
     FatigueRestRate = 5
-    FatigueCap1 = 50
+    FatigueCap1 = 30
+    FatigueCap2 = 60
+    FatigueCap3 = 90
+    FatigueCap4 = 100
     OverworldSpeed = 30 //feet per 6 seconds. Each map square is 1 mile
     
     Hunger = 0
@@ -100,6 +103,15 @@ modify Actor
         {
             //restore some fatigue as our fatigue rest rate
             Fatigue -= FatigueRestRate;
+            
+            if (Fatigue <= FatigueCap3)
+            {
+                VeryTiredStatus.Remove(Player);
+            }            
+            if (Fatigue <= FatigueCap2)
+            {
+                TiredStatus.Remove(Player);
+            }
             if (Fatigue <= FatigueCap1)
             {
                 FatiguedStatus.Remove(Player);
@@ -108,7 +120,15 @@ modify Actor
             if (Fatigue <= 0)
             {
                 Fatigue = 0;
+                //wakeup
+                SleepingStatus.Remove(Player);
             }
+            else
+            {
+                //advance time by an hour. Should automatically trigger this again.
+                DateTime.AdvanceTime(60);
+            }
+            
         }
         else
         {
@@ -116,7 +136,18 @@ modify Actor
             //advance fatigue by fatigue rate 
             Fatigue += FatigueRate;
             
-            if (Fatigue >= FatigueCap1)
+            if (Fatigue >= FatigueCap3)
+            {
+                VeryTiredStatus.Add(Player);
+                TiredStatus.Remove(Player);
+                FatiguedStatus.Remove(Player);
+            }            
+            if (Fatigue >= FatigueCap2 && !VeryTiredStatus.Has(Player))
+            {
+                TiredStatus.Add(Player);
+                FatiguedStatus.Remove(Player);
+            }
+            if (Fatigue >= FatigueCap1 && !TiredStatus.Has(Player) && !VeryTiredStatus.Has(Player))
             {
                 FatiguedStatus.Add(Player);
             }
