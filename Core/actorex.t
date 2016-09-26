@@ -7,6 +7,7 @@ modify Actor
 {
     Fatigue = 0
     FatigueRate = 3
+    FatigueRestRate = 5
     FatigueCap1 = 50
     OverworldSpeed = 30 //feet per 6 seconds. Each map square is 1 mile
     
@@ -95,12 +96,30 @@ modify Actor
     
     AdvanceTime()
     {
-        //advance fatigue by fatigue rate 
-        Fatigue += FatigueRate;
-        
-        if (Fatigue >= FatigueCap1)
+        if (SleepingStatus.Has(Player))
         {
-            FatiguedStatus.Add(Player);
+            //restore some fatigue as our fatigue rest rate
+            Fatigue -= FatigueRestRate;
+            if (Fatigue <= FatigueCap1)
+            {
+                FatiguedStatus.Remove(Player);
+            }
+            
+            if (Fatigue <= 0)
+            {
+                Fatigue = 0;
+            }
+        }
+        else
+        {
+    
+            //advance fatigue by fatigue rate 
+            Fatigue += FatigueRate;
+            
+            if (Fatigue >= FatigueCap1)
+            {
+                FatiguedStatus.Add(Player);
+            }
         }
         
         //add us back to the schedule

@@ -42,7 +42,7 @@ class Status : object
     
     Get(x)
     {
-        local index = x.Statuses.indexWhich({y :y.getSuperclassList()[1] == self});
+        local index = x.Statuses.indexWhich({y :y.ofKind(self) == true});
         if (index != nil)
         {
             return x.Statuses[index];
@@ -81,6 +81,15 @@ class FatiguedStatus : Status
         "You feel tired and fatigued.";
     }
 }
+
+class SleepingStatus : Status
+{
+    rank = 0
+    forced = nil
+    hidden = true
+    name = 'Sleeping'
+}
+
 
 class RestlessStatus : Status
 {

@@ -1,0 +1,13 @@
+IFID: 31101a87-a29f-4309-bd06-41f53ef602d3
+Name: The Island
+Byline: by Naturalizea
+HtmlByline: by <a href="mailto:Naturalizea@gmail.com"> Naturalizea</a>
+AuthorEmail: Naturalizea <Naturalizea@gmail.com>
+Desc: Description comming soon
+HtmlDesc: Description comming soon
+Version: 1
+ReleaseDate: 2016-09-26
+Language: en-US
+LicenseType: Freeware
+CopyingRules: Nominal cost only; compilations allowed
+PresentationProfile: Default

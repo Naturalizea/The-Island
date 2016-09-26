@@ -266,39 +266,39 @@ ConnectRooms(room1,room2)
     }
     else
     {
-        if (y == -1) //north
-        {
-            if (x == 1) //east
-            {
-                room1.northeast = room2;
-                //room2.southwest = room1;
-            }
-            else if (x == -1) //west
-            {
-                room1.northwest = room2;
-                //room2.southeast = room1;
-            }
-            else
-            {
-                room1.north = room2;
-                //room2.south = room1;
-            }
-        }
-        else if (y == 1) // south
+        if (y == -1) //south
         {
             if (x == 1) //east
             {
                 room1.southeast = room2;
-                //room2.northeast = room1;
+                //room2.southwest = room1;
             }
             else if (x == -1) //west
             {
-                room1.southwest = room2;  
-                //room2.northwest = room1;
+                room1.southwest = room2;
+                //room2.southeast = room1;
             }
             else
             {
                 room1.south = room2;
+                //room2.south = room1;
+            }
+        }
+        else if (y == 1) // north
+        {
+            if (x == 1) //east
+            {
+                room1.northeast = room2;
+                //room2.northeast = room1;
+            }
+            else if (x == -1) //west
+            {
+                room1.northwest = room2;  
+                //room2.northwest = room1;
+            }
+            else
+            {
+                room1.north = room2;
                 //room2.north = room1;
             }
         }

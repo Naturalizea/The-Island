@@ -12,7 +12,7 @@ class TermiteMound : POI, Fixture, PathPassage
     }
     specialDesc()
     {
-        "A rather large, mountainous mound of mostly hard dirt is here. It is large enough, that there is an entrance which you could walk in to get inside
+        "A rather large, mound of mostly hard dirt is here. It is large enough, that there is an entrance which you could walk in to get inside
         should you so desire.";
     }
 
@@ -26,11 +26,79 @@ class TermiteMound : POI, Fixture, PathPassage
 }
 
 
-//mound builder
-TermiteMoundBuilder : object
+//mound manager
+TermiteMoundManager : object
 {
-    map = nil;
-
+    map = nil
+    baseSize = 3
+    baseYOffset = 0
+    
+    
+    BuildTermiteMound()
+    {
+        map = new LookupTable();
+        
+        //create the entrance tunnel in the south. Lets put the chords on 0,-3,0
+        
+        local X = 0;
+        local Y = -3;
+        local Z = 0;
+        
+        TermiteMoundEntrance.Z = Z;
+        TermiteMoundEntrance.Y = Y;
+        TermiteMoundEntrance.X = X;        
+        local key = '' + Z + ',' + Y + ',' + Z;
+        map[key] = TermiteMoundEntrance;
+        
+        //build our tunnel 3 in
+        local prevRoom = nil;
+        
+        for (local i=1; i<=3; i++)
+        {
+            prevRoom = map[key];
+            Y += 1;
+            local tunnel = DigTunnel(prevRoom,[Z,Y,X]);
+            key = '' + Z + ',' + Y + ',' + Z;
+            map[key] = tunnel;            
+        }
+        
+        //one up
+        prevRoom = map[key];
+        Z += 1;
+        local tunnel = DigTunnel(prevRoom,[Z,Y,X]);
+        key = '' + Z + ',' + Y + ',' + Z;
+        map[key] = tunnel;
+        
+        //and then the centre of the mound. The queens chamber
+        Z += 1;
+        TermiteQueenChamber.Z = Z;
+        TermiteQueenChamber.Y = Y;
+        TermiteQueenChamber.X = X;
+        
+        ConnectRooms(tunnel, TermiteQueenChamber);
+        ConnectRooms(TermiteQueenChamber, tunnel);
+        map[key] = TermiteQueenChamber;
+        
+        
+        
+    }
+    
+    DigTunnel(source, newPos)
+    {        
+        local tunnel = new TermiteMoundTunnel();
+        tunnel.Z = newPos[1];
+        tunnel.Y = newPos[2];
+        tunnel.X = newPos[3];
+        
+        ConnectRooms(source, tunnel);
+        ConnectRooms(tunnel, source);
+        
+        return tunnel;  
+    }
+    
+    
+//ARCHIVED IN CODE TILL I CAN DECIDE TO KEEP OR NOT    
+/*
     BuildTermiteMound()
     {
         map = new LookupTable();
@@ -212,6 +280,7 @@ TermiteMoundBuilder : object
         }
         return nil;
     }
+*/    
 }
 
 TermiteMoundEntrance : Room
@@ -226,7 +295,7 @@ TermiteMoundEntrance : Room
     {
         if (!hasBuilt)
         {
-            TermiteMoundBuilder.BuildTermiteMound();
+            TermiteMoundManager.BuildTermiteMound();
             hasBuilt = true;
         }
         inherited(traveller);

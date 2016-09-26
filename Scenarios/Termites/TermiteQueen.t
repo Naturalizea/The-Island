@@ -42,7 +42,11 @@ class TermiteJelly : Food
                     "You find yourself unable to resist the taste, and you devour the entire yellow mound of sweet jelly. Soon afterwards, fatigue takes over, and
                     you can't help but fall asleep within the large chamber...";
                     inputManager.pauseForMore(true);
+                    SleepingStatus.Add(Player);
+                    SleepingStatus.forced = true;
                     DateTime.AdvanceTime(1440); //24 hours pass
+                    SleepingStatus.Remove(Player);
+                    SleepingStatus.forced = nil;
                     clearScreen();
                     
                     "You awaken sometime later, feeling very relaxed and refereshed, however with an odd headache and a sore butt. Your clothing also seems to be
