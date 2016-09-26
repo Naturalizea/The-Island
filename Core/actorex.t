@@ -107,10 +107,12 @@ modify Actor
             if (Fatigue <= FatigueCap3)
             {
                 VeryTiredStatus.Remove(Player);
+                //TiredStatus.Add(Player);
             }            
             if (Fatigue <= FatigueCap2)
             {
                 TiredStatus.Remove(Player);
+                //FatiguedStatus.Add(Player);
             }
             if (Fatigue <= FatigueCap1)
             {
@@ -120,13 +122,21 @@ modify Actor
             if (Fatigue <= 0)
             {
                 Fatigue = 0;
-                //wakeup
-                SleepingStatus.Remove(Player);
+                if (SleepingStatus.forced == nil)
+                {
+                    //wakeup
+                    SleepingStatus.Remove(Player);
+                }
             }
             else
             {
-                //advance time by an hour. Should automatically trigger this again.
-                DateTime.AdvanceTime(60);
+                if (SleepingStatus.forced == nil)
+                {
+                    //add us back to the schedule
+                    DateTime.AddToForwardSchedule(60,({:Player.AdvanceTime()}));
+                    DateTime.AdvanceTime(60);
+                    return true;
+                }
             }
             
         }

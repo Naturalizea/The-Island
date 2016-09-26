@@ -47,6 +47,7 @@ class TermiteJelly : Food
                     DateTime.AdvanceTime(1440); //24 hours pass
                     SleepingStatus.Remove(Player);
                     SleepingStatus.forced = nil;
+                    Player.TermiteMutationLevel = 50;
                     clearScreen();
                     
                     "You awaken sometime later, feeling very relaxed and refereshed, however with an odd headache and a sore butt. Your clothing also seems to be
@@ -93,7 +94,9 @@ class TermiteJelly : Food
                                 He opens his mouth as yellow jelly flows out from it. You open your mouth, and manage to catch most of the sweet, yellow jelly
                                 as you feel him release his load into your womb. His job done, he gets off of you and feelings security and protection enter your 
                                 mind. Security for the future, and protection of yourself.";
-                                Player.TermiteMutationLevel += 5;
+                                Player.TermiteMutationLevel += 10;
+                                
+                                DateTime.AddToForwardSchedule(1440,({:TermiteKing.MateSchedule()})); //every 24 hours we want to mate the player
                             }
                             else
                             {
@@ -109,12 +112,14 @@ class TermiteJelly : Food
                             He opens his mouth as yellow jelly flows out from it. You open your mouth, and manage to catch most of the sweet, yellow jelly
                             as you feel him release his load into your womb. His job done, he gets off of you and feelings security and protection enter your 
                             mind. Security for the future, and protection of yourself.";
-                            Player.TermiteMutationLevel += 5;
+                            Player.TermiteMutationLevel += 10;
+                            
+                            DateTime.AddToForwardSchedule(1440,({:TermiteKing.MateSchedule()})); //every 24 hours we want to mate the player
                         }
                     }
                     else
                     {
-                        "TODO : REJECTION PATH. FIGHT WITH TERMITES ENSURE.";
+                        "TODO : REJECTION PATH. FIGHT WITH TERMITE ENSURE.";
                     }
                     
                     TermiteKing.moveIntoForTravel(TermiteQueenChamber);
@@ -188,6 +193,21 @@ TermiteKing : Actor
     desc()
     {
         "A large termite the size of an average human. He is your king for the kingdom you are going to help rebuild.";
+    }
+    MateSchedule()
+    {
+        "The termite king approaches you, thoughs of reproduction and family flood your mind. You can't help but mate with to mate your king as he feeds you more yellow
+        jelly, and falling asleep for an hour soon after you are done.";
+        Player.TermiteMutationLevel += 10;
+        SleepingStatus.Add(Player);
+        SleepingStatus.forced = true;
+        DateTime.AdvanceTime(60);
+        SleepingStatus.forced = nil;
+        SleepingStatus.Remove(Player);
+        
+        DateTime.AddToForwardSchedule(1440,({:TermiteKing.MateSchedule()})); //every 24 hours we want to mate the player
+        
+        return true;
     }
 }
 
@@ -345,6 +365,24 @@ modify Player
 {
     TermiteState = 0;
     TermiteMutationLevel = 0;
+}
+
+//wakeup events
+modify SleepingStatus
+{
+    NoteRemoval()
+    {
+        if (Player.TermiteState == 1 && Player.TermiteMutationLevel >= 100)
+        {
+            Player.TermiteState = 2;
+            Player.TermiteMutationLevel = 1;
+            
+            "Wakeup!";
+            
+        }
+
+        inherited();
+    }
 }
 
 //Some bodyparts for the player

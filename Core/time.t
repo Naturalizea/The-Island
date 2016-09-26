@@ -115,6 +115,9 @@ DateTime : object
                 AdvanceSchedule(scheduleTime);            
                 AddMinutes(scheduleTime);
                 minutes -= scheduleTime;
+                
+                currentSchedule = currentSchedule.removeElementAt(scheduleIndex);
+                
                 local cont = scheduleEvent();
                 
                 if (!cont)
@@ -122,7 +125,7 @@ DateTime : object
                     "Prompt for player to stop.";
                 }
                 
-                currentSchedule = currentSchedule.removeElementAt(scheduleIndex);
+                
                 
                 if (minutes == 0)
                 {

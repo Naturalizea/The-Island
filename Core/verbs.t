@@ -33,6 +33,7 @@ modify SleepAction
         SleepingStatus.Add(Player);
         SleepingStatus.forced = nil;
         DateTime.AdvanceTime(60);
+        "You wakeup sometime later.";
     }
 }
 
