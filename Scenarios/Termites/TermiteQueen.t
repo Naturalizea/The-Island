@@ -51,13 +51,11 @@ class TermiteJelly : Food
                     
                     "You awaken sometime later, feeling very relaxed and refereshed, however with an odd headache and a sore butt. Your clothing also seems to be
                     missing. Looking around, you are greeted with a terrifying sight. A giant termite is standing a few feet away from you, about the size of an 
-                    average human, seeming watching you with twitching antennae. Around you, you also notice several other smaller termites, about half the size 
-                    of the other size of large one.<br>
+                    average human, seeming watching you with twitching antennae.<br>
                     <br>
-                    You start to back away from them, and you movement seems to cause the termites to become more active themselves. The smaller ones circle
-                    around you, preventing you from escaping, while the large one approaches. His antennae twitch, and your headache intensifies. Reaching a hand up
-                    to your head, you also start to feel something strange... Two long protruding and flexable sticks of some kind, and they are growing out from
-                    your head, right above your eyes.<br>
+                    You start to back away from the termite, be he approaches as you retreat, and soon you feel your back up against one of the walls The termite's
+                    antennae twitch, and your headache intensifies. Reaching a hand up to your head, you also start to feel something strange... Two long protruding 
+                    and flexable sticks of some kind, and they are growing out from your head, right above your eyes.<br>
                     <br>
                     Your headache throbs again as the large termite gets closer, and you are suddenly filled with various thoughts and emotions. They don't make
                     much sense to you at first, but then they begin to get focused. You somehow get a feeling of happiness and an idea that the future is secured.
@@ -66,48 +64,53 @@ class TermiteJelly : Food
                     <br>
                     As if sensing your own emotions, you get projected other feelings. Feelings of reassurance, and of family. The termite kings gets closer, and
                     his antennae touch your own, causing a flood of images to flow into your mind. You see a large termite kingdom with thousands, no... millions of
-                    termites, all working in unison to survive and prosper. You then see death of the termite queen, and the gradual decrease in population. An
-                    emotion of sadness hits you as the vision shifts to that of only a handful of termites left, led by the king.<br>
+                    termites, all working in unison to survive and prosper. You then see destruction hit the mountain-like mound, killing the queen and almost all
+                    of the termites. With the death of the queen, over time the remaining termines started to perish, and the termite mound collapsed into the much
+                    small mound you entered today. Soon, only the king was left.<br>
                     <br>
                     The visions end as the king steps again, and emotions of rebuilding the kingdom enter your mind, and of immense love for you. Feelings of
-                    belonging enter your mind, and you understand. The termites have been waiting for a new queen, and you have been chosen for the position.<br>
+                    belonging enter your mind, and you understand. He has been waiting for a new queen, and you have been chosen for the position.<br>
                     <br>
-                    Do you want to become the new queen?";
+                    Do you want to become the new queen? ";
                     local accept = PresentChoice([['Yes',TrueHook],['No',FalseHook]]);
                     
                     if (accept)
                     {
-                        "<br><br>The termites all seem to be extreamly happy. The small ones start to approch you closer and start to climb over you, forcing you
-                        to lie on the ground as they get accustomed to their new queen. One of them crawls over to your face, a glob of that royal jelly in it's
-                        mandabile, and attempts to feed it to you.";
-                        willCheck = Player.DoCheck('Will', Player.WillBonus, 10);
+                        "<br><br>Immense feelings of joy, excitment, love and eagerness flood your mind, and it starts to become extremly overwhelming.
+                        You almost don't notice the termite king approach your naked form and position himself for the mating process to begin. ";
+                        willCheck = Player.DoCheck('Will', Player.WillBonus, 15);
                         if (willCheck)
                         {
-                            "Do you want to eat it? ";
+                            "Do you resist? ";
                             local accept = PresentChoice([['Yes',TrueHook],['No',FalseHook]]);
                             "<br><br>";
-                            if (accept)
+                            if (!accept)
                             {
-                                "Unable to resist, you open your mouth and swallow the sweet jelly. It tastes better then it did before!<br>
-                                <br>";
+                                "Choosing not to resist the emotions flooding your mind, you get more confortable as the termite climbs on top of your, his antenne twitching 
+                                like crazy. You feel his alien-like tool enter your wanting pussy, and shudder at the feeling. You wrap your arms around his bocy
+                                as he starts to thrust his member in and our of your pussy.<br>
+                                <br>
+                                He opens his mouth as yellow jelly flows out from it. You open your mouth, and manage to catch most of the sweet, yellow jelly
+                                as you feel him release his load into your womb. His job done, he gets off of you and feelings security and protection enter your 
+                                mind. Security for the future, and protection of yourself.";
                                 Player.TermiteMutationLevel += 5;
                             }
                             else
                             {
-                                "TODO : Decline food";
+                                "TODO : Decline sex";
                             }
                         }
                         else
                         {
-                            "Unable to resist, you open your mouth and swallow the sweet jelly. It tastes better then it did before!<br>
-                            <br>";
+                            "Unable to resist the emotions flooding your mind, you get more confortable as the termite climbs on top of your, his antenne twitching 
+                            like crazy. You feel his alien-like tool enter your wanting pussy, and shudder at the feeling. You wrap your arms around his bocy
+                            as he starts to thrust his member in and our of your pussy.<br>
+                            <br>
+                            He opens his mouth as yellow jelly flows out from it. You open your mouth, and manage to catch most of the sweet, yellow jelly
+                            as you feel him release his load into your womb. His job done, he gets off of you and feelings security and protection enter your 
+                            mind. Security for the future, and protection of yourself.";
                             Player.TermiteMutationLevel += 5;
                         }
-                        
-                        "A few minutes later, they all get off you, and feelings of purpose start to fill your mind, and feelings of hunger and sating that 
-                        hunger filling your mind. From the king, feelings of protection and home fill your mind, as well as preperation. You are not entirely 
-                        certian on the preperation thoughts, but you have a feeling that the king does not want you to leave the mound, after waiting for you 
-                        to come for so long.";
                     }
                     else
                     {
@@ -145,6 +148,7 @@ class TermiteJelly : Food
                     Player.TermiteState = 1;
                     
                     //and add some workers all around. somewhere around 8-12
+                    /*
                     local workerCount = 8+rand(5);
                     local worker = new TermiteWorker();
                     
@@ -154,6 +158,9 @@ class TermiteJelly : Food
                     worker.initializeActor();
                     worker.moveInto(TermiteQueenChamber);
                     worker.startRTFuse();
+                    */
+                    
+                    TermiteKing.setCurState(termiteKingFollowing);
                     
                 }
             }
@@ -186,7 +193,7 @@ TermiteKing : Actor
 
 + termiteKingFollowing: AccompanyingState
 {
-    specialDesc = "The Termite king is at your side. ";
+    specialDesc = "The termite king is at your side. ";
 }
 
 class TermiteWorker : Actor

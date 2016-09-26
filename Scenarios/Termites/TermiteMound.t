@@ -324,17 +324,6 @@ TermiteQueenChamber : Room
         "You find yourself in a large, open chamber within this cave. You have a feeling that in the past, this room used to be full of life. What it's purpose
         used to be, however, is not clear.";
     }
-    travelerLeaving(traveler, dest, connector)
-    {
-        if (Player.TermiteState != 0)
-        {
-            "As you leave the room, you get slight emotions of concern and danger entering your mind from the king, as well as a thought of urgency to return
-            as soon as possible. He does not prevent you from leaving the room however, but he does follow you.";
-            TermiteKing.setCurState(termiteKingFollowing);
-            TermiteKing.moveIntoForTravel(dest);
-        }        
-        inherited(traveler, dest, connector);
-    }
 
     
     

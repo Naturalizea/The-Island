@@ -245,7 +245,7 @@ search:wrap:I:1
 line wrap:Scenarios\Termites\TermiteMound.t:S:0:N
 src win split:Core\hooks.t:S:0:0.000000
 line wrap:Core\status.t:S:0:N
-auto-script:next-id:I:254
+auto-script:next-id:I:258
 line wrap:%tads%lib\adv3\adv3.h:S:0:N
 SearchToolbar:rebarWidth:I:253
 src win edit mode:%tads%lib\adv3\exec.t:S:0:TADS 3
@@ -259,7 +259,7 @@ docking config::S:6:W-1,170,170,0,0,1050,466,M,R,log win
 docking config::S:7:W-1,170,170,44,58,1134,546,M,R,stack win
 docking config::S:8:W-1,170,170,66,87,1156,575,M,R,help win
 docking config::S:9:W-1,170,170,2530,403,3416,867,M,B,filesearch win
-search:text:S:0:ConnectRooms
+search:text:S:0:termiteKingFollowing
 search:text:S:1:
 src win split:%tads%lib\adv3\objects.t:S:0:0.000000
 line wrap:Core\time.t:S:0:N
@@ -280,16 +280,17 @@ build on run::I:1
 line wrap:%tads%include\file.h:S:0:N
 build:webpage dir:S:0:web
 mdi win list::S:0::log
-mdi win list::S:1:Scenarios\Termites\TermiteMound.t
-mdi win list::S:2:Core\map.t
-mdi win list::S:3:Scenarios\Termites\TermiteQueen.t
-mdi win list::S:4:Core\actorex.t
-mdi win list::S:5:Core\statusex.t
+mdi win list::S:1:Scenarios\Termites\TermiteQueen.t
+mdi win list::S:2:Scenarios\Termites\TermiteMound.t
+mdi win list::S:3:Core\actorex.t
+mdi win list::S:4:Core\pathfind.t
+mdi win list::S:5:Core\hooks.t
 mdi win list::S:6:Core\custombanner.t
 mdi win list::S:7:Core\verbs.t
-mdi win list::S:8:Core\pathfind.t
-mdi win list::S:9:The Island.t
-mdi win list::S:10:Core\hooks.t
+mdi win list::S:8::filesearch
+mdi win list::S:9:Core\map.t
+mdi win list::S:10:Core\statusex.t
+mdi win list::S:11:The Island.t
 src win split:%tads%include\systype.h:S:0:0.000000
 build:srczipfile:S:0:The IslandSource.zip
 main win pos::R:-8,-8,1928,1048
@@ -367,16 +368,16 @@ line wrap:%tads%lib\adv3\exec.t:S:0:N
 build:debug_image_file:S:0:debug\The Island.t3
 DebugToolbar:rebarNewLine:I:1
 src win split:Core\choice.t:S:0:0.000000
-search dlg:old searches:S:0:ConnectRooms
-search dlg:old searches:S:1:bignumber
-search dlg:old searches:S:2:foreach
-search dlg:old searches:S:3:Val
-search dlg:old searches:S:4:getVal
-search dlg:old searches:S:5:sayDeparting
-search dlg:old searches:S:6:Modify
-search dlg:old searches:S:7:singleNumber
-search dlg:old searches:S:8:WaitAction
-search dlg:old searches:S:9:(Wait)
+search dlg:old searches:S:0:termiteKingFollowing
+search dlg:old searches:S:1:DoCheck
+search dlg:old searches:S:2:ConnectRooms
+search dlg:old searches:S:3:bignumber
+search dlg:old searches:S:4:foreach
+search dlg:old searches:S:5:Val
+search dlg:old searches:S:6:getVal
+search dlg:old searches:S:7:sayDeparting
+search dlg:old searches:S:8:Modify
+search dlg:old searches:S:9:singleNumber
 src win edit mode:%tads%lib\adv3\objects.t:S:0:TADS 3
 editor:program:S:0:Notepad.EXE
 src win selrange:Core\pathfind.t:S:0:0,0
@@ -404,7 +405,7 @@ src win selrange:%tads%lib\adv3\actor.t:S:1:352826,352840
 search:regex:I:0
 src win selrange:%tads%lib\adv3\thing.t:S:0:0,0
 src win selrange:%tads%lib\adv3\thing.t:S:1:134123,134129
-mdi tab order::S:0:3,7,8,1,4,6,10,9,2,5,0
+mdi tab order::S:0:1,7,4,2,3,6,5,11,9,10,8,0
 build:rlsgam:S:0:The Island.t3
 EditToolbar:rebarVis:I:1
 key bindings:defaults loaded:I:1
@@ -438,16 +439,17 @@ src win split:%tads%include\tadsio.h:S:0:0.000000
 MenuBar:rebarIndex:I:0
 line wrap:Core\verbs.t:S:0:N
 mdi win title::S:0:
-mdi win title::S:1:Scenarios\Termites\TermiteMound.t
-mdi win title::S:2:Core\map.t
-mdi win title::S:3:Scenarios\Termites\TermiteQueen.t
-mdi win title::S:4:Core\actorex.t
-mdi win title::S:5:Core\statusex.t
+mdi win title::S:1:Scenarios\Termites\TermiteQueen.t
+mdi win title::S:2:Scenarios\Termites\TermiteMound.t
+mdi win title::S:3:Core\actorex.t
+mdi win title::S:4:Core\pathfind.t
+mdi win title::S:5:Core\hooks.t
 mdi win title::S:6:Core\custombanner.t
 mdi win title::S:7:Core\verbs.t
-mdi win title::S:8:Core\pathfind.t
-mdi win title::S:9:The Island.t
-mdi win title::S:10:Core\hooks.t
+mdi win title::S:8:
+mdi win title::S:9:Core\map.t
+mdi win title::S:10:Core\statusex.t
+mdi win title::S:11:The Island.t
 line wrap:Core\hooks.t:S:0:N
 src win selrange:%tads%lib\_main.t:S:0:0,0
 src win selrange:%tads%lib\_main.t:S:1:6258,6258
@@ -464,7 +466,7 @@ project win:pos:R:2,120,321,859
 src win edit mode:Core\choice.t:S:0:TADS 3
 auto-script:dir:S:0:Scripts
 stack win vis::I:0
-filesearch win vis::I:0
+filesearch win vis::I:1
 stack win pos::R:382,211,1456,661
 filesearch win pos::R:2868,556,3738,982
 line wrap:%tads%lib\adv3\objects.t:S:0:N

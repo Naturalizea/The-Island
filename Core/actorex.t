@@ -62,14 +62,14 @@ modify Actor
         
         if (gameMain.showDiceRolls)
         {
-            "<br><br><font color=blue> [<<name>> check (<<result>>) vs DC <<dc>> = ";
+            "<font color=blue> [<<name>> check (<<result>>) vs DC <<dc>> = ";
         }
         
         if (roll != 1 && (result >= dc || roll == 20))
         {
             if (gameMain.showDiceRolls)
             {
-                "<b>Success</b>]</font> <br><br>";
+                "<b>Success</b>]</font> ";
             }
             return true;
         }
@@ -77,7 +77,7 @@ modify Actor
         {
             if (gameMain.showDiceRolls)
             {
-                "<b>Failure</b>]</font> <br><br>";
+                "<b>Failure</b>]</font> ";
             }
             return nil;
         }
