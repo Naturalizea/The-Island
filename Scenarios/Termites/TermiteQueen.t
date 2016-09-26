@@ -143,10 +143,10 @@ class TermiteJelly : Food
                     bp.owner = Player;
                     Player.BodypartTable['TermiteArms1'] = bp;
                     
-                    bp = new TermiteAbdomin1();
+                    bp = new TermiteAbdomen1();
                     bp.moveInto(Player);
                     bp.owner = Player;
-                    Player.BodypartTable['TermiteAbdomin1'] = bp;
+                    Player.BodypartTable['TermiteAbdomen1'] = bp;
                     
                     self.moveInto(nil);
                     
@@ -377,8 +377,54 @@ modify SleepingStatus
             Player.TermiteState = 2;
             Player.TermiteMutationLevel = 1;
             
-            "Wakeup!";
+            clearScreen();
+            "<br><br>You awaken this time to find your body has changed further. Looking down at your torso, the first thing you notice is your skin. It has taken on a dark brown
+            shade, similar to that of the termite king. Your breasts have also shunk down and now small nubs of what they used to be. Also on the sides of your torso, 
+            the small lumps have grown out to become small termite-like legs, protruding out about 10 inches from your body. You experimentally try and move them, and 
+            find that you have complete control, however the limbs are too small and frail to be useful for anything.<br>
+            <br>
+            Moving your arms to your chest, you also notice your arms have changed. They are slightly shorter and thinner, and your hands have become insectile, each now only
+            having three thin, claw-like fingers. clenching your fists, your find your fine moter-skills in them decreased slightly. You will have a hard time with smaller
+            objects, however you can still grasp and carry things with them. Looking at your legs, you notice similar changes with them as with your arms.<br>
+            <br>
+            Rubbing your changed arms over your chest, you find you body feeling mush softer then normal. Feeling your head grants you with a similar supprise. Your head is
+            larger again, and your hair has fallen out. You also have two mandibles growing out from the sides of you mouth, and your mouth feels very alien-like.<br>
+            <br>
+            Standing up to examine your body further, you hunch slightly forwards, but still able to stand. Looking behind you, your butt has grown into a much larger 
+            growth, an adbomen much like that of any termite, and it extends outwards by about 1 foot.<br>
+            <br>
+            Emotions of love and attraction flood your mind, as you realize that the king as noticed you are awake and noticed your changes. The emotions are quickly
+            replaced yet again by those of reproduction and family, and you feel that your body is finally compatible enough with the king's to become pregnant.<br>
+            <br>
+            The king wastes no time in pushing you down to the ground, causing you a slight pain in your new soft abdomen. He climbs ontop of you, giving you no choice
+            as he effectly <q>rapes</q> you.";
+                       
+            local bp = new TermiteHead2();
+            bp.moveInto(Player);
+            bp.owner = Player;
+            Player.BodypartTable['TermiteHead2'] = bp;
             
+            bp = Player.BodypartTable['TermiteHead1'];
+            bp.moveInto(nil);
+            Player.BodypartTable['TermiteHead1'] = nil;
+            
+            bp = new TermiteArms2();
+            bp.moveInto(Player);
+            bp.owner = Player;
+            Player.BodypartTable['TermiteArms2'] = bp;
+            
+            bp = Player.BodypartTable['TermiteArms1'];
+            bp.moveInto(nil);
+            Player.BodypartTable['TermiteArms1'] = nil;
+            
+            bp = new TermiteAbdomen2();
+            bp.moveInto(Player);
+            bp.owner = Player;
+            Player.BodypartTable['TermiteAbdomen2'] = bp;
+            
+            bp = Player.BodypartTable['TermiteAbdomen1'];
+            bp.moveInto(nil);
+            Player.BodypartTable['TermiteAbdomen1'] = nil;
         }
 
         inherited();
@@ -409,6 +455,17 @@ class TermiteHead1 : Component
     }
 }
 
+class TermiteHead2 : Component
+{
+    orderName = 'head'
+    name = 'termite head'
+    vocabWords = '(termite) head*heads'
+    desc()
+    {
+        "You have a large, termite-like head.";
+    }
+}
+
 class TermiteArms1 : Component
 {
     orderName = 'lumps'
@@ -416,11 +473,23 @@ class TermiteArms1 : Component
     vocabWords = '(odd) lumps'
     desc()
     {
-        "Along the sides of your torso under your arms, there are four small lumps. Two on either side, and each spread out underneath each other.";
+        "Along the sides of your torso under your arms, there are two small lumps.";
     }
 }
 
-class TermiteAbdomin1 : Component
+class TermiteArms2 : Component
+{
+    orderName = 'arms'
+    name = 'termite arms'
+    vocabWords = '(termite) arms'
+    desc()
+    {
+        "You have four 'arms'. Your main arms are a hybrid of human and termite, ending with a three-fingered claw-tipped hand. Your other two pairs are short,
+        termite-like legs, howver not yet fully grown.";
+    }
+}
+
+class TermiteAbdomen1 : Component
 {
     orderName = 'butt'
     name = 'human butt'
@@ -428,5 +497,29 @@ class TermiteAbdomin1 : Component
     desc()
     {
         "Your butt is big and swolen.";
+    }
+}
+
+class TermiteAbdomen2 : Component
+{
+    orderName = 'abdomen'
+    sizeInches = 0;
+    sizeFeet = 1;
+    name = 'termite abdomen'
+    vocabWords = '(termite) abdomen/butt/ass/behind'
+    desc()
+    {
+        "You have a small termite adbomen, expanding outwards about <<sizeFeet>> feet behind you. It is a light-brown colour, slightly lighter then the rest of your body.";
+    }
+}
+
+class TermiteSkin : Component
+{
+    orderName = 'skin'
+    name = 'termite skin'
+    vocabWords = '(termite) skin'
+    desc()
+    {
+        "You are covered in soft, brown termite flesh.";
     }
 }
