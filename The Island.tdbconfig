@@ -249,7 +249,7 @@ src win split:Core\verbs.t:S:0:0.000000
 line wrap:Core\status.t:S:0:N
 src win split:Core\hooks.t:S:0:0.000000
 line wrap:Scenarios\Termites\TermiteMound.t:S:0:N
-auto-script:next-id:I:325
+auto-script:next-id:I:327
 SearchToolbar:rebarWidth:I:253
 line wrap:%tads%lib\adv3\adv3.h:S:0:N
 src win edit mode:%tads%lib\adv3\exec.t:S:0:TADS 3
@@ -292,11 +292,10 @@ mdi win list::S:1:Core\map.t
 mdi win list::S:2::help
 mdi win list::S:3:Scenarios\Termites\TermiteQueen.t
 mdi win list::S:4:The Island.t
-mdi win list::S:5:Core\pathfind.t
-mdi win list::S:6:Core\player.t
-mdi win list::S:7:Core\verbs.t
-mdi win list::S:8:Core\statusex.t
-mdi win list::S:9:Core\time.t
+mdi win list::S:5:Core\player.t
+mdi win list::S:6:Core\verbs.t
+mdi win list::S:7:Core\statusex.t
+mdi win list::S:8:Core\time.t
 build:webpage dir:S:0:web
 line wrap:%tads%include\file.h:S:0:N
 breakpoints:line:S:0:354
@@ -391,7 +390,7 @@ search dlg:old searches:S:9:Val
 src win edit mode:%tads%lib\adv3\objects.t:S:0:TADS 3
 editor:program:S:0:Notepad.EXE
 src win selrange:Core\pathfind.t:S:0:0,0
-src win selrange:Core\pathfind.t:S:1:10065,10065
+src win selrange:Core\pathfind.t:S:1:11439,11474
 find dialog:pos:R:1214,450,1658,702
 src win edit mode:%tads%lib\adv3\actions.t:S:0:TADS 3
 src win split:%tads%lib\adv3\input.t:S:0:0.000000
@@ -415,7 +414,7 @@ src win selrange:%tads%lib\adv3\actor.t:S:0:0,0
 src win selrange:%tads%lib\adv3\actor.t:S:1:352826,352840
 src win selrange:%tads%lib\adv3\thing.t:S:0:0,0
 src win selrange:%tads%lib\adv3\thing.t:S:1:295572,295572
-mdi tab order::S:0:3,4,7,9,6,8,2,1,5,0
+mdi tab order::S:0:3,4,6,8,5,7,2,1,0
 build:rlsgam:S:0:The Island.t3
 EditToolbar:rebarVis:I:1
 key bindings:defaults loaded:I:1
@@ -452,11 +451,10 @@ mdi win title::S:1:Core\map.t
 mdi win title::S:2:
 mdi win title::S:3:Scenarios\Termites\TermiteQueen.t
 mdi win title::S:4:The Island.t
-mdi win title::S:5:Core\pathfind.t
-mdi win title::S:6:Core\player.t
-mdi win title::S:7:Core\verbs.t
-mdi win title::S:8:Core\statusex.t
-mdi win title::S:9:Core\time.t
+mdi win title::S:5:Core\player.t
+mdi win title::S:6:Core\verbs.t
+mdi win title::S:7:Core\statusex.t
+mdi win title::S:8:Core\time.t
 line wrap:Core\verbs.t:S:0:N
 src win split:Core\status.t:S:0:0.000000
 src win split:Scenarios\Termites\TermiteMound.t:S:0:0.000000

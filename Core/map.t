@@ -14,7 +14,7 @@ MapGenerator : object
     ['W','W','w','w','b','b','b','w','w','W','W'],
     ['W','w','w','b','b','g','b','b','w','w','W'],
     ['W','w','b','b','g','g','g','b','b','w','W'],
-    ['W','w','b','g','g','g','g','g','b','w','W'],
+    ['W','w','b','g','g','f','g','g','b','w','W'],
     ['W','w','b','b','g','g','g','b','b','w','W'],
     ['W','w','w','b','b','g','b','b','w','w','W'],
     ['W','W','w','w','b','b','b','w','w','W','W'],
@@ -45,7 +45,8 @@ MapGenerator : object
             'b', {: new BeachMap()},
             'g', {: new GrassyPlainsMap()},
             'w', {: new ShallowWaterMap()},
-            'W', {: new DeepWaterMap()}            
+            'W', {: new DeepWaterMap()},
+            'f', {: new ForestMap()}
             ]);
         
         /* Table of aliases for map POI's */
@@ -175,10 +176,10 @@ class OverworldRoom : OutdoorRoom
                 rooms[room.getSuperclassList()[1]] += dir;
             }
         }
-        
+        "<br>";
         foreach (local roomType in rooms.keysToList())
         {
-            " To the ";
+            "<br>To the ";
             local x = 1;
             foreach (local dir in rooms[roomType])
             {
@@ -232,6 +233,11 @@ class DeepWaterMap : OverworldRoom
 class BeachMap : OverworldRoom
 {
     name = 'beach'
+}
+
+class ForestMap : OverworldRoom
+{
+    name = 'forest'
 }
 
 /* POIs */
