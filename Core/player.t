@@ -48,6 +48,13 @@ Player: Actor
     Fortitude = FortitudeBonus + ConMod;
     Reflex = ReflexBonus + DexMod;
     
+    //skills
+    SkillLearningRate = 0.2500
+    
+    SurvivalLevel = 0.0000
+    SurvivalExp = 0.0000
+    SurvivalMod = WisMod + SurvivalLevel
+    
     Statuses = []
     
     CalculateModifier(mod, value)
@@ -58,6 +65,22 @@ Player: Actor
             total += status.adjustModifier(mod);
         }
         return total;
+    }
+    
+    SurvivalCheck(dc)
+    {
+        local result = DoCheck('Survival', SurvivalMod, dc);
+        
+        SurvivalExp += (1.0000 / (SurvivalLevel+1.0000)) * SkillLearningRate;
+        if (SurvivalExp >= 1)
+        {
+            "<font color=blue> [Your <b>survival</b> is now level <b><<toString(SurvivalLevel+1)>></b>.] </font>";
+            SurvivalExp = 0.0000;
+            SurvivalLevel++;
+        }
+        
+        
+        return result;        
     }
     
     DoCheck(name, bonus, dc)
@@ -234,5 +257,8 @@ Player: Actor
         {
             AdvanceTime(minutes-minutesToAdvance);
         }
+        
+        //completed with the minutes initially required or slept without any interruption. 
+        return true;
     }
 }

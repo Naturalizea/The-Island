@@ -238,6 +238,29 @@ class BeachMap : OverworldRoom
 class ForestMap : OverworldRoom
 {
     name = 'forest'
+    
+    Gather()
+    {
+        GatheringStatus.Add(Player);
+        local minutesToGather = Player.OverlandTravelTime()*3;
+        local success = Player.AdvanceTime(minutesToGather);
+
+        GatheringStatus.Remove(Player);
+        if (success)
+        {
+            "You spend about <<toString(minutesToGather)>> minutes looking for food. ";
+            local results = Player.SurvivalCheck(12);
+            if (results)
+            {
+                "Found something!";
+            }
+            else
+            {
+                "Found nothing!";
+            }
+        }
+        
+    }
 }
 
 /* POIs */

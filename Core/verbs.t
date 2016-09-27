@@ -1,6 +1,37 @@
 #include <adv3.h>
 #include <en_us.h>
 
+
+//hunt or gather
+DefineIAction(Gather)
+execAction()
+{
+    //let the actor handle it
+    gActor.Gather();
+};
+
+VerbRule(Gather) ('gather') : GatherAction
+{
+    verbPhrase = 'gather';
+}
+
+modify Actor
+{
+    Gather()
+    {
+        roomLocation.Gather();
+    }
+}
+
+modify BasicLocation 
+{
+    Gather()
+    {
+        "This is not a suitable location to gather food in.";
+        exit;
+    }
+}
+
 //waiting
 modify WaitAction
 {

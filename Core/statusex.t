@@ -148,3 +148,10 @@ class RestlessStatus : Status
     hidden = true
     name = 'Restless'
 }
+
+class GatheringStatus : Status
+{
+    rank = 0
+    hidden = true
+    name = 'Gathering'
+}

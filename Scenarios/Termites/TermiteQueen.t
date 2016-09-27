@@ -43,10 +43,9 @@ class TermiteJelly : Food
                     you can't help but fall asleep within the large chamber...";
                     inputManager.pauseForMore(true);
                     SleepingStatus.Add(Player);
-                    SleepingStatus.forced = true;
                     DateTime.AdvanceTime(1440); //24 hours pass
                     SleepingStatus.Remove(Player);
-                    SleepingStatus.forced = nil;
+
                     Player.TermiteMutationLevel = 50;
                     clearScreen();
                     
@@ -174,9 +173,9 @@ TermiteKing : Actor
         jelly, and falling asleep for an hour soon after you are done.";
         Player.TermiteMutationLevel += 10;
         SleepingStatus.Add(Player);
-        SleepingStatus.forced = true;
+
         DateTime.AdvanceTime(60);
-        SleepingStatus.forced = nil;
+
         SleepingStatus.Remove(Player);
         
         //DateTime.AddToForwardSchedule(1440,({:TermiteKing.MateSchedule()})); //every 24 hours we want to mate the player

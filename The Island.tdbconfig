@@ -145,6 +145,7 @@ src win edit mode:Core\time.t:S:0:TADS 3
 src win selrange:%tads%lib\adv3\en_us\en_us.h:S:0:0,0
 src win selrange:%tads%lib\adv3\en_us\en_us.h:S:1:6348,6360
 watch win:expression list 0:S:0:dir
+watch win:expression list 0:S:1:(1.0000 + SurvivalLevel) * SkillLearningRate
 ask save on build::I:0
 src win edit mode:%tads%lib\adv3\en_us\en_us.t:S:0:TADS 3
 build:zipfile:S:0:The Island.zip
@@ -153,7 +154,7 @@ src win edit mode:The Island.t:S:0:TADS 3
 src win split:Core\actorex.t:S:0:0.000000
 src win selrange:%tads%lib\adv3\travel.t:S:0:0,0
 src win selrange:%tads%lib\adv3\travel.t:S:1:201939,201955
-watch win:sep xpos 0:I:241
+watch win:sep xpos 0:I:142
 watch win:sep xpos 1:I:142
 key bindings:Global:S:0:Ctrl+A = Edit.SelectAll
 key bindings:Global:S:1:Ctrl+Insert = Edit.Copy
@@ -249,7 +250,7 @@ src win split:Core\verbs.t:S:0:0.000000
 line wrap:Core\status.t:S:0:N
 src win split:Core\hooks.t:S:0:0.000000
 line wrap:Scenarios\Termites\TermiteMound.t:S:0:N
-auto-script:next-id:I:327
+auto-script:next-id:I:337
 SearchToolbar:rebarWidth:I:253
 line wrap:%tads%lib\adv3\adv3.h:S:0:N
 src win edit mode:%tads%lib\adv3\exec.t:S:0:TADS 3
@@ -288,18 +289,19 @@ build on run::I:1
 src win selrange:Core\core.tl:S:0:0,0
 src win selrange:Core\core.tl:S:1:159,159
 mdi win list::S:0::log
-mdi win list::S:1:Core\map.t
-mdi win list::S:2::help
-mdi win list::S:3:Scenarios\Termites\TermiteQueen.t
-mdi win list::S:4:The Island.t
-mdi win list::S:5:Core\player.t
-mdi win list::S:6:Core\verbs.t
-mdi win list::S:7:Core\statusex.t
-mdi win list::S:8:Core\time.t
+mdi win list::S:1:Core\player.t
+mdi win list::S:2:Core\statusex.t
+mdi win list::S:3:Core\verbs.t
+mdi win list::S:4:Scenarios\Termites\TermiteQueen.t
+mdi win list::S:5:The Island.t
+mdi win list::S:6:Core\map.t
+mdi win list::S:7:Core\core.tl
+mdi win list::S:8::help
+mdi win list::S:9:Core\time.t
 build:webpage dir:S:0:web
 line wrap:%tads%include\file.h:S:0:N
-breakpoints:line:S:0:354
-breakpoints:line:S:1:16
+breakpoints:line:S:0:353
+breakpoints:line:S:1:47
 main win pos::R:-8,-8,1928,1048
 build:srczipfile:S:0:The IslandSource.zip
 src win split:%tads%include\systype.h:S:0:0.000000
@@ -414,7 +416,7 @@ src win selrange:%tads%lib\adv3\actor.t:S:0:0,0
 src win selrange:%tads%lib\adv3\actor.t:S:1:352826,352840
 src win selrange:%tads%lib\adv3\thing.t:S:0:0,0
 src win selrange:%tads%lib\adv3\thing.t:S:1:295572,295572
-mdi tab order::S:0:3,4,6,8,5,7,2,1,0
+mdi tab order::S:0:4,5,3,9,1,2,8,6,7,0
 build:rlsgam:S:0:The Island.t3
 EditToolbar:rebarVis:I:1
 key bindings:defaults loaded:I:1
@@ -447,14 +449,15 @@ src win split:Scenarios\Termites\TermiteQueen.t:S:0:0.000000
 MenuBar:rebarIndex:I:0
 src win split:%tads%include\tadsio.h:S:0:0.000000
 mdi win title::S:0:
-mdi win title::S:1:Core\map.t
-mdi win title::S:2:
-mdi win title::S:3:Scenarios\Termites\TermiteQueen.t
-mdi win title::S:4:The Island.t
-mdi win title::S:5:Core\player.t
-mdi win title::S:6:Core\verbs.t
-mdi win title::S:7:Core\statusex.t
-mdi win title::S:8:Core\time.t
+mdi win title::S:1:Core\player.t
+mdi win title::S:2:Core\statusex.t
+mdi win title::S:3:Core\verbs.t
+mdi win title::S:4:Scenarios\Termites\TermiteQueen.t
+mdi win title::S:5:The Island.t
+mdi win title::S:6:Core\map.t
+mdi win title::S:7:Core\core.tl
+mdi win title::S:8:
+mdi win title::S:9:Core\time.t
 line wrap:Core\verbs.t:S:0:N
 src win split:Core\status.t:S:0:0.000000
 src win split:Scenarios\Termites\TermiteMound.t:S:0:0.000000
