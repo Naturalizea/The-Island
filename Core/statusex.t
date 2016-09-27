@@ -137,7 +137,6 @@ class VeryTiredStatus : Status
 class SleepingStatus : Status
 {
     rank = 0
-    forced = nil
     hidden = true
     name = 'Sleeping'
 }

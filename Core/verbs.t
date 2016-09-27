@@ -12,6 +12,7 @@ modify WaitAction
             exit;
         }
         local minutes = toInteger(inputManager.getInputLine(nil, {: "How many minutes do you want to wait? " }));
+        
         Player.AdvanceTime(minutes);
         
         
@@ -32,7 +33,6 @@ modify SleepAction
         "You drift off to sleep...";
         inputManager.pauseForMore(true);
         SleepingStatus.Add(Player);
-        SleepingStatus.forced = nil;
         Player.AdvanceTime(1);
     }
 }

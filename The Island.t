@@ -38,20 +38,26 @@ gameMain: GameMainDef
         PresentChoice(choiceArray);
         "<br>";
         
+        Player.name = inputManager.getInputLine(nil, {: "<br>And what is your name? " });
+        
         RollAbilityScores();
         
         clearScreen();
         
         DateTime._month = rand(12)+1;
         DateTime._day = rand(28)+1;
-        DateTime._hour = rand(24);
+        DateTime._hour = 6;
         
         //place the player on a random spawn for now.
         local spawns = [];
         forEachInstance(PlayerSpawn, {x: spawns += x});
         local randomIndex = rand(spawns.length)+1;
         Player.moveIntoForTravel(spawns[randomIndex].location);
-        Player.initiazlieBodyParts();
+        
+        //Describe the scene
+        "You slowly wake up to the sound of seagulls around you. Groggily, you stand up as your brush off golden beach sand from your clothing. You appear to be alone on a beach, 
+        and you have no recollection of how you would have got here.<br>
+        <br>";
         
     }
     

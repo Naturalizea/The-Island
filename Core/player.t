@@ -116,14 +116,6 @@ Player: Actor
         return order;
     }
     
-    dobjFor(Sleep)
-    {
-        Action()
-        {
-            "OK!";
-        }
-    }
-    
     //our future schedule of events
     currentSchedule = []
     
@@ -154,6 +146,14 @@ Player: Actor
         local scheduleEvent;
         local minutesToAdvance = minutes;
         local stop = nil;
+        
+        //If we are sleeping
+        if (SleepingStatus.Has(Player))
+        {
+            //work out when we would wake up
+            minutes = new BigNumber(Fatigue / FatigueRestRate).getCeil();
+            minutesToAdvance = minutes;
+        }
     
         //get our next schedule item to run
         if (currentSchedule.length >= 1)
@@ -177,13 +177,35 @@ Player: Actor
         //based on our time, work out the changes to the stats
         
         //Fatigue
-        local fatigueToAdd = FatigueRate * minutes;
+        local fatigueToAdd = 0;
+        //Are we sleeping?
+        if (SleepingStatus.Has(Player))
+        {            
+            Fatigue -= (minutes * FatigueRestRate).getFloor();
+            
+            if (Fatigue < FatigueCap3)
+            {
+                VeryTiredStatus.Remove(Player);
+            }            
+            if (Fatigue < FatigueCap2)
+            {
+                TiredStatus.Remove(Player);
+            }
+            if (Fatigue < FatigueCap1)
+            {
+                FatiguedStatus.Remove(Player);
+            }
+        }
+        else
+        {            
+            fatigueToAdd = FatigueRate * minutes;
+        }
         
         Fatigue += fatigueToAdd;
         
-        if (Fatigue >= FatigueCap3)
+        if (Fatigue >= FatigueCap3 && VeryTiredStatus.Has(Player))
         {
-            VeryTiredStatus.Add(Player);
+            VeryTiredStatus.Remove(Player);
             TiredStatus.Remove(Player);
             FatiguedStatus.Remove(Player);
         }            
@@ -195,6 +217,13 @@ Player: Actor
         if (Fatigue >= FatigueCap1 && !TiredStatus.Has(Player) && !VeryTiredStatus.Has(Player))
         {
             FatiguedStatus.Add(Player);
+        }
+        
+        if (SleepingStatus.Has(Player))
+        {
+            //wakeup
+            SleepingStatus.Remove(Player);
+            "You wake up after <<minutesToAdvance>> minutes.";
         }
         
         //advance our time
