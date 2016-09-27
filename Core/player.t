@@ -74,7 +74,7 @@ Player: Actor
         SurvivalExp += (1.0000 / (SurvivalLevel+1.0000)) * SkillLearningRate;
         if (SurvivalExp >= 1)
         {
-            "<font color=blue> [Your <b>survival</b> is now level <b><<toString(SurvivalLevel+1)>></b>.] </font>";
+            "<font color=blue> [Your <b>survival</b> is now level <b><<spellInt(toInteger(SurvivalLevel+1))>></b>.] </font>";
             SurvivalExp = 0.0000;
             SurvivalLevel++;
         }

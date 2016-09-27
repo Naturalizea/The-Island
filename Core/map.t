@@ -248,18 +248,36 @@ class ForestMap : OverworldRoom
         GatheringStatus.Remove(Player);
         if (success)
         {
-            "You spend about <<toString(minutesToGather)>> minutes looking for food. ";
+            "You spend about <<spellInt(toInteger(minutesToGather))>> minutes looking for food. ";
             local results = Player.SurvivalCheck(12);
             if (results)
             {
-                "Found something!";
+                "You find an apple.";
+                local apple = new Apple();
+                apple.moveInto(Player);
             }
             else
             {
-                "Found nothing!";
+                "You don't manage to find anything.";
             }
         }
         
+    }
+}
+
+/* Some food for now. Need to move this somewhere else and make something better */
+class Apple : Food
+{
+    name = 'apple'
+    vocabWords = 'apple*apples'
+    isEquivalent = true
+    dobjFor(Eat)
+    {
+        action()
+        {
+            "You eat the apple.";
+            moveInto(nil);
+        }
     }
 }
 

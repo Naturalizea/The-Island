@@ -12,7 +12,7 @@ src win edit mode:Core\statusex.t:S:0:TADS 3
 build:ext resfile cnt:I:0
 src win split:%tads%lib\adv3\action.t:S:0:0.000000
 src win selrange:Scenarios\Termites\TermiteQueen.t:S:0:0,0
-src win selrange:Scenarios\Termites\TermiteQueen.t:S:1:11244,11244
+src win selrange:Scenarios\Termites\TermiteQueen.t:S:1:9889,9889
 src win selrange:%tads%include\tadsio.h:S:0:0,0
 src win selrange:%tads%include\tadsio.h:S:1:13501,13505
 src win pos:Scenarios\Termites\TermiteQueen.t:R:225,225,1513,837
@@ -30,7 +30,7 @@ src win edit mode:Core\player.t:S:0:TADS 3
 line wrap:Core\pathfind.t:S:0:N
 src win split:%tads%lib\adv3\travel.t:S:0:0.000000
 src win selrange:Core\time.t:S:0:0,0
-src win selrange:Core\time.t:S:1:959,959
+src win selrange:Core\time.t:S:1:914,914
 src win split:%tads%lib\adv3\en_us\en_us.t:S:0:0.000000
 key bindings:Text Editor:S:0:Ctrl+F3 = Edit.SearchIncremental
 key bindings:Text Editor:S:1:Down = Edit.LineDown
@@ -105,7 +105,7 @@ log win pos::R:330,123,1918,1015
 MenuBar:rebarVis:I:1
 src win split:%tads%lib\adv3\events.t:S:0:0.000000
 src win selrange:The Island.t:S:0:0,0
-src win selrange:The Island.t:S:1:58,58
+src win selrange:The Island.t:S:1:1183,1183
 src win edit mode:Scenarios\Termites\TermiteQueen.t:S:0:TADS 3
 line wrap:%tads%lib\adv3\actor.t:S:0:N
 DocToolbar:rebarIndex:I:3
@@ -144,8 +144,7 @@ line wrap:Core\choice.t:S:0:N
 src win edit mode:Core\time.t:S:0:TADS 3
 src win selrange:%tads%lib\adv3\en_us\en_us.h:S:0:0,0
 src win selrange:%tads%lib\adv3\en_us\en_us.h:S:1:6348,6360
-watch win:expression list 0:S:0:dir
-watch win:expression list 0:S:1:(1.0000 + SurvivalLevel) * SkillLearningRate
+watch win:expression list 0:S:0:toInteger(val)
 ask save on build::I:0
 src win edit mode:%tads%lib\adv3\en_us\en_us.t:S:0:TADS 3
 build:zipfile:S:0:The Island.zip
@@ -216,6 +215,7 @@ line wrap:Core\statusex.t:S:0:N
 src win edit mode:%tads%lib\adv3\action.t:S:0:TADS 3
 breakpoints:global:S:0:l
 breakpoints:global:S:1:l
+breakpoints:global:S:2:l
 src win edit mode:%tads%lib\adv3\en_us\en_us.h:S:0:TADS 3
 EditToolbar:rebarNewLine:I:1
 breakpoints:cond-mode:S:0:true
@@ -250,11 +250,11 @@ src win split:Core\verbs.t:S:0:0.000000
 line wrap:Core\status.t:S:0:N
 src win split:Core\hooks.t:S:0:0.000000
 line wrap:Scenarios\Termites\TermiteMound.t:S:0:N
-auto-script:next-id:I:337
+auto-script:next-id:I:342
 SearchToolbar:rebarWidth:I:253
 line wrap:%tads%lib\adv3\adv3.h:S:0:N
 src win edit mode:%tads%lib\adv3\exec.t:S:0:TADS 3
-search:text:S:0:key
+search:text:S:0:sayPrefixCount
 search:text:S:1:
 docking config::S:0:CL
 docking config::S:1:W0,328,270,2,546,302,696,D,L,project win
@@ -273,6 +273,7 @@ locals win:vis:I:0
 main win max::I:1
 breakpoints:file:S:0:Scenarios\Termites\TermiteQueen.t
 breakpoints:file:S:1:Core\verbs.t
+breakpoints:file:S:2:Core\map.t
 line wrap:%tads%lib\adv3\en_us\en_us.t:S:0:N
 proj search:collapse spaces:I:0
 src win edit mode:Core\actorex.t:S:0:TADS 3
@@ -282,26 +283,26 @@ src win split:%tads%lib\adv3\actions.t:S:0:0.000000
 line wrap:The Island.t:S:0:N
 breakpoints:status:S:0:e
 breakpoints:status:S:1:e
+breakpoints:status:S:2:e
 breakpoints:cond:S:0:
 breakpoints:cond:S:1:
+breakpoints:cond:S:2:
 search:exact case:I:0
 build on run::I:1
 src win selrange:Core\core.tl:S:0:0,0
 src win selrange:Core\core.tl:S:1:159,159
 mdi win list::S:0::log
-mdi win list::S:1:Core\player.t
-mdi win list::S:2:Core\statusex.t
-mdi win list::S:3:Core\verbs.t
-mdi win list::S:4:Scenarios\Termites\TermiteQueen.t
-mdi win list::S:5:The Island.t
-mdi win list::S:6:Core\map.t
-mdi win list::S:7:Core\core.tl
-mdi win list::S:8::help
-mdi win list::S:9:Core\time.t
+mdi win list::S:1:Core\map.t
+mdi win list::S:2:Scenarios\Termites\TermiteQueen.t
+mdi win list::S:3:Core\player.t
+mdi win list::S:4:%tads%lib\adv3\en_us\en_us.t
+mdi win list::S:5:Core\statusex.t
+mdi win list::S:6::help
 build:webpage dir:S:0:web
 line wrap:%tads%include\file.h:S:0:N
 breakpoints:line:S:0:353
 breakpoints:line:S:1:47
+breakpoints:line:S:2:251
 main win pos::R:-8,-8,1928,1048
 build:srczipfile:S:0:The IslandSource.zip
 src win split:%tads%include\systype.h:S:0:0.000000
@@ -318,7 +319,7 @@ build:exe:S:0:The Island.exe
 script win:pos:R:2,885,321,1015
 script win:vis:I:1
 src win selrange:Core\verbs.t:S:0:0,0
-src win selrange:Core\verbs.t:S:1:985,985
+src win selrange:Core\verbs.t:S:1:833,805
 src win pos:Core\verbs.t:R:25,25,1313,637
 line wrap:%tads%lib\adv3\en_us\en_us.h:S:0:N
 src win selrange:Core\hooks.t:S:0:0,0
@@ -370,7 +371,7 @@ src win edit mode:Core\verbs.t:S:0:TADS 3
 src win selrange:%tads%include\systype.h:S:0:0,0
 src win selrange:%tads%include\systype.h:S:1:12621,12625
 src win selrange:Core\map.t:S:0:0,0
-src win selrange:Core\map.t:S:1:6055,6055
+src win selrange:Core\map.t:S:1:6873,6873
 search:whole word:I:0
 src win edit mode:Core\hooks.t:S:0:TADS 3
 src win pos:Core\map.t:R:25,25,1313,637
@@ -379,16 +380,16 @@ DebugToolbar:rebarNewLine:I:1
 build:debug_image_file:S:0:debug\The Island.t3
 line wrap:%tads%lib\adv3\exec.t:S:0:N
 src win split:Core\choice.t:S:0:0.000000
-search dlg:old searches:S:0:key
-search dlg:old searches:S:1:AdvanceTime
-search dlg:old searches:S:2:clearScreen
-search dlg:old searches:S:3:TermiteAbdomin1
-search dlg:old searches:S:4:termiteKingFollowing
-search dlg:old searches:S:5:DoCheck
-search dlg:old searches:S:6:ConnectRooms
-search dlg:old searches:S:7:bignumber
-search dlg:old searches:S:8:foreach
-search dlg:old searches:S:9:Val
+search dlg:old searches:S:0:sayPrefixCount
+search dlg:old searches:S:1:key
+search dlg:old searches:S:2:AdvanceTime
+search dlg:old searches:S:3:clearScreen
+search dlg:old searches:S:4:TermiteAbdomin1
+search dlg:old searches:S:5:termiteKingFollowing
+search dlg:old searches:S:6:DoCheck
+search dlg:old searches:S:7:ConnectRooms
+search dlg:old searches:S:8:bignumber
+search dlg:old searches:S:9:foreach
 src win edit mode:%tads%lib\adv3\objects.t:S:0:TADS 3
 editor:program:S:0:Notepad.EXE
 src win selrange:Core\pathfind.t:S:0:0,0
@@ -416,7 +417,7 @@ src win selrange:%tads%lib\adv3\actor.t:S:0:0,0
 src win selrange:%tads%lib\adv3\actor.t:S:1:352826,352840
 src win selrange:%tads%lib\adv3\thing.t:S:0:0,0
 src win selrange:%tads%lib\adv3\thing.t:S:1:295572,295572
-mdi tab order::S:0:4,5,3,9,1,2,8,6,7,0
+mdi tab order::S:0:1,2,6,5,3,4,0
 build:rlsgam:S:0:The Island.t3
 EditToolbar:rebarVis:I:1
 key bindings:defaults loaded:I:1
@@ -449,15 +450,12 @@ src win split:Scenarios\Termites\TermiteQueen.t:S:0:0.000000
 MenuBar:rebarIndex:I:0
 src win split:%tads%include\tadsio.h:S:0:0.000000
 mdi win title::S:0:
-mdi win title::S:1:Core\player.t
-mdi win title::S:2:Core\statusex.t
-mdi win title::S:3:Core\verbs.t
-mdi win title::S:4:Scenarios\Termites\TermiteQueen.t
-mdi win title::S:5:The Island.t
-mdi win title::S:6:Core\map.t
-mdi win title::S:7:Core\core.tl
-mdi win title::S:8:
-mdi win title::S:9:Core\time.t
+mdi win title::S:1:Core\map.t
+mdi win title::S:2:Scenarios\Termites\TermiteQueen.t
+mdi win title::S:3:Core\player.t
+mdi win title::S:4:%tads%lib\adv3\en_us\en_us.t
+mdi win title::S:5:Core\statusex.t
+mdi win title::S:6:
 line wrap:Core\verbs.t:S:0:N
 src win split:Core\status.t:S:0:0.000000
 src win split:Scenarios\Termites\TermiteMound.t:S:0:0.000000
@@ -465,7 +463,7 @@ src win selrange:%tads%lib\_main.t:S:0:0,0
 src win selrange:%tads%lib\_main.t:S:1:6258,6258
 line wrap:Core\hooks.t:S:0:N
 src win selrange:Core\statusex.t:S:0:0,0
-src win selrange:Core\statusex.t:S:1:2395,2409
+src win selrange:Core\statusex.t:S:1:2587,2602
 search:dir:I:1
 src win split:%tads%lib\adv3\adv3.h:S:0:0.000000
 src win pos:Core\statusex.t:R:70,120,1383,737
@@ -483,7 +481,7 @@ src win split:Core\time.t:S:0:0.000000
 line wrap:%tads%lib\adv3\objects.t:S:0:N
 DebugToolbar:rebarIndex:I:4
 src win selrange:Core\player.t:S:0:0,0
-src win selrange:Core\player.t:S:1:3892,3892
+src win selrange:Core\player.t:S:1:1433,1433
 searchMode::I:1
 src win pos:Core\player.t:R:200,200,1488,812
 src win edit mode:%tads%lib\adv3\input.t:S:0:TADS 3
