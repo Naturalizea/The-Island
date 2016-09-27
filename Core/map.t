@@ -194,8 +194,9 @@ class OverworldRoom : OutdoorRoom
         if (traveler == Player)
         {
             local minutesToTravel = traveler.OverlandTravelTime();
-            traveler.Fatigue += 2;            
-            DateTime.AdvanceTime(minutesToTravel);
+            traveler.FatigueRate = traveler.FatigueRate + 0.0200;            
+            Player.AdvanceTime(minutesToTravel);
+            traveler.FatigueRate = traveler.FatigueRate - 0.0200;    
         }            
         
         inherited(traveler, dest, connector);

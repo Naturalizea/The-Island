@@ -12,7 +12,8 @@ modify WaitAction
             exit;
         }
         local minutes = toInteger(inputManager.getInputLine(nil, {: "How many minutes do you want to wait? " }));
-        DateTime.AdvanceTime(minutes);
+        Player.AdvanceTime(minutes);
+        
         
     }
       
@@ -32,8 +33,7 @@ modify SleepAction
         inputManager.pauseForMore(true);
         SleepingStatus.Add(Player);
         SleepingStatus.forced = nil;
-        DateTime.AdvanceTime(60);
-        "You wakeup sometime later.";
+        Player.AdvanceTime(1);
     }
 }
 
@@ -43,7 +43,7 @@ DefineIAction(WaitTime)
 execAction()
 {
     //advance time
-    DateTime.AdvanceTime(numMatch.getval());
+    Player.AdvanceTime(numMatch.getval());
     " ";
 };
 

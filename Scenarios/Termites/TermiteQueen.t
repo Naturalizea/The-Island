@@ -96,7 +96,7 @@ class TermiteJelly : Food
                                 mind. Security for the future, and protection of yourself.";
                                 Player.TermiteMutationLevel += 10;
                                 
-                                DateTime.AddToForwardSchedule(1440,({:TermiteKing.MateSchedule()})); //every 24 hours we want to mate the player
+                                //DateTime.AddToForwardSchedule(1440,({:TermiteKing.MateSchedule()})); //every 24 hours we want to mate the player
                             }
                             else
                             {
@@ -114,7 +114,7 @@ class TermiteJelly : Food
                             mind. Security for the future, and protection of yourself.";
                             Player.TermiteMutationLevel += 10;
                             
-                            DateTime.AddToForwardSchedule(1440,({:TermiteKing.MateSchedule()})); //every 24 hours we want to mate the player
+                            //DateTime.AddToForwardSchedule(1440,({:TermiteKing.MateSchedule()})); //every 24 hours we want to mate the player
                         }
                     }
                     else
@@ -205,7 +205,7 @@ TermiteKing : Actor
         SleepingStatus.forced = nil;
         SleepingStatus.Remove(Player);
         
-        DateTime.AddToForwardSchedule(1440,({:TermiteKing.MateSchedule()})); //every 24 hours we want to mate the player
+        //DateTime.AddToForwardSchedule(1440,({:TermiteKing.MateSchedule()})); //every 24 hours we want to mate the player
         
         return true;
     }

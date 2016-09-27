@@ -1,6 +1,8 @@
 #charset "us-ascii"
 #include <adv3.h>
 #include <en_us.h>
+#include <bignum.h>
+
 versionInfo: GameID
     IFID = '31101a87-a29f-4309-bd06-41f53ef602d3'
     name = 'The Island'
@@ -51,16 +53,6 @@ gameMain: GameMainDef
         Player.moveIntoForTravel(spawns[randomIndex].location);
         Player.initiazlieBodyParts();
         
-        DateTime.AddToForwardSchedule(60,({:self.TestSchedule()})); //currently does nothing, and this is to prevent the schedule being empty
-        
-        DateTime.AddToForwardSchedule(60,({:Player.AdvanceTime()}));
-        
-    }
-    
-    TestSchedule()
-    {
-        DateTime.AddToForwardSchedule(60,({:self.TestSchedule()}));
-        return true;
     }
     
     RollAbilityScores()
