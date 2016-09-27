@@ -151,42 +151,52 @@ class OverworldRoom : OutdoorRoom
 {
     desc()
     {
-        inherited();
+        "You are currently in an area of <<self.name>>.";
         directionDesc();
     }
+    farDesc()
+    {
+        " you can see <<self.name>>.";
+    }
+    
     directionDesc()
-    {    
-        if (east != nil)
+    {   
+        //loop through all our rooms and get distinct directions
+        local rooms = new LookupTable();
+        foreach (local dir in Direction.allDirections)
         {
-           "<br>To the east, you can see <<east.name>>.";
+            local room = self.getTravelConnector(dir, Player);
+            if (room.name != '')
+            {
+                if (rooms[room.getSuperclassList()[1]] == nil)
+                {
+                    rooms[room.getSuperclassList()[1]] = [];
+                }
+                rooms[room.getSuperclassList()[1]] += dir;
+            }
         }
-        if (north != nil)
+        
+        foreach (local roomType in rooms.keysToList())
         {
-           "<br>To the north, you can see <<north.name>>.";
-        }
-        if (northeast != nil)
-        {
-           "<br>To the northeast, you can see <<northeast.name>>.";
-        }
-        if (northwest != nil)
-        {
-           "<br>To the northwest, you can see <<northwest.name>>.";
-        }
-        if (south != nil)
-        {
-           "<br>To the south, you can see <<south.name>>.";
-        }
-        if (southeast != nil)
-        {
-           "<br>To the southeast, you can see <<southeast.name>>.";
-        }
-        if (southwest != nil)
-        {
-           "<br>To the southwest, you can see <<southwest.name>>.";
-        }
-        if (west != nil)
-        {
-           "<br>To the west, you can see <<west.name>>.";
+            " To the ";
+            local x = 1;
+            foreach (local dir in rooms[roomType])
+            {
+                if (x == 1)
+                {
+                    "<<dir.name>>";
+                }
+                else if (x != rooms[roomType].length())
+                {
+                    ", <<dir.name>>";
+                }
+                else
+                {
+                    " and <<dir.name>>";
+                }
+                x++;
+            }
+            roomType.farDesc();
         }
     }
     travelerLeaving (traveler, dest, connector)
@@ -206,22 +216,22 @@ class OverworldRoom : OutdoorRoom
 
 class GrassyPlainsMap : OverworldRoom
 {
-    name = 'Grassy plains'
+    name = 'grassy plains'
 }
 
 class ShallowWaterMap : OverworldRoom
 {
-    name = 'Shallow water'
+    name = 'shallow water'
 }
 
 class DeepWaterMap : OverworldRoom
 {
-    name = 'Deep water'
+    name = 'deep water'
 }
 
 class BeachMap : OverworldRoom
 {
-    name = 'Beach'
+    name = 'beach'
 }
 
 /* POIs */
