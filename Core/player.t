@@ -3,7 +3,7 @@
 #include <en_us.h>
 #include <bignum.h>
 
-Player: Actor
+Player: Human
 {    
     
     OverlandTravelTime() //in minutes
