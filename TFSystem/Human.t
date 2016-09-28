@@ -11,7 +11,7 @@ HumanSpeciesTag : SpeciesTag
     
     desc(actor)
     {
-        "Species description for <<actor.theName>>.";
+        "You are an everyday, normal <<actor.sex>> human.";
     }
 }
 

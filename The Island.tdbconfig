@@ -224,8 +224,6 @@ line wrap:Core\statusex.t:S:0:N
 src win edit mode:%tads%lib\adv3\action.t:S:0:TADS 3
 breakpoints:global:S:0:l
 breakpoints:global:S:1:l
-breakpoints:global:S:2:l
-breakpoints:global:S:3:l
 line wrap:TFSystem\Genes.t:S:0:N
 src win edit mode:%tads%lib\adv3\en_us\en_us.h:S:0:TADS 3
 EditToolbar:rebarNewLine:I:1
@@ -265,7 +263,7 @@ line wrap:Core\status.t:S:0:N
 src win split:Core\hooks.t:S:0:0.000000
 line wrap:Scenarios\Termites\TermiteMound.t:S:0:N
 src win split:TFSystem\Tags.t:S:0:0.000000
-auto-script:next-id:I:375
+auto-script:next-id:I:377
 SearchToolbar:rebarWidth:I:253
 line wrap:%tads%lib\adv3\adv3.h:S:0:N
 src win split:TFSystem\ActorTF.t:S:0:0.000000
@@ -289,8 +287,6 @@ locals win:vis:I:0
 main win max::I:1
 breakpoints:file:S:0:Scenarios\Termites\TermiteQueen.t
 breakpoints:file:S:1:Core\verbs.t
-breakpoints:file:S:2:TFSystem\Tags.t
-breakpoints:file:S:3:TFSystem\Tags.t
 line wrap:%tads%lib\adv3\en_us\en_us.t:S:0:N
 proj search:collapse spaces:I:0
 src win edit mode:Core\actorex.t:S:0:TADS 3
@@ -300,31 +296,25 @@ src win split:%tads%lib\adv3\actions.t:S:0:0.000000
 line wrap:The Island.t:S:0:N
 breakpoints:status:S:0:e
 breakpoints:status:S:1:e
-breakpoints:status:S:2:e
-breakpoints:status:S:3:e
 breakpoints:cond:S:0:
 breakpoints:cond:S:1:
-breakpoints:cond:S:2:
-breakpoints:cond:S:3:
 search:exact case:I:0
 build on run::I:1
 src win selrange:Core\core.tl:S:0:0,0
 src win selrange:Core\core.tl:S:1:82,82
 mdi win list::S:0::log
-mdi win list::S:1:TFSystem\Tags.t
-mdi win list::S:2::help
-mdi win list::S:3:TFSystem\Genes.t
-mdi win list::S:4:TFSystem\Transformation.t
-mdi win list::S:5:TFSystem\ActorTF.t
-mdi win list::S:6:TFSystem\Human.t
+mdi win list::S:1:TFSystem\Human.t
+mdi win list::S:2:TFSystem\Tags.t
+mdi win list::S:3::help
+mdi win list::S:4:TFSystem\Genes.t
+mdi win list::S:5:TFSystem\Transformation.t
+mdi win list::S:6:TFSystem\ActorTF.t
 mdi win list::S:7:TFSystem\TFSystem.tl
 mdi win list::S:8:%tads%include\systype.h
 build:webpage dir:S:0:web
 line wrap:%tads%include\file.h:S:0:N
 breakpoints:line:S:0:353
 breakpoints:line:S:1:47
-breakpoints:line:S:2:23
-breakpoints:line:S:3:49
 main win pos::R:-8,-8,1928,1048
 build:srczipfile:S:0:The IslandSource.zip
 src win split:%tads%include\systype.h:S:0:0.000000
@@ -451,7 +441,7 @@ src win selrange:%tads%lib\adv3\actor.t:S:0:0,0
 src win selrange:%tads%lib\adv3\actor.t:S:1:352826,352840
 src win selrange:%tads%lib\adv3\thing.t:S:0:0,0
 src win selrange:%tads%lib\adv3\thing.t:S:1:295572,295572
-mdi tab order::S:0:6,5,3,4,2,1,8,7,0
+mdi tab order::S:0:1,6,4,5,3,2,8,7,0
 src win split:TFSystem\Genes.t:S:0:0.000000
 build:rlsgam:S:0:The Island.t3
 EditToolbar:rebarVis:I:1
@@ -490,12 +480,12 @@ MenuBar:rebarIndex:I:0
 src win split:%tads%include\tadsio.h:S:0:0.000000
 src win split:Scenarios\Termites\Termite.t:S:0:0.000000
 mdi win title::S:0:
-mdi win title::S:1:TFSystem\Tags.t
-mdi win title::S:2:
-mdi win title::S:3:TFSystem\Genes.t
-mdi win title::S:4:TFSystem\Transformation.t
-mdi win title::S:5:TFSystem\ActorTF.t
-mdi win title::S:6:TFSystem\Human.t
+mdi win title::S:1:TFSystem\Human.t
+mdi win title::S:2:TFSystem\Tags.t
+mdi win title::S:3:
+mdi win title::S:4:TFSystem\Genes.t
+mdi win title::S:5:TFSystem\Transformation.t
+mdi win title::S:6:TFSystem\ActorTF.t
 mdi win title::S:7:TFSystem\TFSystem.tl
 mdi win title::S:8:%tads%include\systype.h
 line wrap:Core\verbs.t:S:0:N
