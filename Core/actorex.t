@@ -3,7 +3,7 @@
 #include <en_us.h>
 #include <bignum.h>
 
-modify actor
+modify Actor
 {
     Fatigue = 0.0000
     FatigueRate = 0.0500
@@ -17,30 +17,37 @@ modify actor
     Hunger = 0.0000
     HungerRate = 0.0800
 
-    Strength = 0
-    Dexterity = 0
-    Constitution = 0
-    Intelligence = 0
-    Wisdom = 0
-    Charisma = 0
+    StrengthBase = 10.0000
+    DexterityBase = 10.0000
+    ConstitutionBase = 10.0000
+    IntelligenceBase = 10.0000
+    WisdomBase = 10.0000
+    CharismaBase = 10.0000
     
-    StrBonus = 0
-    DexBonus = 0
-    ConBonus = 0
-    IntBonus = 0
-    WisBonus = 0
-    ChaBonus = 0    
+    Strength = GetAdjScore(StrengthBase,StrAdj);
+    Dexterity = GetAdjScore(DexterityBase,DexAdj);
+    Constitution = GetAdjScore(ConstitutionBase,ConAdj);
+    Intelligence = GetAdjScore(IntelligenceBase,IntAdj);
+    Wisdom = GetAdjScore(WisdomBase,WisAdj);
+    Charisma = GetAdjScore(CharismaBase,ChaAdj);
+    
+    StrAdj = 1.00
+    DexAdj = 1.00
+    ConAdj = 1.00
+    IntAdj = 1.00
+    WisAdj = 1.00
+    ChaAdj = 1.00
     
     WillBonus = 0
     FortitudeBonus = 0
     ReflexBonus = 0    
     
-    StrMod = CalculateModifier('Str',Strength+StrBonus);
-    DexMod = CalculateModifier('Dex',Dexterity+DexBonus);
-    ConMod = CalculateModifier('Con',Constitution+ConBonus);
-    IntMod = CalculateModifier('Int',Intelligence+IntBonus);
-    WisMod = CalculateModifier('Wis',Wisdom+WisBonus);
-    ChaMod = CalculateModifier('Cha',Charisma+ChaBonus);
+    StrMod = CalculateModifier('Str',Strength);
+    DexMod = CalculateModifier('Dex',Dexterity);
+    ConMod = CalculateModifier('Con',Constitution);
+    IntMod = CalculateModifier('Int',Intelligence);
+    WisMod = CalculateModifier('Wis',Wisdom);
+    ChaMod = CalculateModifier('Cha',Charisma);
     
     Will = WillBonus + WisMod;
     Fortitude = FortitudeBonus + ConMod;
@@ -51,9 +58,15 @@ modify actor
     
     SurvivalLevel = 0.0000
     SurvivalExp = 0.0000
-    SurvivalMod = WisMod + SurvivalLevel
+    SurvivalBonus = WisMod + SurvivalLevel
     
     Statuses = []
+    
+    GetAdjScore(score,adj)
+    {
+        local value = new BigNumber(score*adj).getFloor();
+        return value;
+    }
     
     CalculateModifier(mod, value)
     {
@@ -67,7 +80,7 @@ modify actor
     
     SurvivalCheck(dc)
     {
-        local result = DoCheck('Survival', SurvivalMod, dc);
+        local result = DoCheck('Survival', SurvivalBonus, dc);
         
         SurvivalExp += (1.0000 / (SurvivalLevel+1.0000)) * SkillLearningRate;
         if (SurvivalExp >= 1)
@@ -112,6 +125,6 @@ modify actor
     AttributeRoll()
     {
         local dice = [rand(6)+1,rand(6)+1,rand(6)+1,rand(6)+1].sort(true, { a, b: a-b });
-        return dice[1]+dice[2]+dice[3];
+        return (dice[1]+dice[2]+dice[3]) / 10.00;
     }
 }

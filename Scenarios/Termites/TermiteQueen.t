@@ -159,7 +159,7 @@ modify TermiteQueenChamber {}
     }
 }
 
-TermiteKing : Actor
+TermiteKing : Termite
 {
     name = 'termite king'
     vocabWords = 'big large termite/king*termites'

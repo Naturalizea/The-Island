@@ -69,12 +69,12 @@ gameMain: GameMainDef
         {
             clearScreen();
             
-            Player.Strength = Player.AttributeRoll();
-            Player.Dexterity = Player.AttributeRoll();
-            Player.Constitution = Player.AttributeRoll();
-            Player.Intelligence = Player.AttributeRoll();
-            Player.Wisdom = Player.AttributeRoll();
-            Player.Charisma = Player.AttributeRoll();
+            Player.StrAdj = Player.AttributeRoll();
+            Player.DexAdj = Player.AttributeRoll();
+            Player.ConAdj = Player.AttributeRoll();
+            Player.IntAdj = Player.AttributeRoll();
+            Player.WisAdj = Player.AttributeRoll();
+            Player.ChaAdj = Player.AttributeRoll();
             
             "--Rolling ability scores--<br>";
             "<br>";
