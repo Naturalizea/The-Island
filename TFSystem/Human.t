@@ -33,26 +33,26 @@ class Human : Actor
 MakeHuman(actor, gender = FemaleGenderGene)
 {
     RemoveGenes(actor);
-    AddGeneHelper(actor, HumanHeadGene);
-    AddGeneHelper(actor, HumanTorsoGene);
-    AddGeneHelper(actor, HumanLegsGene);
-    AddGeneHelper(actor, HumanArmsGene);
-    AddGeneHelper(actor, HumanSkinGene);
+    HumanHeadGene.AddGeneTo(actor);
+    HumanTorsoGene.AddGeneTo(actor);
+    HumanLegsGene.AddGeneTo(actor);
+    HumanArmsGene.AddGeneTo(actor);
+    HumanSkinGene.AddGeneTo(actor);
     
     switch (gender)
     {
         case FemaleGenderGene:
             actor.isHer = true;
             actor.isHim = nil;
-            AddGeneHelper(actor, FemaleGenderGene);
-            AddGeneHelper(actor, HumanVaginaGene);
-            AddGeneHelper(actor, HumanBreastsGene);            
+            FemaleGenderGene.AddGeneTo(actor);
+            HumanVaginaGene.AddGeneTo(actor);
+            HumanBreastsGene.AddGeneTo(actor);        
             break;
         case MaleGenderGene:
             actor.isHer = true;
             actor.isHim = nil;        
-            AddGeneHelper(actor, MaleGenderGene);
-            AddGeneHelper(actor, HumanPenisGene);            
+            MaleGenderGene.AddGeneTo(actor);
+            HumanPenisGene.AddGeneTo(actor);        
             break;
     }
 

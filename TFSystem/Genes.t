@@ -26,11 +26,6 @@ RemoveGenes(actor, tagfilter = nil)
     t3RunGC();
 }
 
-AddGeneHelper(actor, gene)
-{
-    gene.AddGeneTo(actor);
-}
-
 //TODO : Expand on how this works
 
 class GenderGene : Gene {}
