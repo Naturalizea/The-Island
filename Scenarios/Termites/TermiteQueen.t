@@ -17,7 +17,7 @@ class TermiteJelly : Food
         preCond = []
         action()
         {
-            if (Player.TermiteState == 0)
+            if (!TermiteTFStatus.Has(Player))
             {
             
                 local eatAll = nil;
@@ -46,103 +46,63 @@ class TermiteJelly : Food
                     DateTime.AdvanceTime(1440); //24 hours pass
                     SleepingStatus.Remove(Player);
 
-                    Player.TermiteMutationLevel = 50;
                     clearScreen();
                     
                     "You awaken sometime later, feeling very relaxed and refereshed, however with an odd headache and a sore butt. Your clothing also seems to be
-                    missing. Looking around, you are greeted with a terrifying sight. A giant termite is standing a few feet away from you, about the size of an 
-                    average human, seeming watching you with twitching antennae.<br>
+                    missing, but that is the least of your concerns at the moment.<br>
                     <br>
-                    You start to back away from the termite, be he approaches as you retreat, and soon you feel your back up against one of the walls The termite's
-                    antennae twitch, and your headache intensifies. Reaching a hand up to your head, you also start to feel something strange... Two long protruding 
-                    and flexable sticks of some kind, and they are growing out from your head, right above your eyes.<br>
-                    <br>
-                    Your headache throbs again as the large termite gets closer, and you are suddenly filled with various thoughts and emotions. They don't make
-                    much sense to you at first, but then they begin to get focused. You somehow get a feeling of happiness and an idea that the future is secured.
-                    You then understand that what you are feeling is coming from the large termite, who you now recognise as the king, and he is communicating with
-                    you in this strange way. You are still, however, confused at this situation you find yourself in.<br>
-                    <br>
-                    As if sensing your own emotions, you get projected other feelings. Feelings of reassurance, and of family. The termite kings gets closer, and
-                    his antennae touch your own, causing a flood of images to flow into your mind. You see a large termite kingdom with thousands, no... millions of
-                    termites, all working in unison to survive and prosper. You then see destruction hit the mountain-like mound, killing the queen and almost all
-                    of the termites. With the death of the queen, over time the remaining termines started to perish, and the termite mound collapsed into the much
-                    small mound you entered today. Soon, only the king was left.<br>
-                    <br>
-                    The visions end as the king steps again, and emotions of rebuilding the kingdom enter your mind, and of immense love for you. Feelings of
-                    belonging enter your mind, and you understand. He has been waiting for a new queen, and you have been chosen for the position.<br>
-                    <br>
-                    Do you want to become the new queen? ";
-                    local accept = PresentChoice([['Yes',TrueHook],['No',FalseHook]]);
-                    
-                    if (accept)
-                    {
-                        "<br><br>Immense feelings of joy, excitment, love and eagerness flood your mind, and it starts to become extremly overwhelming.
-                        You almost don't notice the termite king approach your naked form and position himself for the mating process to begin. ";
-                        willCheck = Player.DoCheck('Will', Player.WillBonus, 15);
-                        if (willCheck)
-                        {
-                            "Do you resist? ";
-                            local accept = PresentChoice([['Yes',TrueHook],['No',FalseHook]]);
-                            "<br><br>";
-                            if (!accept)
-                            {
-                                "Choosing not to resist the emotions flooding your mind, you get more confortable as the termite climbs on top of your, his antenne twitching 
-                                like crazy. You feel his alien-like tool enter your wanting pussy, and shudder at the feeling. You wrap your arms around his bocy
-                                as he starts to thrust his member in and our of your pussy.<br>
-                                <br>
-                                He opens his mouth as yellow jelly flows out from it. You open your mouth, and manage to catch most of the sweet, yellow jelly
-                                as you feel him release his load into your womb. His job done, he gets off of you and feelings security and protection enter your 
-                                mind. Security for the future, and protection of yourself.";
-                                Player.TermiteMutationLevel += 10;
-                                
-                                //DateTime.AddToForwardSchedule(1440,({:TermiteKing.MateSchedule()})); //every 24 hours we want to mate the player
-                            }
-                            else
-                            {
-                                "TODO : Decline sex";
-                            }
-                        }
-                        else
-                        {
-                            "Unable to resist the emotions flooding your mind, you get more confortable as the termite climbs on top of your, his antenne twitching 
-                            like crazy. You feel his alien-like tool enter your wanting pussy, and shudder at the feeling. You wrap your arms around his bocy
-                            as he starts to thrust his member in and our of your pussy.<br>
-                            <br>
-                            He opens his mouth as yellow jelly flows out from it. You open your mouth, and manage to catch most of the sweet, yellow jelly
-                            as you feel him release his load into your womb. His job done, he gets off of you and feelings security and protection enter your 
-                            mind. Security for the future, and protection of yourself.";
-                            Player.TermiteMutationLevel += 10;
-                            
-                            //DateTime.AddToForwardSchedule(1440,({:TermiteKing.MateSchedule()})); //every 24 hours we want to mate the player
-                        }
-                    }
-                    else
-                    {
-                        "TODO : REJECTION PATH. FIGHT WITH TERMITE ENSURE.";
-                    }
-                    
-                    TermiteKing.moveIntoForTravel(TermiteQueenChamber);
-                    
-                    Player.TermiteState = 1;
-                    
-                    //and add some workers all around. somewhere around 8-12
-                    /*
-                    local workerCount = 8+rand(5);
-                    local worker = new TermiteWorker();
-                    
-                    worker.count = workerCount;
-                    
-                    worker.configureStates();
-                    worker.initializeActor();
-                    worker.moveInto(TermiteQueenChamber);
-                    worker.startRTFuse();
-                    */
-                    
-                    TermiteKing.setCurState(termiteKingFollowing);
+                    Standing over you and holding your body down, is one of the largest termites you have ever seen!<br>
+                    <br>";
+                    PresentChoice([['Push it off.',Termite1aHook]]);
                     
                 }
             }
         }
+    }
+}
+
+Termite1aHook : Hook //Try and push the termite off.
+{
+    event()
+    {
+        local DC = TermiteKing.Roll(TermiteKing.StrMod);
+        local check = Player.DoCheck('Strength check', Player.StrMod, DC);
+        
+        if (check)
+        {
+            "Summoning up all your strength, you manage to push the termite off of you. (TODO - ESCAPE)";
+        }
+        else
+        {
+            "You try and push the termite off of you, but the creature is too strong for you. You continue to strugle, all the while you feel your headache intensifies.
+            The termite's antennae twitch in the air and you suddnely feel then touch your head. As they do, your mind is suddenly filled with odd, undescribable thoughts and 
+            emotions...<br>
+            <br>
+            The sensation is confusing and disorientating at first, but they quickly become focused and less painful. Thoughs of relaxation and clamness flood your mind, and 
+            you find yourself relaxing.<br>
+            <br>
+            No longer struggling as much, the termite pinning you down eases up, as happy thoughts of home, family and love enter your mind. This is when you come to realize that
+            the thoughts and emotions you are feeling, are being projected to you from the termite. This giant termite is the king, and you have been chosen to be his queen.<br>
+            <br>";
+            
+            PresentChoice([['Become the new queen',Termite2aHook]]);
+           
+        }
+    }
+}
+
+Termite2aHook : Hook //Become the new termite queen
+{
+    event()
+    {
+        "You decide that you will become the new queen. The king gets off of you as you decide this, immense feelings of joy, excitment and love flooding your mind.
+        You slowly stand up and also come to realize that your body is not completely human. Growing out from your forehead, you have two antennae similar to that of the king's,
+        only smaller. Your butt is also swollen up, about 3 times larger then it should be. The beginnings of your abdomin. You just know that your body will transform
+        over the next few days while you remain within the termite mound, and you just can't wait until you can become the queen for your new king.";
+        
+        TermiteKing.moveIntoForTravel(TermiteQueenChamber);
+        TermiteTFStatus.Add(Player);
+        TermiteKing.setCurState(termiteKingFollowing);
     }
 }
 
@@ -171,7 +131,6 @@ TermiteKing : Termite
     {
         "The termite king approaches you, thoughs of reproduction and family flood your mind. You can't help but mate with to mate your king as he feeds you more yellow
         jelly, and falling asleep for an hour soon after you are done.";
-        Player.TermiteMutationLevel += 10;
         SleepingStatus.Add(Player);
 
         DateTime.AdvanceTime(60);
@@ -335,13 +294,26 @@ class termiteWonderState: ActorState
     }
 }
 
-
-modify Player
+class TermiteTFStatus : TFStatus
 {
-    TermiteState = 0;
-    TermiteMutationLevel = 0;
+    rank = 0
+    state = 1
+    hidden = true
+    name = 'Termite-TF (<<state>>)'
+    desc()
+    {
+        switch(state)
+        {
+            case 1:
+            {
+                "You are mostly yourself, a human female, except for the short termite-like antennae growing out of your forehead, and your large butt.";
+                break;
+            }
+        }
+    }
+    
 }
-
+/*
 //wakeup events
 modify SleepingStatus
 {
@@ -378,3 +350,4 @@ modify SleepingStatus
         inherited();
     }
 }
+*/

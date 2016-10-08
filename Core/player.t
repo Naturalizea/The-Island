@@ -5,6 +5,23 @@
 
 Player: Actor
 {    
+
+    desc()
+    {
+    
+        //should only ever have one TF active at a time.
+        
+        if (Statuses.indexWhich({y :y.ofKind(TFStatus) == true}))
+        {
+            local instance = Statuses[Statuses.indexWhich({y :y.ofKind(TFStatus) == true})];
+            instance.desc();
+        }
+        else
+        {
+            inherited();
+        }
+    }
+
     
     OverlandTravelTime() //in minutes
     {

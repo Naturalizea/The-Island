@@ -125,6 +125,11 @@ modify Actor //human stats
         }
     }
     
+    Roll(mod)
+    {
+        return rand(20)+1 + mod;
+    }
+    
     AttributeRoll()
     {
         local dice = [rand(6)+1,rand(6)+1,rand(6)+1,rand(6)+1].sort(true, { a, b: a-b });

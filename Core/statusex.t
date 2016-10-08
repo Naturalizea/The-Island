@@ -192,3 +192,12 @@ class GatheringStatus : Status
     hidden = true
     name = 'Gathering'
 }
+
+class TFStatus : Status 
+{
+    desc()
+    {
+        "TODO - Description for this TF";
+    }
+
+}

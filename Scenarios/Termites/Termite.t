@@ -4,7 +4,7 @@
 #include <bignum.h>
 
 //the termite class
-class Termite : Actor
+class Termite : UntakeableActor
 {
     StrengthBase = 17.0000
     DexterityBase = 11.0000

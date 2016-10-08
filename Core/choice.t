@@ -91,6 +91,7 @@ PresentChoiceFrom(choiceArray, pos, outputSelection)
             {
                 choiceBanner.clearMenu();
                 if (outputSelection) { " <b><<choiceArray[toNumber(keyPress)][1]>></b>"; }
+                "<br>";
                 return objToCall.(&event);
             }
         }
