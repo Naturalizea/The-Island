@@ -163,10 +163,6 @@ TermiteKing : Termite
 {
     name = 'termite king'
     vocabWords = 'big large termite/king*termites'
-    desc()
-    {
-        "A large termite the size of an average human. He is your king for the kingdom you are going to help rebuild.";
-    }
     MateSchedule()
     {
         "The termite king approaches you, thoughs of reproduction and family flood your mind. You can't help but mate with to mate your king as he feeds you more yellow

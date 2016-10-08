@@ -20,7 +20,7 @@ class Human : Actor
     Tags = [HumanSpeciesTag]
     BaseSpeciesTag = HumanSpeciesTag
     CurrentSpeciesTag = HumanSpeciesTag
-    Height = 170.00;
+    height = 170.00;
     
     initializeActor()
     {

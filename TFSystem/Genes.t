@@ -4,6 +4,7 @@
 // This class is used to represent a specific gene within a form.
 class Gene : object
 {
+    Name = ''
     Tags = []
     RequiredSpeciesTags = []
     // Array of string's to represent tags associated with the gene, to more easily locate and identify
