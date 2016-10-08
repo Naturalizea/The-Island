@@ -134,6 +134,43 @@ class VeryTiredStatus : Status
     }
 }
 
+
+class PeckishStatus : Status
+{
+    rank = 0
+    hidden = nil
+    name = 'Peckish'
+    
+    NoteAddition()
+    {
+        "You feel a bit peckish.";
+    }
+}
+
+class HungryStatus : Status
+{
+    rank = 0
+    hidden = nil
+    name = 'Hungry'
+    
+    NoteAddition()
+    {
+        "You are hungry.";
+    }
+}
+
+class StarvingStatus : Status
+{
+    rank = 0
+    hidden = nil
+    name = 'Starving'
+    
+    NoteAddition()
+    {
+        "You are starving.";
+    }
+}
+
 class SleepingStatus : Status
 {
     rank = 0

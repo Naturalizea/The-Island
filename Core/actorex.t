@@ -15,7 +15,10 @@ modify Actor
     OverworldSpeed = 30.0000 //feet per 6 seconds. Each map square is 1 mile
     
     Hunger = 0.0000
-    HungerRate = 0.0800
+    HungerRate = 0.0250
+    HungerCap1 = 20.0000 //peckish
+    HungerCap2 = 35.0000 //hungry
+    HungerCap3 = 90.0000 //starving
 
     StrengthBase = 10.0000
     DexterityBase = 10.0000

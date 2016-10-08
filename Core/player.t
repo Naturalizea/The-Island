@@ -131,6 +131,36 @@ Player: Human
             FatiguedStatus.Add(Player);
         }
         
+        //Hunger
+        local hungerToAdd = HungerRate * minutes;
+        
+        Hunger += hungerToAdd;
+        
+        if (Hunger >= HungerCap3)
+        {
+            StarvingStatus.Add(Player);
+            HungryStatus.Remove(Player);
+            PeckishStatus.Remove(Player);
+        }            
+        else if (Hunger >= HungerCap2)
+        {
+            StarvingStatus.Remove(Player);
+            HungryStatus.Add(Player);
+            PeckishStatus.Remove(Player);
+        }
+        else if (Hunger >= FatigueCap1)
+        {
+            StarvingStatus.Remove(Player);
+            HungryStatus.Remove(Player);
+            PeckishStatus.Add(Player);
+        }
+        else
+        {
+            StarvingStatus.Remove(Player);
+            HungryStatus.Remove(Player);
+            PeckishStatus.Remove(Player);
+        }        
+        
         if (SleepingStatus.Has(Player))
         {
             //wakeup
