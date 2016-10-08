@@ -3,7 +3,7 @@
 #include <en_us.h>
 #include <bignum.h>
 
-modify Actor
+modify Actor //human stats
 {
     Fatigue = 0.0000
     FatigueRate = 0.0500

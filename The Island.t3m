@@ -18,7 +18,6 @@
 -lib system
 -lib adv3/adv3
 -lib Core/core
--lib TFSystem/TFSystem
 -lib Scenarios/Scenarios
 -source "The Island"
 

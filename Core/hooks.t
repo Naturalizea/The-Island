@@ -91,7 +91,7 @@ MaleHook : Hook
 {
     event()
     {
-        MakeHuman(Player,MaleGenderGene);
+        Player.isHim = true;
     }
 }
 
@@ -99,6 +99,6 @@ FemaleHook : Hook
 {
     event()
     {
-        MakeHuman(Player,FemaleGenderGene);        
+        Player.isHer = true; 
     }
 }
