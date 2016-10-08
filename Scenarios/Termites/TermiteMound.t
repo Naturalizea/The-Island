@@ -30,7 +30,7 @@ class TermiteMound : POI, Fixture, PathPassage
 TermiteMoundManager : object
 {
     map = nil
-    baseSize = 3
+    Size = 3
     baseYOffset = 0
     
     
@@ -47,7 +47,7 @@ TermiteMoundManager : object
         TermiteMoundEntrance.Z = Z;
         TermiteMoundEntrance.Y = Y;
         TermiteMoundEntrance.X = X;        
-        local key = '' + Z + ',' + Y + ',' + Z;
+        local key = '' + Z + ',' + Y + ',' + X;
         map[key] = TermiteMoundEntrance;
         
         //build our tunnel 3 in
@@ -58,7 +58,7 @@ TermiteMoundManager : object
             prevRoom = map[key];
             Y += 1;
             local tunnel = DigTunnel(prevRoom,[Z,Y,X]);
-            key = '' + Z + ',' + Y + ',' + Z;
+            key = '' + Z + ',' + Y + ',' + X;
             map[key] = tunnel;            
         }
         
@@ -66,7 +66,7 @@ TermiteMoundManager : object
         prevRoom = map[key];
         Z += 1;
         local tunnel = DigTunnel(prevRoom,[Z,Y,X]);
-        key = '' + Z + ',' + Y + ',' + Z;
+        key = '' + Z + ',' + Y + ',' + X;
         map[key] = tunnel;
         
         //and then the centre of the mound. The queens chamber
@@ -74,6 +74,8 @@ TermiteMoundManager : object
         TermiteQueenChamber.Z = Z;
         TermiteQueenChamber.Y = Y;
         TermiteQueenChamber.X = X;
+        
+        key = '' + Z + ',' + Y + ',' + X;
         
         ConnectRooms(tunnel, TermiteQueenChamber);
         ConnectRooms(TermiteQueenChamber, tunnel);
@@ -302,16 +304,18 @@ TermiteMoundEntrance : Room
     }
     beforeTravel(traveler, connector)
     {
+    /*
         if (Player.TermiteState != 0 && connector.ofKind(GrassyPlainsMap))
         {
             failCheck('You start to head out of the termite mound, but the termite king grabs onto your leg. Large emotions of fear and danger flood
             your mind, and you get the feeling that you would have to get rid of the king if you want to leave.');
         }
+    */
         return inherited(traveler, connector);
     }
 }
 
-TermiteMoundTunnel : Room
+class TermiteMoundTunnel : Room
 {
     name = 'Tunnel'
 }

@@ -141,23 +141,32 @@ modify TermiteQueenChamber
             if (state == 1)
             {
                 TermiteTFStatus.state = 2;
-            "<br><br>Upon waking up, you find that your body has changed further. Looking down at your torso, the first thing you notice is your skin. It has taken on a dark brown
-            shade, similar to that of the termite king. Your breasts have also shunk down and now small nubs of what they used to be. Also on the sides of your torso, 
-            the small lumps have grown out to become small termite-like legs, protruding out about 30 cm from your body. You experimentally try and move them, and 
-            find that you have complete control, however the limbs are too small and frail to be useful for anything.<br>
-            <br>
-            Moving your arms to your chest, you also notice your arms have changed. They are slightly shorter and thinner, and your hands have become insectile, each now only
-            having three thin, claw-like fingers. clenching your fists, your find your fine moter-skills in them decreased slightly. You will have a hard time with smaller
-            objects, however you can still grasp and carry things with them. Looking at your legs, you notice similar changes with them as with your arms.<br>
-            <br>
-            Rubbing your changed arms over your chest, you find you body feeling mush softer then normal. Feeling your head grants you with a similar supprise. Your head is
-            larger again, and your hair has fallen out. You also have two mandibles growing out from the sides of you mouth, and your mouth feels very alien-like.<br>
-            <br>
-            Standing up to examine your body further, you hunch slightly forwards, but still able to stand. Looking behind you, your butt has grown into a much larger 
-            growth, an adbomen much like that of any termite, and it extends outwards by about 40 cm.<br>
-            <br>
-            Emotions of happiness and excitment fill your mind from your king, as well as that to have a bit more patience. You have a feeling that you are almost ready.";
-            
+                "<br><br>Upon waking up, you find that your body has changed further. Looking down at your torso, the first thing you notice is your skin. It has taken on a dark brown
+                shade, similar to that of the termite king. Your breasts have also shunk down and now small nubs of what they used to be. Also on the sides of your torso, 
+                the small lumps have grown out to become small termite-like legs, protruding out about 30 cm from your body. You experimentally try and move them, and 
+                find that you have complete control, however the limbs are too small and frail to be useful for anything.<br>
+                <br>
+                Moving your arms to your chest, you also notice your arms have changed. They are slightly shorter and thinner, and your hands have become insectile, each now only
+                having three thin, claw-like fingers. clenching your fists, your find your fine moter-skills in them decreased slightly. You will have a hard time with smaller
+                objects, however you can still grasp and carry things with them. Looking at your legs, you notice similar changes with them as with your arms.<br>
+                <br>
+                Rubbing your changed arms over your chest, you find you body feeling mush softer then normal. Feeling your head grants you with a similar supprise. Your head is
+                larger again, and your hair has fallen out. You also have two mandibles growing out from the sides of you mouth, and your mouth feels very alien-like.<br>
+                <br>
+                Standing up to examine your body further, you hunch slightly forwards, but still able to stand. Looking behind you, your butt has grown into a much larger 
+                growth, an adbomen much like that of any termite, and it extends outwards by about 50 cm.<br>
+                <br>
+                Emotions of happiness and excitment fill your mind from your king, as well as that to have a bit more patience. You have a feeling that you are almost ready.";
+            }
+            else if (state == 2)
+            {
+                TermiteTFStatus.state = 3;
+                "<br><br>You wake up lying on on your stomach. Stretching, you try and push yourself up, but find that your legs are not working correctly. Looking down at
+                your body, you see that your transformation appears to be complete. You have the body of a giant termite, from your pincers down to your meter long abdomin.<br>
+                <br>
+                You suddenly feel a weight on your back, and you turn to spot the termite king on you. Excited emotions of family flow into your mind from him, as you feel
+                his insect penis thrust into the top of your abdomin. You don't know much about termite physiology, but you shortly feel his seed flowing inside of your
+                abdomin. It shouldn't be long now until you have your first children...";
             }
         }
         
@@ -214,6 +223,7 @@ TermiteKing : Termite
     doConversation()
     {        
         PresentChoice([
+        ['<q>What is the status of the mound?</q>',TermiteKingCStatus],
         ['<q>What should we be doing right now?</q>',TermiteKingCHint],
         ['Stop talking',TermiteKingCStop]
         ]);
@@ -235,6 +245,49 @@ TermiteKingCHint : Hook
             "Feelings of patience and growth fill your mind. You understand that you should wait until you have transformed further.<br>
             <br>";
         }
+        else if (TermiteTFStatus.state == 3)
+        {
+            "Feelings of patience and hunger fill your mind. You understand that you should wait for your first eggs to be laied, but also to make sure that you have enough
+            food to feed the young ones once they are hatched. You might also want to look at building a fungus farm to have a food supply within the mound.<br>
+            <br>";
+        }
+        
+        TermiteKing.doConversation();
+    }
+}
+
+TermiteKingCStatus : Hook
+{
+    event()
+    {
+        "<u><b>Inhabitants (2 / 10)</b></u><br>
+        Queens : 1<br>
+        Kings : 1<br>
+        Workers : 0<br>
+        Nymphs : 0<br>
+        <br>
+        <u><b>Structure</b></u><br>
+        Size : <<TermiteMoundManager.Size>>";
+        
+        local roomCount = new LookupTable();
+        foreach (local room in TermiteMoundManager.map)
+        {
+            local roomType = room.name;
+            if (roomCount.isKeyPresent(roomType))
+            {
+                roomCount[roomType] += 1;
+            }
+            else
+            {
+                roomCount[roomType] = 1;
+            }
+        }
+        
+        foreach (local key in roomCount.keysToList())
+        {
+            "<br><<key>> : <<roomCount[key]>>";
+        }
+        "<br><br>";
         
         TermiteKing.doConversation();
     }
@@ -413,7 +466,11 @@ class TermiteTFStatus : TFStatus
                 "You appear to be a termite-human hybrid. Your skin has a dark-brown shade to it, and your breasts have shrunk down to be small nubs. Along the sides of
                 your torse, you have small, underdeveloped termite-like 'arms', about 30cm in length. Your arms are also slightly shorter and thinner, your hands
                 insctile with three thin, claw-like fingers. Your legs have similar changes to yours arms. You head is larger, and your hair has fallen out, with two
-                mandibles growing out from the sides of your mouth. Your butt has grown out into a small adbomen, extending outwards by about 40cm.";
+                mandibles growing out from the sides of your mouth. Your butt has grown out into a small adbomen, extending outwards by about 50 cm.";
+            }
+            case 3:
+            {
+                "You are a giant termite, a young queen termite to be precise.";
             }
         }
     }
