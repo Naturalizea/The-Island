@@ -53,7 +53,11 @@ class TermiteJelly : Food
                     <br>
                     Standing over you and holding your body down, is one of the largest termites you have ever seen!<br>
                     <br>";
-                    PresentChoice([['Push it off.',Termite1aHook]]);
+                    PresentChoice([
+                    ['Push it off.',Termite1aHook],
+                    ['Submit.',Termite1bHook]
+                    ]
+                    );
                     
                 }
             }
@@ -74,20 +78,39 @@ Termite1aHook : Hook //Try and push the termite off.
         }
         else
         {
-            "You try and push the termite off of you, but the creature is too strong for you. You continue to strugle, all the while you feel your headache intensifies.
-            The termite's antennae twitch in the air and you suddnely feel then touch your head. As they do, your mind is suddenly filled with odd, undescribable thoughts and 
+            "You try and push the termite off of you, but the creature is too strong for you. You continue to strugle, all the while you feel your headache intensifies. ";
+            
+            Termite2Hook.event();
+           
+        }
+    }
+}
+
+Termite1bHook : Hook //Submit
+{
+    event()
+    {
+        "You decide against fighting back and just remain pinned by the termite, all the while the headache which you have been feeling intensifies. ";
+        
+        Termite2Hook.event();
+    }
+}
+
+Termite2Hook : Hook //Pinned by the termite, we get filled with emotions.
+{
+    event()
+    {
+           "The termite's antennae twitch in the air and you suddnely feel then touch your head. As they do, your mind is suddenly filled with odd, undescribable thoughts and 
             emotions...<br>
             <br>
             The sensation is confusing and disorientating at first, but they quickly become focused and less painful. Thoughs of relaxation and clamness flood your mind, and 
             you find yourself relaxing.<br>
             <br>
-            No longer struggling as much, the termite pinning you down eases up, as happy thoughts of home, family and love enter your mind. This is when you come to realize that
+            The termite pinning you down eases up, as happy thoughts of home, family and love enter your mind. This is when you come to realize that
             the thoughts and emotions you are feeling, are being projected to you from the termite. This giant termite is the king, and you have been chosen to be his queen.<br>
             <br>";
             
             PresentChoice([['Become the new queen',Termite2aHook]]);
-           
-        }
     }
 }
 

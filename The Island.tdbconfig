@@ -262,7 +262,7 @@ line wrap:Core\status.t:S:0:N
 src win split:Core\hooks.t:S:0:0.000000
 line wrap:Scenarios\Termites\TermiteMound.t:S:0:N
 src win split:TFSystem\Tags.t:S:0:0.000000
-auto-script:next-id:I:401
+auto-script:next-id:I:402
 SearchToolbar:rebarWidth:I:253
 line wrap:%tads%lib\adv3\adv3.h:S:0:N
 src win split:TFSystem\ActorTF.t:S:0:0.000000
@@ -306,7 +306,7 @@ mdi win list::S:2:Scenarios\Termites\TermiteMound.t
 build:webpage dir:S:0:web
 line wrap:%tads%include\file.h:S:0:N
 breakpoints:line:S:0:47
-breakpoints:line:S:1:71
+breakpoints:line:S:1:75
 src win split:%tads%include\systype.h:S:0:0.000000
 main win pos::R:-8,-8,1928,1048
 build:srczipfile:S:0:The IslandSource.zip
