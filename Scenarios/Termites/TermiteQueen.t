@@ -98,15 +98,48 @@ Termite2aHook : Hook //Become the new termite queen
         "You decide that you will become the new queen. The king gets off of you as you decide this, immense feelings of joy, excitment and love flooding your mind.
         You slowly stand up and also come to realize that your body is not completely human. Growing out from your forehead, you have two antennae similar to that of the king's,
         only smaller. Your butt is also swollen up, about 3 times larger then it should be. The beginnings of your abdomin. You just know that your body will transform
-        over the next few days while you remain within the termite mound, and you just can't wait until you can become the queen for your new king.";
+        while you remain within the termite mound, and you just can't wait until you can become the queen for your new king.";
         
         TermiteKing.moveIntoForTravel(TermiteQueenChamber);
         TermiteTFStatus.Add(Player);
         TermiteKing.setCurState(termiteKingFollowing);
+        Termite1Jelly.moveInto(nil);
     }
 }
 
-modify TermiteQueenChamber {}
+modify TermiteQueenChamber 
+{
+    roomAfterAction()
+    {
+        if (TermiteTFStatus.Has(Player) && gActionIs(Sleep))
+        {
+            local state = TermiteTFStatus.state;
+            
+            if (state == 1)
+            {
+                TermiteTFStatus.state = 2;
+            "<br><br>Upon waking up, you find that your body has changed further. Looking down at your torso, the first thing you notice is your skin. It has taken on a dark brown
+            shade, similar to that of the termite king. Your breasts have also shunk down and now small nubs of what they used to be. Also on the sides of your torso, 
+            the small lumps have grown out to become small termite-like legs, protruding out about 30 cm from your body. You experimentally try and move them, and 
+            find that you have complete control, however the limbs are too small and frail to be useful for anything.<br>
+            <br>
+            Moving your arms to your chest, you also notice your arms have changed. They are slightly shorter and thinner, and your hands have become insectile, each now only
+            having three thin, claw-like fingers. clenching your fists, your find your fine moter-skills in them decreased slightly. You will have a hard time with smaller
+            objects, however you can still grasp and carry things with them. Looking at your legs, you notice similar changes with them as with your arms.<br>
+            <br>
+            Rubbing your changed arms over your chest, you find you body feeling mush softer then normal. Feeling your head grants you with a similar supprise. Your head is
+            larger again, and your hair has fallen out. You also have two mandibles growing out from the sides of you mouth, and your mouth feels very alien-like.<br>
+            <br>
+            Standing up to examine your body further, you hunch slightly forwards, but still able to stand. Looking behind you, your butt has grown into a much larger 
+            growth, an adbomen much like that of any termite, and it extends outwards by about 40 cm.<br>
+            <br>
+            Emotions of happiness and excitment fill your mind from your king, as well as that to have a bit more patience. You have a feeling that you are almost ready.";
+            
+            }
+        }
+        
+    }
+}
 + Termite1Jelly : TermiteJelly 
 {
     name = 'a large mound of yellow jelly'
@@ -143,11 +176,53 @@ TermiteKing : Termite
         
         return true;
     }
+    
+    dobjFor(TalkTo)
+    {
+        action()
+        {
+            clearScreen();
+            "Although you are not entirely certin how you will talk with the termite king, you decide to give it a go anyway.<br>
+            <br>";
+            doConversation();
+
+        }
+    }
+    doConversation()
+    {        
+        PresentChoice([
+        ['<q>What should we be doing right now?</q>',TermiteKingCHint],
+        ['Stop talking',TermiteKingCStop]
+        ]);
+    }
+    
 }
 
 + termiteKingFollowing: AccompanyingState
 {
     specialDesc = "The termite king is at your side. ";
+}
+
+TermiteKingCHint : Hook
+{
+    event()
+    {
+        if (TermiteTFStatus.state < 3)
+        {
+            "Feelings of patience and growth fill your mind. You understand that you should wait until you have transformed further.<br>
+            <br>";
+        }
+        
+        TermiteKing.doConversation();
+    }
+}
+
+TermiteKingCStop : Hook
+{
+    event()
+    {
+        "The termite king nods as you stop talking.";
+    }
 }
 
 class TermiteWorker : Actor
@@ -306,8 +381,16 @@ class TermiteTFStatus : TFStatus
         {
             case 1:
             {
-                "You are mostly yourself, a human female, except for the short termite-like antennae growing out of your forehead, and your large butt.";
+                "You are mostly yourself, a human female, except for the short termite-like antennae growing out of your forehead, small lumps along the sides of your
+                torso, and your large butt.";
                 break;
+            }
+            case 2:
+            {
+                "You appear to be a termite-human hybrid. Your skin has a dark-brown shade to it, and your breasts have shrunk down to be small nubs. Along the sides of
+                your torse, you have small, underdeveloped termite-like 'arms', about 30cm in length. Your arms are also slightly shorter and thinner, your hands
+                insctile with three thin, claw-like fingers. Your legs have similar changes to yours arms. You head is larger, and your hair has fallen out, with two
+                mandibles growing out from the sides of your mouth. Your butt has grown out into a small adbomen, extending outwards by about 40cm.";
             }
         }
     }
