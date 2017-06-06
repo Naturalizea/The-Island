@@ -52,7 +52,7 @@ modify BasicLocation
 DefineIAction(HiveStatus)
 execAction()
 {
-    if (TermiteTFStatus.Has(Player))
+    if (TermiteQueenTFStatus.Has(Player))
     {
         TermiteMoundManager.HiveStatus();
     }

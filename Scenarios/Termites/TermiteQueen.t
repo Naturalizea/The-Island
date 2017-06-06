@@ -17,7 +17,7 @@ class TermiteJelly : Food
         preCond = []
         action()
         {
-            if (!TermiteTFStatus.Has(Player))
+            if (!TermiteQueenTFStatus.Has(Player))
             {
             
                 local eatAll = nil;
@@ -144,7 +144,7 @@ Termite2aHook : Hook //Become the new termite queen
         store in this new room you dig out. You should start preparing a storeroom, while your king will go out and gather food for the future.";
         
         TermiteKing.moveIntoForTravel(TermiteQueenChamber);
-        TermiteTFStatus.Add(Player);
+        TermiteQueenTFStatus.Add(Player);
         TermiteQueenChamber.known = true;
         TermiteKing.setCurState(termiteKingFollowing);
         Termite1Jelly.moveInto(nil);
@@ -155,13 +155,13 @@ modify TermiteQueenChamber
 {
     roomAfterAction()
     {
-        if (TermiteTFStatus.Has(Player) && gActionIs(Sleep))
+        if (TermiteQueenTFStatus.Has(Player) && gActionIs(Sleep))
         {
-            local state = TermiteTFStatus.state;
+            local state = TermiteQueenTFStatus.state;
             
             if (state == 1)
             {
-                TermiteTFStatus.state = 2;
+                TermiteQueenTFStatus.state = 2;
                 "<br><br>Upon waking up, you find that your body has changed further. Looking down at your torso, the first thing you notice is your skin. It has taken on a dark brown
                 shade, similar to that of the termite king. Your breasts have also shunk down and now small nubs of what they used to be. Also on the sides of your torso, 
                 the small lumps have grown out to become small termite-like legs, protruding out about 30 cm from your body. You experimentally try and move them, and 
@@ -181,7 +181,7 @@ modify TermiteQueenChamber
             }
             else if (state == 2)
             {
-                TermiteTFStatus.state = 3;
+                TermiteQueenTFStatus.state = 3;
                 "<br><br>You wake up lying on on your stomach. Stretching, you try and push yourself up, but find that your legs are not working correctly. Looking down at
                 your body, you see that your transformation appears to be complete. You have the body of a giant termite, from your pincers down to your meter long abdomin.<br>
                 <br>
@@ -419,7 +419,7 @@ class termiteWonderState: ActorState
     }
 }
 
-class TermiteTFStatus : TFStatus
+class TermiteQueenTFStatus : TFStatus
 {
     rank = 0
     state = 1

@@ -223,6 +223,7 @@ line wrap:Scenarios\Termites\Termites.tl:S:0:N
 line wrap:Core\statusex.t:S:0:N
 src win edit mode:%tads%lib\adv3\action.t:S:0:TADS 3
 breakpoints:global:S:0:l
+breakpoints:global:S:1:l
 line wrap:Core\foodex.t:S:0:N
 src win edit mode:%tads%lib\adv3\en_us\en_us.h:S:0:TADS 3
 line wrap:TFSystem\Genes.t:S:0:N
@@ -263,7 +264,7 @@ line wrap:Scenarios\Termites\TermiteMound.t:S:0:N
 src win split:Core\hooks.t:S:0:0.000000
 line wrap:Core\status.t:S:0:N
 src win split:TFSystem\Tags.t:S:0:0.000000
-auto-script:next-id:I:446
+auto-script:next-id:I:450
 line wrap:%tads%lib\adv3\adv3.h:S:0:N
 SearchToolbar:rebarWidth:I:253
 src win edit mode:%tads%lib\adv3\exec.t:S:0:TADS 3
@@ -278,7 +279,7 @@ docking config::S:6:W-1,170,170,0,0,1050,466,M,R,log win
 docking config::S:7:W-1,170,170,44,58,1134,546,M,R,stack win
 docking config::S:8:W-1,170,170,66,87,1156,575,M,R,help win
 docking config::S:9:W-1,170,170,2530,403,3416,867,M,B,filesearch win
-search:text:S:0:for(
+search:text:S:0:init
 search:text:S:1:
 src win split:%tads%lib\adv3\objects.t:S:0:0.000000
 line wrap:Core\time.t:S:0:N
@@ -286,6 +287,7 @@ locals win:vis:I:0
 locals win:pos:R:10,572,294,688
 main win max::I:1
 breakpoints:file:S:0:Scenarios\Termites\TermiteQueen.t
+breakpoints:file:S:1:Scenarios\Termites\TermiteMound.t
 proj search:collapse spaces:I:0
 src win edit mode:Core\actorex.t:S:0:TADS 3
 src win split:%tads%lib\adv3\actions.t:S:0:0.000000
@@ -293,26 +295,30 @@ src win selrange:Core\custombanner.t:S:0:0,0
 src win selrange:Core\custombanner.t:S:1:9442,9452
 line wrap:The Island.t:S:0:N
 breakpoints:cond:S:0:
+breakpoints:cond:S:1:
 breakpoints:status:S:0:e
+breakpoints:status:S:1:e
 search:exact case:I:0
 build on run::I:1
 src win selrange:Core\core.tl:S:0:0,0
 src win selrange:Core\core.tl:S:1:77,83
 breakpoints:line:S:0:75
+breakpoints:line:S:1:268
 line wrap:%tads%include\file.h:S:0:N
 build:webpage dir:S:0:web
 mdi win list::S:0::log
 mdi win list::S:1:Scenarios\Termites\TermiteMound.t
-mdi win list::S:2:Core\verbs.t
-mdi win list::S:3:Core\crafting.t
-mdi win list::S:4:Core\hooks.t
-mdi win list::S:5:Core\map.t
-mdi win list::S:6:Scenarios\Termites\TermiteQueen.t
-mdi win list::S:7:Core\actorex.t
+mdi win list::S:2:Core\crafting.t
+mdi win list::S:3:Scenarios\Termites\TermiteQueen.t
+mdi win list::S:4:Core\actorex.t
+mdi win list::S:5:The Island.t
+mdi win list::S:6:Core\core.tl
+mdi win list::S:7:Core\statusex.t
 mdi win list::S:8:Core\player.t
 mdi win list::S:9:Core\pathfind.t
-mdi win list::S:10:Core\core.tl
-mdi win list::S:11:The Island.t
+mdi win list::S:10:Core\verbs.t
+mdi win list::S:11:Core\hooks.t
+mdi win list::S:12:Core\map.t
 build:srczipfile:S:0:The IslandSource.zip
 main win pos::R:-8,-8,1928,1048
 src win split:%tads%include\systype.h:S:0:0.000000
@@ -405,16 +411,16 @@ line wrap:%tads%lib\adv3\exec.t:S:0:N
 build:debug_image_file:S:0:debug\The Island.t3
 DebugToolbar:rebarNewLine:I:1
 src win split:Core\choice.t:S:0:0.000000
-search dlg:old searches:S:0:for(
-search dlg:old searches:S:1:ConnectRooms
-search dlg:old searches:S:2:.length
-search dlg:old searches:S:3:OutdoorsRoom
-search dlg:old searches:S:4:OutdoorRoom
-search dlg:old searches:S:5:Size
-search dlg:old searches:S:6:objToCall
-search dlg:old searches:S:7:event
-search dlg:old searches:S:8:stop
-search dlg:old searches:S:9:scheduleEvent
+search dlg:old searches:S:0:init
+search dlg:old searches:S:1:TermiteTFStatus
+search dlg:old searches:S:2:for(
+search dlg:old searches:S:3:ConnectRooms
+search dlg:old searches:S:4:.length
+search dlg:old searches:S:5:OutdoorsRoom
+search dlg:old searches:S:6:OutdoorRoom
+search dlg:old searches:S:7:Size
+search dlg:old searches:S:8:objToCall
+search dlg:old searches:S:9:event
 src win split:TFSystem\Transformation.t:S:0:0.000000
 src win edit mode:%tads%lib\adv3\objects.t:S:0:TADS 3
 editor:program:S:0:Notepad.EXE
@@ -444,7 +450,7 @@ src win selrange:%tads%lib\adv3\actor.t:S:1:352826,352840
 search:regex:I:0
 src win selrange:%tads%lib\adv3\thing.t:S:0:0,0
 src win selrange:%tads%lib\adv3\thing.t:S:1:295572,295572
-mdi tab order::S:0:6,8,7,11,2,9,1,4,10,3,5,0
+mdi tab order::S:0:3,8,4,5,10,9,1,11,6,2,12,7,0
 src win split:Core\foodex.t:S:0:0.000000
 src win split:TFSystem\Genes.t:S:0:0.000000
 build:rlsgam:S:0:The Island.t3
@@ -487,16 +493,17 @@ src win split:Scenarios\Termites\Termite.t:S:0:0.000000
 line wrap:Core\verbs.t:S:0:N
 mdi win title::S:0:
 mdi win title::S:1:Scenarios\Termites\TermiteMound.t
-mdi win title::S:2:Core\verbs.t
-mdi win title::S:3:Core\crafting.t
-mdi win title::S:4:Core\hooks.t
-mdi win title::S:5:Core\map.t
-mdi win title::S:6:Scenarios\Termites\TermiteQueen.t
-mdi win title::S:7:Core\actorex.t
+mdi win title::S:2:Core\crafting.t
+mdi win title::S:3:Scenarios\Termites\TermiteQueen.t
+mdi win title::S:4:Core\actorex.t
+mdi win title::S:5:The Island.t
+mdi win title::S:6:Core\core.tl
+mdi win title::S:7:Core\statusex.t
 mdi win title::S:8:Core\player.t
 mdi win title::S:9:Core\pathfind.t
-mdi win title::S:10:Core\core.tl
-mdi win title::S:11:The Island.t
+mdi win title::S:10:Core\verbs.t
+mdi win title::S:11:Core\hooks.t
+mdi win title::S:12:Core\map.t
 line wrap:Core\hooks.t:S:0:N
 src win split:Scenarios\Termites\TermiteMound.t:S:0:0.000000
 src win split:Core\status.t:S:0:0.000000
@@ -506,7 +513,7 @@ src win selrange:Scenarios\Termites\Termites.tl:S:0:0,0
 src win selrange:Scenarios\Termites\Termites.tl:S:1:33,33
 line wrap:TFSystem\Tags.t:S:0:N
 src win selrange:Core\statusex.t:S:0:0,0
-src win selrange:Core\statusex.t:S:1:1120,1120
+src win selrange:Core\statusex.t:S:1:3348,3348
 src win pos:Core\statusex.t:R:70,120,1383,737
 src win split:%tads%lib\adv3\adv3.h:S:0:0.000000
 search:dir:I:1
@@ -539,14 +546,14 @@ src win edit mode:%tads%lib\adv3\input.t:S:0:TADS 3
 src win pos:TFSystem\Human.t:R:200,200,1488,812
 line wrap:%tads%lib\adv3\actions.t:S:0:N
 search dlg:old repl text:S:0:
-search dlg:old repl text:S:1:RequiredSpeciesTags
-search dlg:old repl text:S:2:ParkFriend
-search dlg:old repl text:S:3:ParkForestLost9
-search dlg:old repl text:S:4:ParkForestLost5
-search dlg:old repl text:S:5:thought
-search dlg:old repl text:S:6: gameMain.raccoonUrgeKnowledge
-search dlg:old repl text:S:7:(gameMain.raccoonUrgeKnowledge
-search dlg:old repl text:S:8:(gameMain.raccoonMatingWelcome
-search dlg:old repl text:S:9: gameMain.raccoonMatingWelcome
+search dlg:old repl text:S:1:TermiteQueenTFStatus
+search dlg:old repl text:S:2:RequiredSpeciesTags
+search dlg:old repl text:S:3:ParkFriend
+search dlg:old repl text:S:4:ParkForestLost9
+search dlg:old repl text:S:5:ParkForestLost5
+search dlg:old repl text:S:6:thought
+search dlg:old repl text:S:7: gameMain.raccoonUrgeKnowledge
+search dlg:old repl text:S:8:(gameMain.raccoonUrgeKnowledge
+search dlg:old repl text:S:9:(gameMain.raccoonMatingWelcome
 src win split:The Island.t:S:0:0.000000
 

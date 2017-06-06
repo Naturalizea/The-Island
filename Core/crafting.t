@@ -11,9 +11,18 @@ class craftable : Fixture
     
     name = 'craftable'
     
-    Craft(progressRoll)
+    Craft(progressRoll, isPlayer = nil)
     {
+        //advance time for the player
+        if (isPlayer)
+        {
+            CraftingStatus.Add(Player);
+            Player.AdvanceTime(60);
+            CraftingStatus.Remove(Player);
+        }
+        
         local attemptSuccesses = new BigNumber(progressRoll/difficulty).getFloor();
+        
         successes += attemptSuccesses;
         if (successes >= requiredSuccesses)
         {
@@ -35,5 +44,9 @@ class craftable : Fixture
     OnComplete()
     {
         self.moveInto(nil);
+    }
+    
+    GainExp()
+    {
     }
 }

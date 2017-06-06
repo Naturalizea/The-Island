@@ -169,7 +169,7 @@ TermiteMoundEntrance : Room
     beforeTravel(traveler, connector)
     {
     
-        if (TermiteTFStatus.Has(Player) && connector.ofKind(OutdoorRoom))
+        if (TermiteQueenTFStatus.Has(Player) && connector.ofKind(OutdoorRoom))
         {
             //check the time
             if (DateTime._hour >= 19 || DateTime._hour <= 5)
@@ -178,7 +178,7 @@ TermiteMoundEntrance : Room
             }
             else
             {
-                if (TermiteTFStatus.state >= 3)
+                if (TermiteQueenTFStatus.state >= 3)
                 {
                     failCheck('Leaving the mound during the day while the sun is out is too dangerous. You will burn alive!');
                 }
@@ -200,7 +200,7 @@ class TermiteMoundTunnel : Room
     
     GetValidCrafts(crafter)
     {
-        if (TermiteTFStatus.Has(crafter))
+        if (TermiteQueenTFStatus.Has(crafter))
         {
             return [['Dig a new tunnel',CraftTermiteTunnelHook]];
         }
@@ -263,10 +263,32 @@ CraftTermiteTunnelDownHook : Hook
 {
     event()
     {
+        //TODO : Check for existing project and continue from there.
         local l = Player.location;
-        //TODO : Use the construction rules and such, but for now just faking it to test all the hooks work right
+        local tunnelProject = new CraftableTermiteTunnel();
+        local key = '' + (l.Z -1 ) + ',' + l.Y + ',' + l.X;
+        TermiteMoundManager.map[key] = tunnelProject;
+        tunnelProject.direction = 'down';
+        tunnelProject.moveInto(l);
+        
+        //TODO : Check for king. He should also get a roll to assist if following the player.
+        local roll = Player.TermiteCraftingCheck(tunnelProject.difficulty);
+        tunnelProject.Craft(roll,true);
+        
         TermiteMoundManager.DigTunnel(l,[l.Z-1,l.Y,l.X]);
     }
+}
+
+class CraftableTermiteTunnel : craftable
+{
+    name = '<<direction>> tunnel'
+    
+    direction = ''
+    
+    difficulty = 1
+    requiredSuccesses = 25
+    
+    
 }
 
 TermiteQueenChamber : Room

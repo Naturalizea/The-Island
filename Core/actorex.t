@@ -63,6 +63,10 @@ modify Actor //human stats
     SurvivalExp = 0.0000
     SurvivalBonus = WisMod + SurvivalLevel
     
+    TermiteCraftingLevel = 0.000
+    TermiteCraftingExp = 0.0000
+    TermiteCraftingBonus = StrMod + TermiteCraftingLevel
+    
     Statuses = []
     
     GetAdjScore(score,adj)
@@ -97,7 +101,23 @@ modify Actor //human stats
         return result;        
     }
     
-    DoCheck(name, bonus, dc)
+    TermiteCraftingCheck(dc)
+    {
+        local result = DoCheck('Termite crafting', TermiteCraftingBonus, dc, true);
+        
+        TermiteCraftingExp += (1.0000 / (TermiteCraftingLevel+1.0000)) * SkillLearningRate;
+        if (TermiteCraftingExp >= 1)
+        {
+            "<font color=blue> [Your <b>termite crafting</b> is now level <b><<spellInt(toInteger(TermiteCraftingLevel+1))>></b>.] </font>";
+            TermiteCraftingExp = 0.0000;
+            TermiteCraftingLevel++;
+        }
+        
+        
+        return result;    
+    }
+    
+    DoCheck(name, bonus, dc, returnRoll = nil)
     {
         local roll = rand(20)+1;
         local result = roll + bonus;
@@ -113,6 +133,10 @@ modify Actor //human stats
             {
                 "<b>Success</b>]</font> ";
             }
+            if (returnRoll)
+            {
+                return result;
+            }
             return true;
         }
         else
@@ -120,6 +144,10 @@ modify Actor //human stats
             if (gameMain.showDiceRolls)
             {
                 "<b>Failure</b>]</font> ";
+            }
+            if (returnRoll)
+            {
+                return result;
             }
             return nil;
         }
