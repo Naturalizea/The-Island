@@ -193,6 +193,13 @@ class GatheringStatus : Status
     name = 'Gathering'
 }
 
+class EatingStatus : Status
+{
+    rank = 0
+    hidden = true
+    name = 'Eating'
+}
+
 class TFStatus : Status 
 {
     desc()

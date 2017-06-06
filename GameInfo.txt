@@ -6,7 +6,7 @@ AuthorEmail: Naturalizea <Naturalizea@gmail.com>
 Desc: Description comming soon
 HtmlDesc: Description comming soon
 Version: 1
-ReleaseDate: 2016-10-08
+ReleaseDate: 2017-06-06
 Language: en-US
 LicenseType: Freeware
 CopyingRules: Nominal cost only; compilations allowed

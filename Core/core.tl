@@ -3,6 +3,7 @@ name: Core
 source: actorex
 source: choice
 source: custombanner
+source: foodex
 source: hooks
 source: map
 source: statusex

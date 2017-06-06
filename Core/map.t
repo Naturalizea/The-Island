@@ -271,14 +271,7 @@ class Apple : Food
     name = 'apple'
     vocabWords = 'apple*apples'
     isEquivalent = true
-    dobjFor(Eat)
-    {
-        action()
-        {
-            "You eat the apple.";
-            moveInto(nil);
-        }
-    }
+    Nutrition = 5
 }
 
 /* POIs */

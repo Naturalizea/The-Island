@@ -6,7 +6,6 @@ src win split:%tads%include\file.h:S:0:0.000000
 line wrap:%tads%include\systype.h:S:0:N
 line wrap:Core\map.t:S:0:N
 src win edit mode:%tads%lib\_main.t:S:0:TADS 3
-line wrap:%tads%lib\adv3\thing.t:S:0:N
 src win edit mode:Scenarios\Termites\Termites.tl:S:0:TADS 3 Library
 src win selrange:%tads%lib\adv3\pov.t:S:0:0,0
 src win selrange:%tads%lib\adv3\pov.t:S:1:6226,6226
@@ -14,31 +13,32 @@ src win edit mode:Core\statusex.t:S:0:TADS 3
 build:ext resfile cnt:I:0
 src win split:%tads%lib\adv3\action.t:S:0:0.000000
 src win selrange:Scenarios\Termites\TermiteQueen.t:S:0:0,0
-src win selrange:Scenarios\Termites\TermiteQueen.t:S:1:5865,5866
+src win selrange:Scenarios\Termites\TermiteQueen.t:S:1:2813,2813
+src win pos:Scenarios\Termites\TermiteQueen.t:R:225,225,1513,837
 src win selrange:%tads%include\tadsio.h:S:0:0,0
 src win selrange:%tads%include\tadsio.h:S:1:13501,13505
-src win pos:Scenarios\Termites\TermiteQueen.t:R:225,225,1513,837
 src win selrange:Scenarios\Termites\Termite.t:S:0:0,0
 src win selrange:Scenarios\Termites\Termite.t:S:1:135,135
 build:defaults set:I:1
 src win edit mode:TFSystem\Genes.t:S:0:TADS 3
 src win pos:Scenarios\Termites\Termite.t:R:100,100,1388,712
-src win split:%tads%lib\adv3\en_us\en_us.h:S:0:0.000000
 src win selrange:Core\status.t:S:0:0,0
 src win selrange:Core\status.t:S:1:1724,1724
-watch win:pos:R:312,572,596,688
-watch win:vis:I:0
 src win selrange:Scenarios\Termites\TermiteMound.t:S:0:0,0
 src win selrange:Scenarios\Termites\TermiteMound.t:S:1:8905,8917
+src win split:%tads%lib\adv3\en_us\en_us.h:S:0:0.000000
+watch win:pos:R:312,572,596,688
+watch win:vis:I:0
 src win pos:Scenarios\Termites\TermiteMound.t:R:0,0,1288,612
+src win edit mode:Core\player.t:S:0:TADS 3
 src win selrange:%tads%lib\adv3\adv3.h:S:0:0,0
 src win selrange:%tads%lib\adv3\adv3.h:S:1:26430,26435
-src win edit mode:Core\player.t:S:0:TADS 3
 src win edit mode:TFSystem\Human.t:S:0:TADS 3
 line wrap:Core\pathfind.t:S:0:N
 src win split:%tads%lib\adv3\travel.t:S:0:0.000000
 src win selrange:Core\time.t:S:0:0,0
 src win selrange:Core\time.t:S:1:395,395
+src win pos:Core\time.t:R:175,175,1463,787
 src win split:%tads%lib\adv3\en_us\en_us.t:S:0:0.000000
 key bindings:Text Editor:S:0:Ctrl+F3 = Edit.SearchIncremental
 key bindings:Text Editor:S:1:Down = Edit.LineDown
@@ -101,22 +101,22 @@ key bindings:Text Editor:S:57:Alt+/ = Edit.ToggleBookmark
 key bindings:Text Editor:S:58:Alt+? = Edit.SetNamedBookmark
 key bindings:Text Editor:S:59:Ctrl+8 = Edit.CommentRegion
 key bindings:Text Editor:S:60:F6 = Edit.FindDefinition
-src win pos:Core\time.t:R:175,175,1463,787
 build:c ops:I:0
 src win split:%tads%lib\adv3\lister.t:S:0:0.000000
 SearchToolbar:rebarNewLine:I:0
 src win edit mode:%tads%lib\adv3\pov.t:S:0:TADS 3
 log win vis::I:1
-log win pos::R:330,123,1918,1015
+log win pos::R:334,123,1918,1015
 MenuBar:rebarVis:I:1
 src win split:%tads%lib\adv3\events.t:S:0:0.000000
 src win selrange:The Island.t:S:0:0,0
-src win selrange:The Island.t:S:1:534,534
+src win selrange:The Island.t:S:1:2340,2353
+src win pos:The Island.t:R:25,25,1384,481
 src win edit mode:Scenarios\Termites\TermiteQueen.t:S:0:TADS 3
 line wrap:%tads%lib\adv3\actor.t:S:0:N
+line wrap:%tads%lib\adv3\thing.t:S:0:N
 DocToolbar:rebarIndex:I:3
 src win edit mode:%tads%include\tadsio.h:S:0:TADS 3
-line wrap:%tads%lib\adv3\thing.t:S:0:N
 src win edit mode:Scenarios\Termites\Termite.t:S:0:TADS 3
 src win selrange:%tads%include\file.h:S:0:0,0
 src win selrange:%tads%include\file.h:S:1:29740,29744
@@ -152,8 +152,7 @@ line wrap:TFSystem\Transformation.t:S:0:N
 src win edit mode:Core\time.t:S:0:TADS 3
 src win selrange:%tads%lib\adv3\en_us\en_us.h:S:0:0,0
 src win selrange:%tads%lib\adv3\en_us\en_us.h:S:1:6348,6360
-watch win:expression list 0:S:0:roomCount
-watch win:expression list 0:S:1:TermiteMoundManager.map
+watch win:expression list 0:S:0:x.Statuses
 ask save on build::I:0
 build:zipfile:S:0:The Island.zip
 line wrap:%tads%lib\adv3\input.t:S:0:N
@@ -224,6 +223,7 @@ line wrap:Core\statusex.t:S:0:N
 src win edit mode:%tads%lib\adv3\action.t:S:0:TADS 3
 breakpoints:global:S:0:l
 breakpoints:global:S:1:l
+breakpoints:global:S:2:l
 line wrap:TFSystem\Genes.t:S:0:N
 src win edit mode:%tads%lib\adv3\en_us\en_us.h:S:0:TADS 3
 EditToolbar:rebarNewLine:I:1
@@ -249,30 +249,30 @@ DocToolbar:rebarVis:I:1
 src win edit mode:%tads%lib\adv3\events.t:S:0:TADS 3
 line wrap:%tads%lib\adv3\pov.t:S:0:N
 src win selrange:Core\actorex.t:S:0:0,0
-src win selrange:Core\actorex.t:S:1:1286,1292
+src win selrange:Core\actorex.t:S:1:2776,2776
 auto-script:quit sequences:S:0:<nocase>[<]line[>]<space>*q(uit)?<space>*
 auto-script:quit sequences:S:1:<nocase>[<]line[>]<space>*y.*
-SearchToolbar:rebarIndex:I:2
 line wrap:Scenarios\Termites\TermiteQueen.t:S:0:N
+SearchToolbar:rebarIndex:I:2
 line wrap:%tads%include\tadsio.h:S:0:N
 line wrap:Scenarios\Termites\Termite.t:S:0:N
 src win split:TFSystem\TFSystem.tl:S:0:0.000000
-search:wrap:I:1
 src win split:Core\verbs.t:S:0:0.000000
+search:wrap:I:1
 line wrap:Core\status.t:S:0:N
 src win split:Core\hooks.t:S:0:0.000000
 line wrap:Scenarios\Termites\TermiteMound.t:S:0:N
 src win split:TFSystem\Tags.t:S:0:0.000000
-auto-script:next-id:I:410
+auto-script:next-id:I:415
 SearchToolbar:rebarWidth:I:253
 line wrap:%tads%lib\adv3\adv3.h:S:0:N
 src win split:TFSystem\ActorTF.t:S:0:0.000000
 src win edit mode:%tads%lib\adv3\exec.t:S:0:TADS 3
-search:text:S:0:superclass
+search:text:S:0:OverworldSpeed
 search:text:S:1:
 docking config::S:0:CL
-docking config::S:1:W0,328,270,2,546,302,696,D,L,project win
-docking config::S:2:W0,328,150,175,546,345,696,D,L,script win
+docking config::S:1:W0,332,270,2,546,302,696,D,L,project win
+docking config::S:2:W0,332,150,175,546,345,696,D,L,script win
 docking config::S:3:CB
 docking config::S:4:W3,720,231,304,546,604,696,D,B,watch win
 docking config::S:5:W3,470,231,2,546,302,696,D,B,locals win
@@ -285,66 +285,73 @@ src win split:%tads%lib\adv3\objects.t:S:0:0.000000
 locals win:pos:R:10,572,294,688
 locals win:vis:I:0
 main win max::I:1
-breakpoints:file:S:0:Core\verbs.t
-breakpoints:file:S:1:Scenarios\Termites\TermiteQueen.t
-proj search:collapse spaces:I:0
+breakpoints:file:S:0:Scenarios\Termites\TermiteQueen.t
+breakpoints:file:S:1:Core\statusex.t
+breakpoints:file:S:2:Core\actorex.t
 src win edit mode:Core\actorex.t:S:0:TADS 3
+proj search:collapse spaces:I:0
 src win selrange:Core\custombanner.t:S:0:0,0
 src win selrange:Core\custombanner.t:S:1:9442,9452
 src win split:%tads%lib\adv3\actions.t:S:0:0.000000
 line wrap:The Island.t:S:0:N
 breakpoints:status:S:0:e
 breakpoints:status:S:1:e
+breakpoints:status:S:2:e
 breakpoints:cond:S:0:
 breakpoints:cond:S:1:
+breakpoints:cond:S:2:
 search:exact case:I:0
-build on run::I:1
 src win selrange:Core\core.tl:S:0:0,0
 src win selrange:Core\core.tl:S:1:82,82
+build on run::I:1
 mdi win list::S:0::log
-mdi win list::S:1:Scenarios\Termites\TermiteQueen.t
-mdi win list::S:2:Scenarios\Termites\TermiteMound.t
-mdi win list::S:3:Core\choice.t
-mdi win list::S:4:Core\map.t
-mdi win list::S:5:Core\custombanner.t
+mdi win list::S:1:Core\map.t
+mdi win list::S:2:Core\foodex.t
+mdi win list::S:3:Core\actorex.t
+mdi win list::S:4:Core\player.t
+mdi win list::S:5:Core\statusex.t
+mdi win list::S:6:Core\verbs.t
+mdi win list::S:7:Core\pathfind.t
+mdi win list::S:8:Scenarios\Termites\TermiteMound.t
+mdi win list::S:9:Core\core.tl
 build:webpage dir:S:0:web
 line wrap:%tads%include\file.h:S:0:N
-breakpoints:line:S:0:47
-breakpoints:line:S:1:75
+breakpoints:line:S:0:75
+breakpoints:line:S:1:45
+breakpoints:line:S:2:130
 src win split:%tads%include\systype.h:S:0:0.000000
 main win pos::R:-8,-8,1928,1048
 build:srczipfile:S:0:The IslandSource.zip
+proj search:whole word:I:0
 src win selrange:Core\actor.t:S:0:0,0
 src win selrange:Core\actor.t:S:1:528,528
 src win split:Core\map.t:S:0:0.000000
-proj search:whole word:I:0
-src win split:%tads%lib\adv3\thing.t:S:0:0.000000
 help win vis::I:0
-help win pos::R:404,240,1478,690
+help win pos::R:2023,325,3097,775
 build:ignore case:I:0
 line wrap:%tads%lib\adv3\action.t:S:0:N
 docsearch win vis::I:0
 build:exe:S:0:The Island.exe
 src win selrange:TFSystem\TFSystem.tl:S:0:0,0
 src win selrange:TFSystem\TFSystem.tl:S:1:97,97
-script win:pos:R:2,885,321,1015
+script win:pos:R:2,885,325,1015
 script win:vis:I:1
 src win selrange:Core\verbs.t:S:0:0,0
-src win selrange:Core\verbs.t:S:1:833,805
+src win selrange:Core\verbs.t:S:1:413,419
 src win pos:Core\verbs.t:R:25,25,1313,637
 line wrap:%tads%lib\adv3\en_us\en_us.h:S:0:N
 src win selrange:Core\hooks.t:S:0:0,0
 src win selrange:Core\hooks.t:S:1:1434,1476
 src win selrange:TFSystem\Tags.t:S:0:0,0
 src win selrange:TFSystem\Tags.t:S:1:322,322
-src win pos:TFSystem\Tags.t:R:275,275,1563,887
 build:use charmap:I:0
+src win pos:TFSystem\Tags.t:R:275,275,1563,887
 src win selrange:TFSystem\ActorTF.t:S:0:0,0
 src win selrange:TFSystem\ActorTF.t:S:1:845,845
 src win split:Core\pathfind.t:S:0:0.000000
 EditToolbar:rebarIndex:I:1
-src win edit mode:Core\custombanner.t:S:0:TADS 3
 hist win vis::I:0
+src win edit mode:Core\custombanner.t:S:0:TADS 3
 line wrap:%tads%lib\adv3\travel.t:S:0:N
 src win selrange:%tads%lib\adv3\objects.t:S:0:0,0
 src win selrange:%tads%lib\adv3\objects.t:S:1:51202,51216
@@ -352,7 +359,6 @@ src win edit mode:Core\core.tl:S:0:TADS 3 Library
 line wrap:%tads%lib\adv3\en_us\en_us.t:S:0:N
 editor:cmdline:S:0:%f
 EditToolbar:rebarWidth:I:954
-src win edit mode:Core\actor.t:S:0:TADS 3
 build:include_files:S:0:tads.h
 build:include_files:S:1:t3.h
 build:include_files:S:2:lookup.h
@@ -373,6 +379,7 @@ build:include_files:S:16:adv3.h
 build:include_files:S:17:strcomp.h
 build:include_files:S:18:en_us.h
 line wrap:%tads%lib\adv3\lister.t:S:0:N
+src win edit mode:Core\actor.t:S:0:TADS 3
 SearchToolbar:rebarVis:I:1
 MenuBar:rebarNewLine:I:0
 line wrap:%tads%lib\adv3\events.t:S:0:N
@@ -387,35 +394,33 @@ locals win:sep xpos 1:I:142
 src win edit mode:Core\verbs.t:S:0:TADS 3
 src win selrange:%tads%include\systype.h:S:0:0,0
 src win selrange:%tads%include\systype.h:S:1:12621,12625
-src win selrange:Core\map.t:S:0:0,0
-src win selrange:Core\map.t:S:1:7259,7259
 search:whole word:I:0
+src win selrange:Core\map.t:S:0:0,0
+src win selrange:Core\map.t:S:1:8585,8585
 src win edit mode:Core\hooks.t:S:0:TADS 3
-src win selrange:%tads%lib\adv3\thing.t:S:0:0,0
-src win selrange:%tads%lib\adv3\thing.t:S:1:108999,108999
-src win edit mode:TFSystem\Tags.t:S:0:TADS 3
-src win pos:Core\map.t:R:25,25,1313,637
 *38 build:lib_exclude:TFSystem\TFSystem.tl:S:0:ActorTF
 *38 build:lib_exclude:TFSystem\TFSystem.tl:S:1:Genes
 *38 build:lib_exclude:TFSystem\TFSystem.tl:S:2:Human
 *38 build:lib_exclude:TFSystem\TFSystem.tl:S:3:Tags
 *38 build:lib_exclude:TFSystem\TFSystem.tl:S:4:Transformation
+src win edit mode:TFSystem\Tags.t:S:0:TADS 3
+src win pos:Core\map.t:R:25,25,1313,637
 extensions dir::S:0:C:\Users\Shebaden\Documents\TADS 3\Extensions
 src win edit mode:TFSystem\ActorTF.t:S:0:TADS 3
 DebugToolbar:rebarNewLine:I:1
 build:debug_image_file:S:0:debug\The Island.t3
 line wrap:%tads%lib\adv3\exec.t:S:0:N
 src win split:Core\choice.t:S:0:0.000000
-search dlg:old searches:S:0:superclass
-search dlg:old searches:S:1:baseYOffset
-search dlg:old searches:S:2:size
-search dlg:old searches:S:3:baseSize
-search dlg:old searches:S:4:</
-search dlg:old searches:S:5:<\
-search dlg:old searches:S:6:clear
-search dlg:old searches:S:7:TermiteState
-search dlg:old searches:S:8:king
-search dlg:old searches:S:9:GenderGene
+search dlg:old searches:S:0:OverworldSpeed
+search dlg:old searches:S:1:HungerRate
+search dlg:old searches:S:2:GatheringStatus
+search dlg:old searches:S:3:Eat(
+search dlg:old searches:S:4:Eat
+search dlg:old searches:S:5:PeckishStatus
+search dlg:old searches:S:6:RestlessStatus
+search dlg:old searches:S:7:.Has
+search dlg:old searches:S:8:Apple
+search dlg:old searches:S:9:status
 src win split:TFSystem\Transformation.t:S:0:0.000000
 src win edit mode:%tads%lib\adv3\objects.t:S:0:TADS 3
 editor:program:S:0:Notepad.EXE
@@ -437,7 +442,6 @@ search dlg:old search opts:S:8:
 search dlg:old search opts:S:9:
 src win edit mode:%tads%include\systype.h:S:0:TADS 3
 src win edit mode:Core\map.t:S:0:TADS 3
-src win edit mode:%tads%lib\adv3\thing.t:S:0:TADS 3
 src win split:%tads%lib\_main.t:S:0:0.000000
 src win split:Scenarios\Termites\Termites.tl:S:0:0.000000
 src win split:Core\statusex.t:S:0:0.000000
@@ -446,9 +450,9 @@ src win selrange:%tads%lib\adv3\actor.t:S:0:0,0
 src win selrange:%tads%lib\adv3\actor.t:S:1:352826,352840
 src win selrange:%tads%lib\adv3\thing.t:S:0:0,0
 src win selrange:%tads%lib\adv3\thing.t:S:1:295572,295572
-mdi tab order::S:0:1,2,3,5,4,0
-src win split:TFSystem\Genes.t:S:0:0.000000
+mdi tab order::S:0:5,1,4,6,3,9,2,7,8,0
 build:rlsgam:S:0:The Island.t3
+src win split:TFSystem\Genes.t:S:0:0.000000
 EditToolbar:rebarVis:I:1
 key bindings:defaults loaded:I:1
 main win mdi max::I:1
@@ -458,7 +462,6 @@ src win edit mode:Core\pathfind.t:S:0:TADS 3
 src win split:TFSystem\Human.t:S:0:0.000000
 src win selrange:Core\choice.t:S:0:0,0
 src win selrange:Core\choice.t:S:1:1799,1812
-line wrap:Core\custombanner.t:S:0:N
 key bindings:Incremental Search:S:0:Ctrl+F = Edit.IncSearch.Next
 key bindings:Incremental Search:S:1:Ctrl+F3 = Edit.IncSearch.Next
 key bindings:Incremental Search:S:2:Ctrl+R = Edit.IncSearch.Prev
@@ -468,13 +471,14 @@ key bindings:Incremental Search:S:5:Ctrl+T = Edit.IncSearch.ToggleRegEx
 key bindings:Incremental Search:S:6:Ctrl+W = Edit.IncSearch.ToggleWord
 key bindings:Incremental Search:S:7:Ctrl+G = Edit.IncSearch.Cancel
 key bindings:Incremental Search:S:8:Esc = Edit.IncSearch.Exit
+line wrap:Core\custombanner.t:S:0:N
 src win selrange:TFSystem\Transformation.t:S:0:0,0
 src win selrange:TFSystem\Transformation.t:S:1:3308,3308
 src win pos:TFSystem\Transformation.t:R:275,275,1563,887
 save on build::I:1
 line wrap:Core\core.tl:S:0:N
-line wrap:Core\actor.t:S:0:N
 DocToolbar:rebarNewLine:I:0
+line wrap:Core\actor.t:S:0:N
 src win selrange:%tads%lib\adv3\input.t:S:0:0,0
 src win selrange:%tads%lib\adv3\input.t:S:1:23525,23530
 src win split:%tads%lib\adv3\pov.t:S:0:0.000000
@@ -486,16 +490,20 @@ src win split:%tads%include\tadsio.h:S:0:0.000000
 src win split:Scenarios\Termites\Termite.t:S:0:0.000000
 line wrap:TFSystem\TFSystem.tl:S:0:N
 mdi win title::S:0:
-mdi win title::S:1:Scenarios\Termites\TermiteQueen.t
-mdi win title::S:2:Scenarios\Termites\TermiteMound.t
-mdi win title::S:3:Core\choice.t
-mdi win title::S:4:Core\map.t
-mdi win title::S:5:Core\custombanner.t
+mdi win title::S:1:Core\map.t
+mdi win title::S:2:Core\foodex.t
+mdi win title::S:3:Core\actorex.t
+mdi win title::S:4:Core\player.t
+mdi win title::S:5:Core\statusex.t
+mdi win title::S:6:Core\verbs.t
+mdi win title::S:7:Core\pathfind.t
+mdi win title::S:8:Scenarios\Termites\TermiteMound.t
+mdi win title::S:9:Core\core.tl
 line wrap:Core\verbs.t:S:0:N
-src win split:Core\status.t:S:0:0.000000
-src win split:Scenarios\Termites\TermiteMound.t:S:0:0.000000
 src win selrange:%tads%lib\_main.t:S:0:0,0
 src win selrange:%tads%lib\_main.t:S:1:6258,6258
+src win split:Core\status.t:S:0:0.000000
+src win split:Scenarios\Termites\TermiteMound.t:S:0:0.000000
 line wrap:Core\hooks.t:S:0:N
 line wrap:TFSystem\Tags.t:S:0:N
 src win selrange:Scenarios\Termites\Termites.tl:S:0:0,0
@@ -507,31 +515,39 @@ src win split:%tads%lib\adv3\adv3.h:S:0:0.000000
 src win pos:Core\statusex.t:R:70,120,1383,737
 MenuBar:rebarWidth:I:-1
 build:installer prog:S:0:The Island_Setup.exe
-line wrap:TFSystem\ActorTF.t:S:0:N
-project win:pos:R:2,120,321,859
+project win:pos:R:2,120,325,859
 project win:vis:I:1
+line wrap:TFSystem\ActorTF.t:S:0:N
 src win edit mode:Core\choice.t:S:0:TADS 3
-src win edit mode:TFSystem\Transformation.t:S:0:TADS 3
 auto-script:dir:S:0:Scripts
+src win edit mode:TFSystem\Transformation.t:S:0:TADS 3
 src win selrange:TFSystem\Genes.t:S:0:0,0
 src win selrange:TFSystem\Genes.t:S:1:863,879
 filesearch win pos::R:2868,556,3738,982
-stack win pos::R:382,211,1456,661
+stack win pos::R:386,211,1460,661
 filesearch win vis::I:0
 stack win vis::I:0
-src win split:Core\time.t:S:0:0.000000
 line wrap:%tads%lib\adv3\objects.t:S:0:N
+src win split:Core\time.t:S:0:0.000000
 DebugToolbar:rebarIndex:I:4
 src win selrange:Core\player.t:S:0:0,0
-src win selrange:Core\player.t:S:1:442,442
+src win selrange:Core\player.t:S:1:4840,4840
 searchMode::I:1
 src win pos:Core\player.t:R:200,200,1488,812
+src win edit mode:%tads%lib\adv3\input.t:S:0:TADS 3
 src win selrange:TFSystem\Human.t:S:0:0,0
 src win selrange:TFSystem\Human.t:S:1:87,87
-src win edit mode:%tads%lib\adv3\input.t:S:0:TADS 3
 src win pos:TFSystem\Human.t:R:200,200,1488,812
 search dlg:old repl text:S:0:
 search dlg:old repl text:S:1:RequiredSpeciesTags
+search dlg:old repl text:S:2:ParkFriend
+search dlg:old repl text:S:3:ParkForestLost9
+search dlg:old repl text:S:4:ParkForestLost5
+search dlg:old repl text:S:5:thought
+search dlg:old repl text:S:6: gameMain.raccoonUrgeKnowledge
+search dlg:old repl text:S:7:(gameMain.raccoonUrgeKnowledge
+search dlg:old repl text:S:8:(gameMain.raccoonMatingWelcome
+search dlg:old repl text:S:9: gameMain.raccoonMatingWelcome
 line wrap:%tads%lib\adv3\actions.t:S:0:N
 src win split:The Island.t:S:0:0.000000
 
