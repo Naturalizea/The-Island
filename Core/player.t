@@ -188,6 +188,13 @@ Player: Actor
         //advance our time
         DateTime.AddMinutes(minutesToAdvance);
         AdvanceSchedule(minutesToAdvance);
+        
+        //execute the schedule event
+        if (scheduleObj != nil)
+        {
+            stop = scheduleObj.(&scheduleEvent);
+        }
+        
         //if we still have time remaining on the schedule and should not stop, continue making turns.
         if (stop != nil || minutesToAdvance < minutes)
         {

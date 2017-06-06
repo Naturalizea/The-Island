@@ -1,6 +1,21 @@
 #include <adv3.h>
 #include <en_us.h>
 
+//hive status (when termite)
+DefineIAction(HiveStatus)
+execAction()
+{
+    if (TermiteTFStatus.Has(Player))
+    {
+        TermiteMoundManager.HiveStatus();
+    }
+    return nil;
+};
+
+VerbRule(HiveStatus) ('hivestatus') : HiveStatusAction
+{
+    verbPhrase = 'hivestatus';
+}
 
 //hunt or gather
 DefineIAction(Gather)

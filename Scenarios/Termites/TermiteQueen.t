@@ -39,8 +39,8 @@ class TermiteJelly : Food
                 }
                 if (eatAll)
                 {
-                    "You find yourself unable to resist the taste, and you devour the entire yellow mound of sweet jelly. Soon afterwards, fatigue takes over, and
-                    you can't help but fall asleep within the large chamber...";
+                    "You find yourself unable to resist the taste, and you devour the entire yellow mound of sweet jelly. Soon afterwards, fatigue takes over, 
+                    and you can't help but fall asleep within the large chamber...";
                     inputManager.pauseForMore(true);
                     SleepingStatus.Add(Player);
                     DateTime.AdvanceTime(1440); //24 hours pass
@@ -48,8 +48,8 @@ class TermiteJelly : Food
 
                     clearScreen();
                     
-                    "You awaken sometime later, feeling very relaxed and refereshed, however with an odd headache and a sore butt. Your clothing also seems to be
-                    missing, but that is the least of your concerns at the moment.<br>
+                    "You awaken sometime later, feeling very relaxed and refereshed, however with an odd headache and a sore butt. Your clothing also seems to 
+                    be missing, but that is the least of your concerns at the moment.<br>
                     <br>
                     Standing over you and holding your body down, is one of the largest termites you have ever seen!<br>
                     <br>";
@@ -100,14 +100,29 @@ Termite2Hook : Hook //Pinned by the termite, we get filled with emotions.
 {
     event()
     {
-           "The termite's antennae twitch in the air and you suddnely feel then touch your head. As they do, your mind is suddenly filled with odd, undescribable thoughts and 
-            emotions...<br>
+           "The termite's antennae twitch in the air and you suddnely feel then touch your head. As they do, your mind is suddenly filled with odd, 
+           undescribable thoughts and emotions...<br>
             <br>
-            The sensation is confusing and disorientating at first, but they quickly become focused and less painful. Thoughs of relaxation and clamness flood your mind, and 
-            you find yourself relaxing.<br>
+            The sensation is confusing and disorientating at first, but they quickly become focused and less painful. Thoughs of relaxation and clamness flood 
+            your mind, and you find yourself relaxing.<br>
+            <br>
+            You find yourself thinking thoughts, not quite your own, but at the same time you can only describe them as being guided to think of specific
+            things.<br>
+            <br>
+            You imagine the mound you just entered into, only much larger, and crawling full of life. All around, hundreds of termines wonder around, inside
+            and out. Your thoughs are suddenly taken inside, to a chamber much like the one you find yourself currently in, except swarming with smaller
+            termines, eggs, and an extremely large queen.<br>
+            <br>
+            Sadness grips you as you imagine the queen dead, and you see the termite kingdom crumble. Without the queen, the termites start to die, and the
+            mound starts to deteriorate without having workers to maintain it. All that is left, is a single termite. A lonely king.<br>
+            <br>
+            Suddenly, you imagine yourself entering the ruined kingdom, entering the old queens chamber, and eating the yellow jelly... the remains of the
+            previous queen, before falling asleep. Visions of the future begin to fill your mind. Visions of the kingdom being restored, and once again full 
+            of life, and with you as the queen.<br>
             <br>
             The termite pinning you down eases up, as happy thoughts of home, family and love enter your mind. This is when you come to realize that
-            the thoughts and emotions you are feeling, are being projected to you from the termite. This giant termite is the king, and you have been chosen to be his queen.<br>
+            the thoughts and emotions you are feeling, are being projected to you from the termite. This giant termite is the king, and you have been chosen 
+            to be his queen and restore his kingdom.<br>
             <br>";
             
             PresentChoice([['Become the new queen',Termite2aHook]]);
@@ -118,13 +133,19 @@ Termite2aHook : Hook //Become the new termite queen
 {
     event()
     {
-        "You decide that you will become the new queen. The king gets off of you as you decide this, immense feelings of joy, excitment and love flooding your mind.
-        You slowly stand up and also come to realize that your body is not completely human. Growing out from your forehead, you have two antennae similar to that of the king's,
-        only smaller. Your butt is also swollen up, about 3 times larger then it should be. The beginnings of your abdomin. You just know that your body will transform
-        while you remain within the termite mound, and you just can't wait until you can become the queen for your new king.";
+        "You decide that you will become the new queen. The king gets off of you as you decide this, immense feelings of joy, excitment and love flooding your 
+        mind. You slowly stand up and also come to realize that your body is not completely human. Growing out from your forehead, you have two antennae 
+        similar to that of the king's, only smaller. Your butt is also swollen up, about 3 times larger then it should be. The beginnings of your abdomin. 
+        You just know that your body will transform while you remain within the termite mound, and you just can't wait until you can become the queen for 
+        your new king.<br>
+        <br>
+        Unsure of what comes next, the king approaches you once more. Clear thoughts of you digging a room out come to mind, while you imagine the king and
+        yourself digging out a chamber of some sorts until the sun sets, and then while you sleep, the king will be out gathering various types of food to 
+        store in this new room you dig out. You should start preparing a storeroom, while your king will go out and gather food for the future.";
         
         TermiteKing.moveIntoForTravel(TermiteQueenChamber);
         TermiteTFStatus.Add(Player);
+        TermiteQueenChamber.known = true;
         TermiteKing.setCurState(termiteKingFollowing);
         Termite1Jelly.moveInto(nil);
     }
@@ -192,6 +213,7 @@ TermiteKing : Termite
     {
         "A large termite the size of an average human. He is your king for the kingdom you are going to help rebuild.";
     }
+    
     MateSchedule()
     {
         "The termite king approaches you, thoughs of reproduction and family flood your mind. You can't help but mate with to mate your king as he feeds you more yellow
@@ -223,7 +245,6 @@ TermiteKing : Termite
     doConversation()
     {        
         PresentChoice([
-        ['<q>What is the status of the mound?</q>',TermiteKingCStatus],
         ['<q>What should we be doing right now?</q>',TermiteKingCHint],
         ['Stop talking',TermiteKingCStop]
         ]);
@@ -240,54 +261,7 @@ TermiteKingCHint : Hook
 {
     event()
     {
-        if (TermiteTFStatus.state < 3)
-        {
-            "Feelings of patience and growth fill your mind. You understand that you should wait until you have transformed further.<br>
-            <br>";
-        }
-        else if (TermiteTFStatus.state == 3)
-        {
-            "Feelings of patience and hunger fill your mind. You understand that you should wait for your first eggs to be laied, but also to make sure that you have enough
-            food to feed the young ones once they are hatched. You might also want to look at building a fungus farm to have a food supply within the mound.<br>
-            <br>";
-        }
-        
-        TermiteKing.doConversation();
-    }
-}
-
-TermiteKingCStatus : Hook
-{
-    event()
-    {
-        "<u><b>Inhabitants (2 / 10)</b></u><br>
-        Queens : 1<br>
-        Kings : 1<br>
-        Workers : 0<br>
-        Nymphs : 0<br>
-        <br>
-        <u><b>Structure</b></u><br>
-        Size : <<TermiteMoundManager.Size>>";
-        
-        local roomCount = new LookupTable();
-        foreach (local room in TermiteMoundManager.map)
-        {
-            local roomType = room.name;
-            if (roomCount.isKeyPresent(roomType))
-            {
-                roomCount[roomType] += 1;
-            }
-            else
-            {
-                roomCount[roomType] = 1;
-            }
-        }
-        
-        foreach (local key in roomCount.keysToList())
-        {
-            "<br><<key>> : <<roomCount[key]>>";
-        }
-        "<br><br>";
+        "TODO : Progress hints";
         
         TermiteKing.doConversation();
     }
@@ -297,7 +271,7 @@ TermiteKingCStop : Hook
 {
     event()
     {
-        "The termite king nods as you stop talking.";
+        "The termite king nods as you stop communicating.";
     }
 }
 

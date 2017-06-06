@@ -265,15 +265,6 @@ class ForestMap : OverworldRoom
     }
 }
 
-/* Some food for now. Need to move this somewhere else and make something better */
-class Apple : Food
-{
-    name = 'apple'
-    vocabWords = 'apple*apples'
-    isEquivalent = true
-    Nutrition = 5
-}
-
 /* POIs */
 class POI : object
 {

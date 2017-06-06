@@ -13,4 +13,25 @@ class Termite : UntakeableActor
     WisdomBase = 12.0000
     CharismaBase = 7.0000
     
+    //states for termites
+    //0 = idle
+    //1 = out gathering food
+    state = 0
+    
+    SetState(newstate)
+    {
+        switch(newstate)
+        {
+            case 1: //leave the mound to look for food. Return in an hour
+            {
+                Player.AddToSchedule(60,self,&gatherResult);
+            }
+        }
+    }
+    
+    gatherResult()
+    {
+        "OK";
+    }
+    
 }
