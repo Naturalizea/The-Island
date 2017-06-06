@@ -358,3 +358,65 @@ ConnectRooms(room1,room2)
     }
     //should be done!
 }
+
+//Check if two rooms have a connector between them
+IsConnected(room1,room2)
+{
+    //determine where we are in relation to eachother
+    local x = room2.X - room1.X;
+    local y = room2.Y - room1.Y;
+    local z = room2.Z - room1.Z;
+    
+    //create the link (one way)
+    if (z == 1) //up
+    {
+        return (room1.up != nil);
+    }
+    else if (z == -1) //down
+    {
+        return (room1.down  != nil);;       
+    }
+    else
+    {
+        if (y == -1) //south
+        {
+            if (x == 1) //east
+            {
+                return (room1.southeast  != nil);
+            }
+            else if (x == -1) //west
+            {
+                return (room1.southwest  != nil);
+            }
+            else
+            {
+                return (room1.south  != nil);
+            }
+        }
+        else if (y == 1) // north
+        {
+            if (x == 1) //east
+            {
+                return (room1.northeast  != nil);
+            }
+            else if (x == -1) //west
+            {
+                return (room1.northwest  != nil);  
+            }
+            else
+            {
+                return (room1.north  != nil);
+            }
+        }
+        else if (x == 1) //east
+        {
+            return (room1.east  != nil);
+        }
+        else //west
+        {
+            return (room1.west  != nil);           
+        }
+        
+    }
+    //should be done!
+}

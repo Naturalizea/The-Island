@@ -1,6 +1,7 @@
 name: Core
 
 source: actorex
+source: crafting
 source: choice
 source: custombanner
 source: foodex

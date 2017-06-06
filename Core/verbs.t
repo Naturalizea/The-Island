@@ -1,6 +1,53 @@
 #include <adv3.h>
 #include <en_us.h>
 
+//Craft
+DefineIAction(Craft)
+execAction()
+{
+    //let the actor handle it
+    gActor.Craft();
+};
+
+VerbRule(Craft) ('craft' | 'build' | 'construct' | 'make') : CraftAction
+{
+    verbPhrase = 'craft';
+}
+
+modify Actor
+{
+    Craft()
+    {
+        local craftArray = [];
+        //Check for existing incomplete projects in the area.
+        
+        //Build the list of valid recipies from the player knowledge (TODO).
+        
+        //Build the craft list from the area.
+        craftArray += location.GetValidCrafts(self);
+        
+        if (craftArray.length == 0)
+        {
+            "You can't craft anything here.";
+            return;
+        }
+        
+        craftArray += [['Cancel', FalseHook]];
+        
+        "<br>What would you like to craft?";
+        PresentChoice(craftArray);
+        "<br>";
+    }
+}
+
+modify BasicLocation 
+{
+    GetValidCrafts(crafter)
+    {
+        return [];
+    }
+}
+
 //hive status (when termite)
 DefineIAction(HiveStatus)
 execAction()
@@ -60,10 +107,7 @@ modify WaitAction
         local minutes = toInteger(inputManager.getInputLine(nil, {: "How many minutes do you want to wait? " }));
         
         Player.AdvanceTime(minutes);
-        
-        
     }
-      
 }
 
 modify SleepAction
@@ -97,4 +141,3 @@ VerbRule(WaitTime) (('z' | 'wait') | ('z' | 'wait') 'for') ((singleNumber) | (si
 {
     verbPhrase = 'wait/waiting (what)'
 }
-

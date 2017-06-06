@@ -107,17 +107,14 @@ TermiteMoundManager : object
                 Z -= 1;
                 dir = 1;
             }
-            local tunnel = DigTunnel(prevRoom,[Z,Y,X]);
+            DigTunnel(prevRoom,[Z,Y,X]);
             key = '' + Z + ',' + Y + ',' + X;
-            map[key] = tunnel;            
         }
         
         //one north
         prevRoom = map[key];
         Y += 1;
         local tunnel = DigTunnel(prevRoom,[Z,Y,X]);
-        key = '' + Z + ',' + Y + ',' + X;
-        map[key] = tunnel;
         
         //and then the centre of the mound. The queens chamber
         Y += 1;
@@ -144,6 +141,9 @@ TermiteMoundManager : object
         
         ConnectRooms(source, tunnel);
         ConnectRooms(tunnel, source);
+        
+        local key = '' + newPos[1] + ',' + newPos[2] + ',' + newPos[3];
+        map[key] = tunnel;
         
         return tunnel;  
     }
@@ -197,6 +197,76 @@ TermiteMoundEntrance : Room
 class TermiteMoundTunnel : Room
 {
     name = 'Tunnel'
+    
+    GetValidCrafts(crafter)
+    {
+        if (TermiteTFStatus.Has(crafter))
+        {
+            return [['Dig a new tunnel',CraftTermiteTunnelHook]];
+        }
+        return inherited(crafter);
+    }
+}
+
+CraftTermiteTunnelHook : Hook
+{
+    event()
+    {
+        //check the player's location for open areas
+        local l = Player.location;
+        local map = TermiteMoundManager.map;
+        local key = '';
+        
+        //find valid directions for a new tunnel
+        
+        local newValidTunnels = [];
+        
+        for(local z = -1; z <= 1; z++)
+        {
+            key = '' + (l.Z + z) + ',' + l.Y + ',' + l.X;
+            
+            if (z == 0)
+            {
+                //look at all rooms around (TODO)
+            }
+            else
+            {                
+                local nextRoom = map[key];
+                if (!(nextRoom != nil && IsConnected(l,nextRoom)))
+                {
+                    if (z == -1) //down
+                    {
+                        newValidTunnels += [['Dig tunnel down', CraftTermiteTunnelDownHook]];
+                    }
+                    else //up
+                    {
+                        newValidTunnels += [['Dig tunnel up', FalseHook]];
+                    }
+                }
+            }
+        }
+        if (newValidTunnels.length == 0)
+        {
+            "There isn't any room for a new tunnel from here.";
+        }
+        else
+        {
+            newValidTunnels += [['Cancel', FalseHook]];
+            "<br>In which direction to you want to dig the tunnel?";
+            PresentChoice(newValidTunnels);
+            "<br>";
+        }
+    }
+}
+
+CraftTermiteTunnelDownHook : Hook
+{
+    event()
+    {
+        local l = Player.location;
+        //TODO : Use the construction rules and such, but for now just faking it to test all the hooks work right
+        TermiteMoundManager.DigTunnel(l,[l.Z-1,l.Y,l.X]);
+    }
 }
 
 TermiteQueenChamber : Room
