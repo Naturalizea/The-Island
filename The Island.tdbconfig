@@ -226,6 +226,7 @@ line wrap:Scenarios\Termites\Termites.tl:S:0:N
 line wrap:Core\statusex.t:S:0:N
 src win edit mode:%tads%lib\adv3\action.t:S:0:TADS 3
 breakpoints:global:S:0:l
+breakpoints:global:S:1:l
 line wrap:Core\foodex.t:S:0:N
 src win edit mode:%tads%lib\adv3\en_us\en_us.h:S:0:TADS 3
 line wrap:TFSystem\Genes.t:S:0:N
@@ -266,7 +267,7 @@ line wrap:Scenarios\Termites\TermiteMound.t:S:0:N
 src win split:Core\hooks.t:S:0:0.000000
 line wrap:Core\status.t:S:0:N
 src win split:TFSystem\Tags.t:S:0:0.000000
-auto-script:next-id:I:425
+auto-script:next-id:I:427
 line wrap:%tads%lib\adv3\adv3.h:S:0:N
 SearchToolbar:rebarWidth:I:253
 src win edit mode:%tads%lib\adv3\exec.t:S:0:TADS 3
@@ -281,7 +282,7 @@ docking config::S:6:W-1,170,170,0,0,1050,466,M,R,log win
 docking config::S:7:W-1,170,170,44,58,1134,546,M,R,stack win
 docking config::S:8:W-1,170,170,66,87,1156,575,M,R,help win
 docking config::S:9:W-1,170,170,2530,403,3416,867,M,B,filesearch win
-search:text:S:0:Size
+search:text:S:0:OutdoorsRoom
 search:text:S:1:
 src win split:%tads%lib\adv3\objects.t:S:0:0.000000
 line wrap:Core\time.t:S:0:N
@@ -289,6 +290,7 @@ locals win:vis:I:0
 locals win:pos:R:10,572,294,688
 main win max::I:1
 breakpoints:file:S:0:Scenarios\Termites\TermiteQueen.t
+breakpoints:file:S:1:Core\time.t
 proj search:collapse spaces:I:0
 src win edit mode:Core\actorex.t:S:0:TADS 3
 src win split:%tads%lib\adv3\actions.t:S:0:0.000000
@@ -296,26 +298,30 @@ src win selrange:Core\custombanner.t:S:0:0,0
 src win selrange:Core\custombanner.t:S:1:9442,9452
 line wrap:The Island.t:S:0:N
 breakpoints:cond:S:0:
+breakpoints:cond:S:1:
 breakpoints:status:S:0:e
+breakpoints:status:S:1:e
 search:exact case:I:0
 build on run::I:1
 src win selrange:Core\core.tl:S:0:0,0
 src win selrange:Core\core.tl:S:1:77,83
 breakpoints:line:S:0:75
+breakpoints:line:S:1:30
 line wrap:%tads%include\file.h:S:0:N
 build:webpage dir:S:0:web
 mdi win list::S:0::log
-mdi win list::S:1:Scenarios\Termites\TermiteMound.t
-mdi win list::S:2:Scenarios\Termites\TermiteQueen.t
-mdi win list::S:3:Core\hooks.t
-mdi win list::S:4:The Island.t
-mdi win list::S:5:Core\player.t
-mdi win list::S:6:Scenarios\Termites\Termite.t
-mdi win list::S:7:Core\verbs.t
-mdi win list::S:8::help
-mdi win list::S:9:Core\choice.t
-mdi win list::S:10:Core\time.t
-mdi win list::S:11:Core\statusex.t
+mdi win list::S:1:Core\time.t
+mdi win list::S:2:Scenarios\Termites\TermiteMound.t
+mdi win list::S:3:Core\player.t
+mdi win list::S:4:Core\core.tl
+mdi win list::S:5:Scenarios\Termites\TermiteQueen.t
+mdi win list::S:6:Core\statusex.t
+mdi win list::S:7:Core\choice.t
+mdi win list::S:8:Core\hooks.t
+mdi win list::S:9:Scenarios\Termites\Termite.t
+mdi win list::S:10::help
+mdi win list::S:11:The Island.t
+mdi win list::S:12:Core\verbs.t
 build:srczipfile:S:0:The IslandSource.zip
 main win pos::R:-8,-8,1928,1048
 src win split:%tads%include\systype.h:S:0:0.000000
@@ -393,7 +399,7 @@ src win selrange:%tads%include\systype.h:S:0:0,0
 src win selrange:%tads%include\systype.h:S:1:12621,12625
 src win edit mode:Core\hooks.t:S:0:TADS 3
 src win selrange:Core\map.t:S:0:0,0
-src win selrange:Core\map.t:S:1:3323,3323
+src win selrange:Core\map.t:S:1:4786,4797
 search:whole word:I:0
 src win pos:Core\map.t:R:25,25,1313,637
 src win edit mode:TFSystem\Tags.t:S:0:TADS 3
@@ -408,16 +414,16 @@ line wrap:%tads%lib\adv3\exec.t:S:0:N
 build:debug_image_file:S:0:debug\The Island.t3
 DebugToolbar:rebarNewLine:I:1
 src win split:Core\choice.t:S:0:0.000000
-search dlg:old searches:S:0:Size
-search dlg:old searches:S:1:ConnectRooms
-search dlg:old searches:S:2:objToCall
-search dlg:old searches:S:3:event
-search dlg:old searches:S:4:stop
-search dlg:old searches:S:5:scheduleEvent
-search dlg:old searches:S:6:currentSchedule
-search dlg:old searches:S:7:AddToForwardSchedule
-search dlg:old searches:S:8:AddToSchedule
-search dlg:old searches:S:9:AdvanceSchedule
+search dlg:old searches:S:0:OutdoorsRoom
+search dlg:old searches:S:1:OutdoorRoom
+search dlg:old searches:S:2:Size
+search dlg:old searches:S:3:ConnectRooms
+search dlg:old searches:S:4:objToCall
+search dlg:old searches:S:5:event
+search dlg:old searches:S:6:stop
+search dlg:old searches:S:7:scheduleEvent
+search dlg:old searches:S:8:currentSchedule
+search dlg:old searches:S:9:AddToForwardSchedule
 src win split:TFSystem\Transformation.t:S:0:0.000000
 src win edit mode:%tads%lib\adv3\objects.t:S:0:TADS 3
 editor:program:S:0:Notepad.EXE
@@ -447,7 +453,7 @@ src win selrange:%tads%lib\adv3\actor.t:S:1:352826,352840
 search:regex:I:0
 src win selrange:%tads%lib\adv3\thing.t:S:0:0,0
 src win selrange:%tads%lib\adv3\thing.t:S:1:295572,295572
-mdi tab order::S:0:6,1,5,2,11,10,9,3,4,8,7,0
+mdi tab order::S:0:9,2,3,5,6,1,7,8,11,10,12,4,0
 src win split:Core\foodex.t:S:0:0.000000
 src win split:TFSystem\Genes.t:S:0:0.000000
 build:rlsgam:S:0:The Island.t3
@@ -489,17 +495,18 @@ line wrap:TFSystem\TFSystem.tl:S:0:N
 src win split:Scenarios\Termites\Termite.t:S:0:0.000000
 line wrap:Core\verbs.t:S:0:N
 mdi win title::S:0:
-mdi win title::S:1:Scenarios\Termites\TermiteMound.t
-mdi win title::S:2:Scenarios\Termites\TermiteQueen.t
-mdi win title::S:3:Core\hooks.t
-mdi win title::S:4:The Island.t
-mdi win title::S:5:Core\player.t
-mdi win title::S:6:Scenarios\Termites\Termite.t
-mdi win title::S:7:Core\verbs.t
-mdi win title::S:8:
-mdi win title::S:9:Core\choice.t
-mdi win title::S:10:Core\time.t
-mdi win title::S:11:Core\statusex.t
+mdi win title::S:1:Core\time.t
+mdi win title::S:2:Scenarios\Termites\TermiteMound.t
+mdi win title::S:3:Core\player.t
+mdi win title::S:4:Core\core.tl
+mdi win title::S:5:Scenarios\Termites\TermiteQueen.t
+mdi win title::S:6:Core\statusex.t
+mdi win title::S:7:Core\choice.t
+mdi win title::S:8:Core\hooks.t
+mdi win title::S:9:Scenarios\Termites\Termite.t
+mdi win title::S:10:
+mdi win title::S:11:The Island.t
+mdi win title::S:12:Core\verbs.t
 line wrap:Core\hooks.t:S:0:N
 src win split:Scenarios\Termites\TermiteMound.t:S:0:0.000000
 src win split:Core\status.t:S:0:0.000000

@@ -91,10 +91,10 @@ TermiteMoundManager : object
         local key = '' + Z + ',' + Y + ',' + X;
         map[key] = TermiteMoundEntrance;
         
-        //build our tunnel 4 in and down
+        //build our tunnel 3 in and down
         local prevRoom = nil;
-        local dir = 1;
-        for (local i=1; i<=4; i++)
+        local dir = 0;
+        for (local i=1; i<=3; i++)
         {
             prevRoom = map[key];
             if (dir == 1)
@@ -169,10 +169,25 @@ TermiteMoundEntrance : Room
     beforeTravel(traveler, connector)
     {
     
-        if (Player.TermiteState != 0 && connector.ofKind(GrassyPlainsMap))
+        if (TermiteTFStatus.Has(Player) && connector.ofKind(OutdoorRoom))
         {
-            failCheck('You start to head out of the termite mound, but the termite king grabs onto your leg. Large emotions of fear and danger flood
-            your mind, and you get the feeling that you would have to get rid of the king if you want to leave.');
+            //check the time
+            if (DateTime._hour >= 19 || DateTime._hour <= 5)
+            {
+                return inherited(traveler, connector);
+            }
+            else
+            {
+                if (TermiteTFStatus.state >= 3)
+                {
+                    failCheck('Leaving the mound during the day while the sun is out is too dangerous. You will burn alive!');
+                }
+                if (Player.canSee(TermiteKing))
+                {
+                    failCheck('You start to head out of the termite mound, but the termite king grabs onto your leg. Large emotions of fear and danger of
+                    buring from the sun flood your mind. You will not be able to leave during the day while the king is with you.');
+                }
+            }
         }
     
         return inherited(traveler, connector);

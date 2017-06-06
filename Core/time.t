@@ -27,6 +27,7 @@ DateTime : object
     /* Returns the current time of day, based on the current hour */
     GetTimeOfDay()
     {
+        if (Player.location != nil && !Player.location.ofKind(OutdoorRoom)) { return '???';}
         if (_hour < 1) {return 'midnight';}
         if (_hour < 5) {return 'early morning';}
         if (_hour < 7) {return 'dawn';}
