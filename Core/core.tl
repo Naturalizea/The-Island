@@ -12,3 +12,4 @@ source: verbs
 source: time
 source: pathfind
 source: player
+source: exmenu

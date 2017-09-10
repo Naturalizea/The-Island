@@ -272,10 +272,10 @@ CraftTermiteTunnelDownHook : Hook
         tunnelProject.moveInto(l);
         
         //TODO : Check for king. He should also get a roll to assist if following the player.
-        local roll = Player.TermiteCraftingCheck(tunnelProject.difficulty);
-        tunnelProject.Craft(roll,true);
+        //local roll = Player.TermiteCraftingCheck(tunnelProject.difficulty);
+        //tunnelProject.Craft(roll,true);
         
-        TermiteMoundManager.DigTunnel(l,[l.Z-1,l.Y,l.X]);
+        //TermiteMoundManager.DigTunnel(l,[l.Z-1,l.Y,l.X]);
     }
 }
 

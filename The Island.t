@@ -40,8 +40,6 @@ gameMain: GameMainDef
         
         Player.name = inputManager.getInputLine(nil, {: "<br>And what is your name? " });
         
-        RollAbilityScores();
-        
         clearScreen();
         
         DateTime._month = rand(12)+1;
@@ -59,34 +57,5 @@ gameMain: GameMainDef
         and you have no recollection of how you would have got here.<br>
         <br>";
         
-    }
-    
-    RollAbilityScores()
-    {
-        local accept = nil;
-        
-        while (!accept)
-        {
-            clearScreen();
-            
-            Player.StrAdj = Player.AttributeRoll();
-            Player.DexAdj = Player.AttributeRoll();
-            Player.ConAdj = Player.AttributeRoll();
-            Player.IntAdj = Player.AttributeRoll();
-            Player.WisAdj = Player.AttributeRoll();
-            Player.ChaAdj = Player.AttributeRoll();
-            
-            "--Rolling ability scores--<br>";
-            "<br>";
-            "<<Player.Strength>> = Strength (measures muscle and physical power)<br>";
-            "<<Player.Dexterity>> = Dexterity (measures agility, reflexes, and balance)<br>";
-            "<<Player.Constitution>> = Constitution (represents your character's health and stamina)<br>";
-            "<<Player.Intelligence>> = Intelligence (determines how well your character learns and reasons)<br>";
-            "<<Player.Wisdom>> = Wisdom (describes a character's willpower, common sense, awareness, and intuition)<br>";
-            "<<Player.Charisma>> = Charisma (measures a character's personality, personal magnetism, ability to lead, and appearance)<br>";
-            "<br>";
-            "Do you accept? ";
-            accept = PresentChoice([['Yes',TrueHook],['No',FalseHook]]);
-        }
     }
 }
