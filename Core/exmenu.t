@@ -5,7 +5,7 @@
 
 menuBanner: CustomBannerWindow
 {
-    bannerArgs = [nil,BannerAfter, statuslineBanner, BannerTypeText, BannerAlignTop, 90, BannerSizePercent, BannerStyleBorder + BannerStyleVScroll]
+    bannerArgs = [nil,BannerAfter, statuslineBanner, BannerTypeText, BannerAlignTop, 100, BannerSizePercent, BannerStyleBorder + BannerStyleVScroll]
     //bannerArgs = [nil, BannerAfter, statuslineBanner, BannerTypeText, BannerAlignBottom, 10, BannerSizeAbsolute, BannerStyleBorder]
     
     isActive = nil;   
@@ -17,7 +17,10 @@ menuBanner: CustomBannerWindow
             activate();
         }
         
-        updateContents(content);
+        if (content != nil)
+        {
+            updateContents(content);
+        }
     }
     
     clearMenu()
@@ -33,70 +36,91 @@ class ExMenuItem : object
 {
     name = 'Item'
     
+    parentMenu = nil;
+    index = 0;
+    fakeItem = nil;
+    
     Select()
     {
-        "ITEM SELECTED!";
-        return true;
+        return nil;
     }
     Right()
     {
-        "RIGHT";
-        return true;
+        return nil;
     }
     Left()
     {
-        "LEFT";
-        return true;
+        return nil;
+    }
+    Escape()
+    {
+        parentMenu.Escape();
     }
 }
 
-class ExMenu : object
+class ExMenu : InitObject
 {
     menuItems = nil;
-    name = 'ExMenu'
+    name = '===ExMenu==='
+    
+    execute()
+    {
+        //implement this
+    }
+    
+    Escape()
+    {
+        return true;
+    }
+    
     
     AddMenuItem(menuItem)
     {
         if (menuItems == nil) { menuItems = new LookupTable();};
-        
     
         local index = menuItems.getEntryCount();
+        menuItem.parentMenu = self;
+        menuItem.index = index;
         menuItems[index] = menuItem;
+
     }
     
     Show(selectedIndex=0)
     {
-        local menuContents = '<tab align=center>====<<name>>====';
-        menuContents += '<br>';
-        for (local x=0; x<menuItems.getEntryCount(); x++)
-        {
-            if (x==selectedIndex)
-            {
-                menuContents += '<b>    > <<menuItems[x].name>></b>';
-            }
-            else
-            {
-                menuContents += '    - <<menuItems[x].name>>';
-            }
-            menuContents += '<br>';
-        }
-        
-        menuBanner.showMenu(menuContents);
-        
-        processKeyPress(selectedIndex);
-    }
-    
-    processKeyPress(selectedIndex)
-    {
         local keyPress = nil;
         while (keyPress == nil)
-        {
+        {       
+            local menuContents = '<tab align=center><<name>>';
+            menuContents += '<hr><br>';
+            for (local x=0; x<menuItems.getEntryCount(); x++)
+            {
+                if (menuItems[x].fakeItem)
+                {
+                    menuContents += '<<menuItems[x].name>>';
+                }
+                else
+                {
+                    if (x==selectedIndex)
+                    {
+                        menuContents += '<b>    > <<menuItems[x].name>></b>';
+                    }
+                    else
+                    {
+                        menuContents += '    - <<menuItems[x].name>>';
+                    }
+                }
+                menuContents += '<br>';
+            }
+            menuContents += '<hr>';
+            menuBanner.showMenu(menuContents);
+            
             keyPress = inputManager.getKey(nil, nil);
             
             switch (keyPress)
             {
                 case '[down]' : 
                     selectedIndex++;
+                    while (selectedIndex < menuItems.getEntryCount() && menuItems[selectedIndex].fakeItem) { selectedIndex++; }
                     if (selectedIndex >= menuItems.getEntryCount())
                     {
                         selectedIndex = 0;
@@ -105,6 +129,7 @@ class ExMenu : object
                     break;
                 case '[up]' : 
                     selectedIndex--;
+                    while (selectedIndex >= 0 && menuItems[selectedIndex].fakeItem) { selectedIndex--; }
                     if (selectedIndex < 0)
                     {
                         selectedIndex = menuItems.getEntryCount()-1;
@@ -126,13 +151,14 @@ class ExMenu : object
                     if (!menuItems[selectedIndex].Left())
                     { keyPress = nil; }
                     break;
-                case 'esc' :
+                case '[esc]' :
                     menuBanner.clearMenu();
+                    if (!menuItems[selectedIndex].Escape())
+                    { keyPress = nil; }
                     break;
                 default :
                     keyPress = nil;
                     break;
-                
             }   
         }
     }

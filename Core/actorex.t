@@ -19,8 +19,8 @@ modify Actor //Basic stats
     Will = 10
     Perception = 10
     FatiguePoints = 10
-    BasicSpeed = 5 //(HT + DX) / 4
-    BasicMove = 5
+    BasicSpeed = 5.0000 //(HT + DX) / 4
+    BasicMove = 5.0000
     
     
     //Basic test

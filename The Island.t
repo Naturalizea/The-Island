@@ -26,6 +26,9 @@ gameMain: GameMainDef
         randomize();
         MapGenerator.Construct();
         
+        Player.CreateCharacter();
+        
+        
         "<br>Show dice rolls?";
         showDiceRolls = PresentChoice([['Yes',TrueHook],['No',FalseHook]]);
         "<br>";
