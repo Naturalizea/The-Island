@@ -27,22 +27,7 @@ gameMain: GameMainDef
         MapGenerator.Construct();
         
         Player.CreateCharacter();
-        
-        
-        "<br>Show dice rolls?";
-        showDiceRolls = PresentChoice([['Yes',TrueHook],['No',FalseHook]]);
-        "<br>";
-        
-        local choiceArray = [
-            ['Male',MaleHook],
-            ['Female',FemaleHook]
-        ];
-        "<br>Are you male or female?";
-        PresentChoice(choiceArray);
-        "<br>";
-        
-        Player.name = inputManager.getInputLine(nil, {: "<br>And what is your name? " });
-        
+
         clearScreen();
         
         DateTime._month = rand(12)+1;
