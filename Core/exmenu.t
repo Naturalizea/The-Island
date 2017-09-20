@@ -163,3 +163,9 @@ class ExMenu : InitObject
         }
     }
 }
+
+Menu_Line : ExMenuItem
+{
+    name = '<hr>';
+    fakeItem = true;
+}
