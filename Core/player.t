@@ -2,19 +2,96 @@
 #include <adv3.h>
 #include <en_us.h>
 #include <bignum.h>
+#include <lookup.h>
 
 Player: Actor
 {    
 
-    isHim = true;
+    //Game stuff
+    Points = 50;
+    Statuses = []
     
-    points = 50;
+    isHim = true;
+
+    //Basic attributes
+    Strength = 10
+    Dexterity = 10
+    Intelligence = 10
+    Health = 10
+    
+    //Secondary attributes
+    HitPoints = 10
+    Will = 10
+    Perception = 10
+    FatiguePoints = 10
+    BasicSpeed = 5.0000 //(HT + DX) / 4
+    BasicMove = 5.0000
+    
+    //Tracking
+    StarvationFP = 0
+    
+    
+    //Basic test
+    SuccessCheck(modifier,test,testname)
+    {
+        local roll = rand(6)+rand(6)+rand(6)+3;
+        local total = roll + modifier;
+        if (gameMain.showDiceRolls)
+        {
+            "<font color=blue> [\^<<testname>> check (<<roll>> + <<modifier>>) vs <<test>> = ";
+        }
+        if (roll < 17 && (total <= test || roll <= 4))
+        {
+            if (gameMain.showDiceRolls)
+            {
+                "<b>Success</b>]</font> ";
+            }
+            return true;
+        }
+        if (gameMain.showDiceRolls)
+        {
+            "<b>Failure</b>]</font> ";
+        }
+        return nil;
+    }
+    
+    //Attribute tests
+    StrengthTest(modifier)
+    {
+        return SuccessCheck(modifier,Strength,'strength');
+    }
+    
+    DexterityTest(modifier)
+    {
+        return SuccessCheck(modifier,Dexterity,'dexterity');
+    }
+    
+    IntelligenceTest(modifier)
+    {
+        return SuccessCheck(modifier,Intelligence,'intelligence');
+    }
+    
+    HealthTest(modifier)
+    {
+        return SuccessCheck(modifier,Health,'health');
+    }   
 
     CreateCharacter()
     {
         PlayerCreateMenu.Show();
+        ConfigureSchedule();
     }
-
+    
+    ConfigureSchedule()
+    {
+        AddToSchedule('Hunger',60*24,self,&AdvanceStarvation);
+    }
+    
+    AdvanceStarvation()
+    {
+        "Starvation test";
+        return nil;
+    }
 
     desc()
     {
@@ -56,26 +133,40 @@ Player: Actor
     }
     
     //our future schedule of events
-    currentSchedule = []
+    CurrentSchedule = nil
     
     // Add an event to fire of <minutes> minutes from when it is added.
-    AddToSchedule(minutes,obj,event)
+    AddToSchedule(name,minutes,obj,event)
     {
-        currentSchedule += [[minutes,obj,event]];
+        if (CurrentSchedule == nil) { CurrentSchedule = new LookupTable();};
+        CurrentSchedule[name] = [minutes,obj,event];
+    }
+    
+    RemoveFromSchedule(name)
+    {
+        CurrentSchedule.removeElement(name);
     }
     
     AdvanceSchedule(minutes)
     {
-        local newSchedule = [];
-        foreach (local scheduleItem in currentSchedule)
+        local newSchedule = new LookupTable();
+        foreach (local key in CurrentSchedule.keysToList())
         {
+            local scheduleItem = CurrentSchedule[key];
             local time = scheduleItem[1];
             local obj = scheduleItem[2];
             local event = scheduleItem[3];
             
-            newSchedule += [[time-minutes,obj,event]];
+            if (time-minutes <= 0)
+            {
+                RemoveFromSchedule(key);
+            }
+            else
+            {
+                newSchedule[key] = [time-minutes,obj,event];
+            }
         }
-        currentSchedule = newSchedule;
+        CurrentSchedule = newSchedule;
     }
     
     AdvanceTime(minutes)
@@ -84,132 +175,141 @@ Player: Actor
         local scheduleObj;
         local scheduleEvent;
         local minutesToAdvance = minutes;
+        local minutesAdvanced = 0;
         local stop = nil;
         
-        //If we are sleeping
-        if (SleepingStatus.Has(Player))
+        while (stop != nil || minutesAdvanced < minutes)
         {
-            //work out when we would wake up
-            minutes = new BigNumber(Fatigue / FatigueRestRate).getCeil();
-            minutesToAdvance = minutes;
-        }
-    
-        //get our next schedule item to run
-        if (currentSchedule.length >= 1)
-        {    
-            local scheduleIndex = currentSchedule.indexOfMin({x: x[1]});
             
-            local nextSchedule = currentSchedule[scheduleIndex];
-                
-            scheduleTime = nextSchedule[1];
-            scheduleObj = nextSchedule[2];
-            scheduleEvent = nextSchedule[3];
-            
-            if (scheduleTime < minutes)
+            //If we are sleeping
+            /*
+            if (SleepingStatus.Has(Player))
             {
-                minutesToAdvance = scheduleTime;
+                //work out when we would wake up
+                minutes = new BigNumber(Fatigue / FatigueRestRate).getCeil();
+                minutesToAdvance = minutes;
+            }
+        */
+            //get our next schedule item to run
+            if (CurrentSchedule.getEntryCount() >= 1)
+            {    
+                local scheduleList = CurrentSchedule.valsToList();
+                local scheduleIndex = scheduleList.indexOfMin({x: x[1]});
+                
+                local nextSchedule = scheduleList[scheduleIndex];
+                    
+                scheduleTime = nextSchedule[1];
+                scheduleObj = nextSchedule[2];
+                scheduleEvent = nextSchedule[3];
+                
+                if (scheduleTime < minutes)
+                {
+                    minutesToAdvance = scheduleTime;
+                }
+            }
+            else
+            {
+                minutesToAdvance = minutes - minutesAdvanced;
+            }
+            
+
+            /*
+            //based on our time, work out the changes to the stats
+            
+            //Fatigue
+            local fatigueToAdd = 0;
+            //Are we sleeping?
+            if (SleepingStatus.Has(Player))
+            {            
+                Fatigue -= (minutes * FatigueRestRate).getFloor();
+                
+                if (Fatigue < FatigueCap3)
+                {
+                    VeryTiredStatus.Remove(Player);
+                }            
+                if (Fatigue < FatigueCap2)
+                {
+                    TiredStatus.Remove(Player);
+                }
+                if (Fatigue < FatigueCap1)
+                {
+                    FatiguedStatus.Remove(Player);
+                }
+            }
+            else
+            {            
+                fatigueToAdd = FatigueRate * minutes;
+            }
+            
+            Fatigue += fatigueToAdd;
+            
+            if (Fatigue >= FatigueCap3 && VeryTiredStatus.Has(Player))
+            {
+                VeryTiredStatus.Remove(Player);
+                TiredStatus.Remove(Player);
+                FatiguedStatus.Remove(Player);
+            }            
+            if (Fatigue >= FatigueCap2 && !VeryTiredStatus.Has(Player))
+            {
+                TiredStatus.Add(Player);
+                FatiguedStatus.Remove(Player);
+            }
+            if (Fatigue >= FatigueCap1 && !TiredStatus.Has(Player) && !VeryTiredStatus.Has(Player))
+            {
+                FatiguedStatus.Add(Player);
+            }
+            
+            //Hunger
+            local hungerToAdd = HungerRate * minutes;
+            
+            Hunger += hungerToAdd;
+            
+            if (Hunger >= HungerCap3)
+            {
+                StarvingStatus.Add(Player);
+                HungryStatus.Remove(Player);
+                PeckishStatus.Remove(Player);
+            }            
+            else if (Hunger >= HungerCap2)
+            {
+                StarvingStatus.Remove(Player);
+                HungryStatus.Add(Player);
+                PeckishStatus.Remove(Player);
+            }
+            else if (Hunger >= FatigueCap1)
+            {
+                StarvingStatus.Remove(Player);
+                HungryStatus.Remove(Player);
+                PeckishStatus.Add(Player);
+            }
+            else
+            {
+                StarvingStatus.Remove(Player);
+                HungryStatus.Remove(Player);
+                PeckishStatus.Remove(Player);
+            }        
+            
+            if (SleepingStatus.Has(Player))
+            {
+                //wakeup
+                SleepingStatus.Remove(Player);
+                "You wake up after <<minutesToAdvance>> minutes.";
+            }
+            */
+            //advance our time
+            DateTime.AddMinutes(minutesToAdvance);
+            minutesAdvanced += minutesToAdvance;
+            AdvanceSchedule(minutesToAdvance);
+            
+            //execute the schedule event
+            if (scheduleObj != nil && minutesAdvanced >= scheduleTime)
+            {
+                stop = scheduleObj.(scheduleEvent);
+                scheduleObj = nil;
             }
         }
         
 
-        
-        //based on our time, work out the changes to the stats
-        
-        //Fatigue
-        local fatigueToAdd = 0;
-        //Are we sleeping?
-        if (SleepingStatus.Has(Player))
-        {            
-            Fatigue -= (minutes * FatigueRestRate).getFloor();
-            
-            if (Fatigue < FatigueCap3)
-            {
-                VeryTiredStatus.Remove(Player);
-            }            
-            if (Fatigue < FatigueCap2)
-            {
-                TiredStatus.Remove(Player);
-            }
-            if (Fatigue < FatigueCap1)
-            {
-                FatiguedStatus.Remove(Player);
-            }
-        }
-        else
-        {            
-            fatigueToAdd = FatigueRate * minutes;
-        }
-        
-        Fatigue += fatigueToAdd;
-        
-        if (Fatigue >= FatigueCap3 && VeryTiredStatus.Has(Player))
-        {
-            VeryTiredStatus.Remove(Player);
-            TiredStatus.Remove(Player);
-            FatiguedStatus.Remove(Player);
-        }            
-        if (Fatigue >= FatigueCap2 && !VeryTiredStatus.Has(Player))
-        {
-            TiredStatus.Add(Player);
-            FatiguedStatus.Remove(Player);
-        }
-        if (Fatigue >= FatigueCap1 && !TiredStatus.Has(Player) && !VeryTiredStatus.Has(Player))
-        {
-            FatiguedStatus.Add(Player);
-        }
-        
-        //Hunger
-        local hungerToAdd = HungerRate * minutes;
-        
-        Hunger += hungerToAdd;
-        
-        if (Hunger >= HungerCap3)
-        {
-            StarvingStatus.Add(Player);
-            HungryStatus.Remove(Player);
-            PeckishStatus.Remove(Player);
-        }            
-        else if (Hunger >= HungerCap2)
-        {
-            StarvingStatus.Remove(Player);
-            HungryStatus.Add(Player);
-            PeckishStatus.Remove(Player);
-        }
-        else if (Hunger >= FatigueCap1)
-        {
-            StarvingStatus.Remove(Player);
-            HungryStatus.Remove(Player);
-            PeckishStatus.Add(Player);
-        }
-        else
-        {
-            StarvingStatus.Remove(Player);
-            HungryStatus.Remove(Player);
-            PeckishStatus.Remove(Player);
-        }        
-        
-        if (SleepingStatus.Has(Player))
-        {
-            //wakeup
-            SleepingStatus.Remove(Player);
-            "You wake up after <<minutesToAdvance>> minutes.";
-        }
-        
-        //advance our time
-        DateTime.AddMinutes(minutesToAdvance);
-        AdvanceSchedule(minutesToAdvance);
-        
-        //execute the schedule event
-        if (scheduleObj != nil)
-        {
-            stop = scheduleObj.(&scheduleEvent);
-        }
-        
-        //if we still have time remaining on the schedule and should not stop, continue making turns.
-        if (stop != nil || minutesToAdvance < minutes)
-        {
-            AdvanceTime(minutes-minutesToAdvance);
-        }
         
         //completed with the minutes initially required or slept without any interruption. 
         return true;
@@ -236,6 +336,9 @@ PlayerCreateMenu : ExMenu
         AddMenuItem(PlayerCreateMenu_AttributeFatigue);
         AddMenuItem(PlayerCreateMenu_AttributeBasicSpeed);
         AddMenuItem(PlayerCreateMenu_AttributeBasicMove);
+        AddMenuItem(Menu_Line);
+        AddMenuItem(PlayerCreateMenu_Done);
+        
         
     }
     
@@ -286,7 +389,7 @@ PlayerCreateMenu_Gender : ExMenuItem
 
 PlayerCreateMenu_AttributesHeader : ExMenuItem
 {
-    name = '<hr><tab align=center><b>Basic attributes (<<Player.points>> points available)</b><hr>';
+    name = '<hr><tab align=center><b>Basic attributes (<<Player.Points>> points available)</b><hr>';
     fakeItem = true;
 }
 
@@ -297,7 +400,7 @@ PlayerCreateMenu_AttributeStrength : ExMenuItem
     {
         if (Player.Strength > 8)
         {
-            Player.points += 10;
+            Player.Points += 10;
             Player.Strength -= 1;
             Player.HitPoints -= 1;
             //are Hitpoints still in a valid range?
@@ -319,9 +422,9 @@ PlayerCreateMenu_AttributeStrength : ExMenuItem
     }
     Right()
     {
-        if (Player.points >= 10 && Player.Strength < 12)
+        if (Player.Points >= 10 && Player.Strength < 12)
         {
-            Player.points -= 10;
+            Player.Points -= 10;
             Player.Strength += 1;
             Player.HitPoints += 1;
         }
@@ -336,7 +439,7 @@ PlayerCreateMenu_AttributeDexterity : ExMenuItem
     {
         if (Player.Dexterity > 8)
         {
-            Player.points += 20;
+            Player.Points += 20;
             Player.Dexterity -= 1;
             Player.BasicSpeed -= 0.25;
         }
@@ -344,9 +447,9 @@ PlayerCreateMenu_AttributeDexterity : ExMenuItem
     }
     Right()
     {
-        if (Player.points >= 20 && Player.Dexterity < 12)
+        if (Player.Points >= 20 && Player.Dexterity < 12)
         {
-            Player.points -= 20;
+            Player.Points -= 20;
             Player.Dexterity += 1;
             Player.BasicSpeed += 0.25;
         }
@@ -361,7 +464,7 @@ PlayerCreateMenu_AttributeIntelligence : ExMenuItem
     {
         if (Player.Intelligence > 8)
         {
-            Player.points += 20;
+            Player.Points += 20;
             Player.Intelligence -= 1;
             Player.Will -= 1;
             Player.Perception -= 1;
@@ -380,9 +483,9 @@ PlayerCreateMenu_AttributeIntelligence : ExMenuItem
     }
     Right()
     {
-        if (Player.points >= 20 && Player.Intelligence < 12)
+        if (Player.Points >= 20 && Player.Intelligence < 12)
         {
-            Player.points -= 20;
+            Player.Points -= 20;
             Player.Intelligence += 1;
             Player.Will += 1;
             Player.Perception += 1;
@@ -408,7 +511,7 @@ PlayerCreateMenu_AttributeHealth : ExMenuItem
     {
         if (Player.Health > 8)
         {
-            Player.points += 10;
+            Player.Points += 10;
             Player.Health -= 1;
             Player.FatiguePoints -= 1;
             //are FatiguePoints still in a valid range?
@@ -432,9 +535,9 @@ PlayerCreateMenu_AttributeHealth : ExMenuItem
     }
     Right()
     {
-        if (Player.points >= 10 && Player.Health < 12)
+        if (Player.Points >= 10 && Player.Health < 12)
         {
-            Player.points -= 10;
+            Player.Points -= 10;
             Player.Health += 1;
             Player.FatiguePoints += 1;
             Player.BasicSpeed += 0.25;
@@ -451,7 +554,7 @@ PlayerCreateMenu_AttributeHitpoints : ExMenuItem
         local RealCap = ((Player.Strength * 0.7)).getFloor();
         if (Player.HitPoints > RealCap)
         {
-            Player.points += 2;
+            Player.Points += 2;
             Player.HitPoints -= 1;
         }
     
@@ -460,9 +563,9 @@ PlayerCreateMenu_AttributeHitpoints : ExMenuItem
     Right()
     {
         local RealCap = ((Player.Strength * 1.3)).getFloor();
-        if (Player.points >= 2 && Player.HitPoints < RealCap)
+        if (Player.Points >= 2 && Player.HitPoints < RealCap)
         {
-            Player.points -= 2;
+            Player.Points -= 2;
             Player.HitPoints += 1;
         }
     
@@ -477,7 +580,7 @@ PlayerCreateMenu_AttributeWill : ExMenuItem
     {
         if (Player.Will > 4)
         {
-            Player.points += 5;
+            Player.Points += 5;
             Player.Will -= 1;
         }
     
@@ -485,9 +588,9 @@ PlayerCreateMenu_AttributeWill : ExMenuItem
     }
     Right()
     {
-        if (Player.points >= 5 && Player.Will < 20)
+        if (Player.Points >= 5 && Player.Will < 20)
         {
-            Player.points -= 5;
+            Player.Points -= 5;
             Player.Will += 1;
         }
     
@@ -502,7 +605,7 @@ PlayerCreateMenu_AttributePerception : ExMenuItem
     {
         if (Player.Perception > 4)
         {
-            Player.points += 5;
+            Player.Points += 5;
             Player.Perception -= 1;
         }
     
@@ -510,9 +613,9 @@ PlayerCreateMenu_AttributePerception : ExMenuItem
     }
     Right()
     {
-        if (Player.points >= 5 && Player.Perception < 20)
+        if (Player.Points >= 5 && Player.Perception < 20)
         {
-            Player.points -= 5;
+            Player.Points -= 5;
             Player.Perception += 1;
         }
     
@@ -528,7 +631,7 @@ PlayerCreateMenu_AttributeFatigue : ExMenuItem
         local RealCap = ((Player.Health * 0.7)).getFloor();
         if (Player.FatiguePoints > RealCap)
         {
-            Player.points += 3;
+            Player.Points += 3;
             Player.FatiguePoints -= 1;
         }
     
@@ -537,9 +640,9 @@ PlayerCreateMenu_AttributeFatigue : ExMenuItem
     Right()
     {
         local RealCap = ((Player.Health * 1.3)).getFloor();
-        if (Player.points >= 3 && Player.FatiguePoints < RealCap)
+        if (Player.Points >= 3 && Player.FatiguePoints < RealCap)
         {
-            Player.points -= 3;
+            Player.Points -= 3;
             Player.FatiguePoints += 1;
         }
     
@@ -556,7 +659,7 @@ PlayerCreateMenu_AttributeBasicSpeed : ExMenuItem
         local flatSpeed = Player.BasicSpeed.getFloor();
         if (Player.BasicSpeed - 0.25 >= RealCap)
         {
-            Player.points += 5;
+            Player.Points += 5;
             Player.BasicSpeed -= 0.25;
             //Adjust move
             if (flatSpeed != Player.BasicSpeed.getFloor())
@@ -571,9 +674,9 @@ PlayerCreateMenu_AttributeBasicSpeed : ExMenuItem
     {
         local RealCap = ((Player.Health + Player.Dexterity) / 4) + 2.00;
         local flatSpeed = Player.BasicSpeed.getFloor();
-        if (Player.points >= 5 && Player.BasicSpeed + 0.25 <= RealCap)
+        if (Player.Points >= 5 && Player.BasicSpeed + 0.25 <= RealCap)
         {
-            Player.points -= 5;
+            Player.Points -= 5;
             Player.BasicSpeed += 0.25;
             //Adjust move
             if (flatSpeed != Player.BasicSpeed.getFloor())
@@ -594,7 +697,7 @@ PlayerCreateMenu_AttributeBasicMove : ExMenuItem
         local RealCap = Player.BasicSpeed.getFloor() - 3;
         if (Player.BasicMove > RealCap)
         {
-            Player.points += 5;
+            Player.Points += 5;
             Player.BasicMove -= 1;
         }
     
@@ -603,12 +706,21 @@ PlayerCreateMenu_AttributeBasicMove : ExMenuItem
     Right()
     {
         local RealCap = Player.BasicSpeed.getFloor() + 3;
-        if (Player.points >= 5 && Player.BasicMove < RealCap)
+        if (Player.Points >= 5 && Player.BasicMove < RealCap)
         {
-            Player.points -= 5;
+            Player.Points -= 5;
             Player.BasicMove += 1;
         }
     
         return nil;
+    }
+}
+
+PlayerCreateMenu_Done  : ExMenuItem
+{
+    name = 'Done'
+    Select()
+    {
+        return true;
     }
 }
