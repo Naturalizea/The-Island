@@ -5,7 +5,7 @@
 
 Player: Actor
 {    
-
+    
     desc()
     {
     
@@ -46,26 +46,33 @@ Player: Actor
     }
     
     //our future schedule of events
-    currentSchedule = []
+    CurrentSchedule = nil
     
-    // Add an event to fire of <minutes> minutes from when it is added.
-    AddToSchedule(minutes,obj,event)
+    // Add an event to fire off <minutes> minutes from when it is added.
+    AddToSchedule(name,minutes,obj,event)
     {
-        currentSchedule += [[minutes,obj,event]];
+        if (CurrentSchedule == nil) { CurrentSchedule = new LookupTable();};
+        CurrentSchedule[name] = [minutes,obj,event];
+    }
+
+    RemoveFromSchedule(name)
+    {
+        CurrentSchedule.removeElement(name);
     }
     
     AdvanceSchedule(minutes)
     {
-        local newSchedule = [];
-        foreach (local scheduleItem in currentSchedule)
+        local newSchedule = new LookupTable();
+        foreach (local key in CurrentSchedule.keysToList())
         {
+            local scheduleItem = CurrentSchedule[key];
             local time = scheduleItem[1];
             local obj = scheduleItem[2];
             local event = scheduleItem[3];
             
-            newSchedule += [[time-minutes,obj,event]];
+            newSchedule[key] = [time-minutes,obj,event];
         }
-        currentSchedule = newSchedule;
+        CurrentSchedule = newSchedule;
     }
     
     AdvanceTime(minutes)
@@ -74,85 +81,78 @@ Player: Actor
         local scheduleObj;
         local scheduleEvent;
         local minutesToAdvance = minutes;
+        local minutesAdvanced = 0;
         local stop = nil;
         
-        //If we are sleeping
-        if (SleepingStatus.Has(Player))
+        while (stop != true)
         {
-            //work out when we would wake up
-            minutes = new BigNumber(Fatigue / FatigueRestRate).getCeil();
-            minutesToAdvance = minutes;
-        }
-    
-        //get our next schedule item to run
-        if (currentSchedule.length >= 1)
-        {    
-            local scheduleIndex = currentSchedule.indexOfMin({x: x[1]});
-            
-            local nextSchedule = currentSchedule[scheduleIndex];
+            minutesToAdvance = minutes - minutesAdvanced;
+            local scheduleName = nil;
+        
+            //get our next schedule item to run
+            if (CurrentSchedule.getEntryCount() >= 1)
+            {    
+                local scheduleList = CurrentSchedule.valsToList();
+                local scheduleIndex = scheduleList.indexOfMin({x: x[1]});
                 
-            scheduleTime = nextSchedule[1];
-            scheduleObj = nextSchedule[2];
-            scheduleEvent = nextSchedule[3];
+                local nextSchedule = scheduleList[scheduleIndex];
+                    
+                scheduleName = CurrentSchedule.keysToList()[scheduleIndex];
+                scheduleTime = nextSchedule[1];
+                scheduleObj = nextSchedule[2];
+                scheduleEvent = nextSchedule[3];
+                
+                if (scheduleTime <= minutesToAdvance)
+                {
+                    minutesToAdvance = scheduleTime;
+                }
+                else
+                {
+                    stop = true;
+                }
+            }
+            else
+            {
+                stop = true;
+            }
             
-            if (scheduleTime < minutes)
-            {
-                minutesToAdvance = scheduleTime;
-            }
-        }
-        
-
-        
-        //based on our time, work out the changes to the stats
-        
-        //Fatigue
-        local fatigueToAdd = 0;
-        //Are we sleeping?
-        if (SleepingStatus.Has(Player))
-        {            
-            Fatigue -= (minutes * FatigueRestRate).getFloor();
+            //advance our time
+            DateTime.AddMinutes(minutesToAdvance);
+            minutesAdvanced += minutesToAdvance;
+            AdvanceSchedule(minutesToAdvance);
             
-            if (Fatigue < FatigueCap3)
+            //execute the schedule event
+            if (scheduleObj != nil && minutesToAdvance >= scheduleTime)
             {
-                VeryTiredStatus.Remove(Player);
-            }            
-            if (Fatigue < FatigueCap2)
-            {
-                TiredStatus.Remove(Player);
-            }
-            if (Fatigue < FatigueCap1)
-            {
-                FatiguedStatus.Remove(Player);
+                RemoveFromSchedule(scheduleName);
+                stop = scheduleObj.(scheduleEvent);
+                scheduleObj = nil;
             }
         }
-        else
-        {            
-            fatigueToAdd = FatigueRate * minutes;
-        }
         
-        Fatigue += fatigueToAdd;
+        //completed with the minutes initially required or slept without any interruption. 
+        return true;
+    }
+    
+    
+    //BASIC SCHEDULE ITEMS
+    ConfigureSchedules()
+    {
+        AddToSchedule('Hunger',60,self,&AdvanceHunger);
+        AddToSchedule('Fatigue',60,self,&AdvanceFatigue);
+    }
+    
+    AdvanceHunger()
+    {
+        Hunger += HungerRate * 60;
         
-        if (Fatigue >= FatigueCap3 && VeryTiredStatus.Has(Player))
-        {
-            VeryTiredStatus.Remove(Player);
-            TiredStatus.Remove(Player);
-            FatiguedStatus.Remove(Player);
-        }            
-        if (Fatigue >= FatigueCap2 && !VeryTiredStatus.Has(Player))
-        {
-            TiredStatus.Add(Player);
-            FatiguedStatus.Remove(Player);
-        }
-        if (Fatigue >= FatigueCap1 && !TiredStatus.Has(Player) && !VeryTiredStatus.Has(Player))
-        {
-            FatiguedStatus.Add(Player);
-        }
+        CheckHunger();
         
-        //Hunger
-        local hungerToAdd = HungerRate * minutes;
-        
-        Hunger += hungerToAdd;
-        
+        AddToSchedule('Hunger',60,self,&AdvanceHunger);
+    }
+    
+    CheckHunger()
+    {
         if (Hunger >= HungerCap3)
         {
             StarvingStatus.Add(Player);
@@ -176,32 +176,35 @@ Player: Actor
             StarvingStatus.Remove(Player);
             HungryStatus.Remove(Player);
             PeckishStatus.Remove(Player);
-        }        
-        
-        if (SleepingStatus.Has(Player))
-        {
-            //wakeup
-            SleepingStatus.Remove(Player);
-            "You wake up after <<minutesToAdvance>> minutes.";
         }
-        
-        //advance our time
-        DateTime.AddMinutes(minutesToAdvance);
-        AdvanceSchedule(minutesToAdvance);
-        
-        //execute the schedule event
-        if (scheduleObj != nil)
-        {
-            stop = scheduleObj.(&scheduleEvent);
-        }
-        
-        //if we still have time remaining on the schedule and should not stop, continue making turns.
-        if (stop != nil || minutesToAdvance < minutes)
-        {
-            AdvanceTime(minutes-minutesToAdvance);
-        }
-        
-        //completed with the minutes initially required or slept without any interruption. 
-        return true;
     }
+    
+    AdvanceFatigue()
+    {
+        Fatigue += FatigueRate * 60;
+        
+        CheckFatigue();
+        
+        AddToSchedule('Fatigue',60,self,&AdvanceFatigue);
+    }
+    
+    CheckFatigue()
+    {
+        if (Fatigue >= FatigueCap3 && VeryTiredStatus.Has(Player))
+        {
+            VeryTiredStatus.Remove(Player);
+            TiredStatus.Remove(Player);
+            FatiguedStatus.Remove(Player);
+        }            
+        if (Fatigue >= FatigueCap2 && !VeryTiredStatus.Has(Player))
+        {
+            TiredStatus.Add(Player);
+            FatiguedStatus.Remove(Player);
+        }
+        if (Fatigue >= FatigueCap1 && !TiredStatus.Has(Player) && !VeryTiredStatus.Has(Player))
+        {
+            FatiguedStatus.Add(Player);
+        }
+    }
+   
 }

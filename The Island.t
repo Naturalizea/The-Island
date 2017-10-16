@@ -52,6 +52,7 @@ gameMain: GameMainDef
         local spawns = [];
         forEachInstance(PlayerSpawn, {x: spawns += x});
         local randomIndex = rand(spawns.length)+1;
+        Player.ConfigureSchedules();
         Player.moveIntoForTravel(spawns[randomIndex].location);
         
         //Describe the scene

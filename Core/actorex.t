@@ -5,6 +5,7 @@
 
 modify Actor //human stats
 {
+    //some varibles
     Fatigue = 0.0000
     FatigueRate = 0.0500
     FatigueRestRate = 0.0850
